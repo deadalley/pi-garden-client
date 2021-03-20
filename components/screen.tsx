@@ -10,9 +10,9 @@ export interface ScreenProps {
 }
 
 export const Screen: React.FC<ScreenProps> = ({ children, title, green }) => (
-  <View style={{ ...styles.wrapper, ...(green? styles.green : {}) }}>
-    <View style={{...styles.top, ...(green? styles.green : {}) }}>
-      <NavHeader white={green}>{title}</NavHeader>
+  <View style={{ ...styles.wrapper, ...(green ? styles.green : {}) }}>
+    <View style={{...styles.top, ...(green ? styles.green : {}) }}>
+      <NavHeader {...(green ? { color: COLORS.LIGHT } : {})}>{title}</NavHeader>
     </View>
     <View style={styles.content}>
       {children}

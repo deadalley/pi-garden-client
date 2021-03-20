@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-import STYLES, { COLORS } from '../styles';
+import { COLORS, FONT_STYLES } from '../styles';
 
 export interface ButtonProps {
   inline?: boolean;
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 64,
   },
   text: {
-    ...STYLES.h2,
+    ...FONT_STYLES.h2,
     color: COLORS.LIGHT,
     fontSize: 24,
   },

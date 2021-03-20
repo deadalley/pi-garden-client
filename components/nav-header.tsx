@@ -1,17 +1,17 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
-import STYLES, { COLORS, UiIcon } from '../styles';
+import { COLORS, FONT_STYLES, UiIcon } from '../styles';
 
 export interface NavHeaderProps {
   position?: 'left' | 'right';
-  white?: boolean;
+  color?: string;
 }
 
 export const NavHeader: React.FC<NavHeaderProps> = ({
   children,
   position = 'left',
-  white,
+  color = COLORS.MAIN_DARK,
 }) => (
   <TouchableOpacity
     style={{
@@ -19,8 +19,8 @@ export const NavHeader: React.FC<NavHeaderProps> = ({
       ...(position === 'left' ? styles.left : styles.right),
     }}
   >
-    <UiIcon name={`fi-rr-angle-small-${position}`} size={30} color={white ? COLORS.LIGHT: COLORS.MAIN_DARK} />
-    <Text style={{ ...styles.text, ...(white ? styles.white : {}) }}>
+    <UiIcon name={`fi-rr-angle-small-${position}`} size={30} color={color} />
+    <Text style={{...styles.text, ...({ color })}} >
       {children}
     </Text>
   </TouchableOpacity>
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   text: {
-    ...STYLES.h1,
+    ...FONT_STYLES.h1,
     color: COLORS.MAIN_DARK,
   },
   left: {
@@ -42,8 +42,5 @@ const styles = StyleSheet.create({
   right: {
     justifyContent: 'space-between',
     flexDirection: 'row-reverse',
-  },
-  white: {
-    color: COLORS.LIGHT,
   },
 });

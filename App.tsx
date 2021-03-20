@@ -8,8 +8,7 @@ import {
   Poppins_700Bold,
 } from '@expo-google-fonts/poppins';
 
-import { Screen } from './components/screen';
-import { Button } from './components/button';
+import { HomeScreen } from './screens/home-screen';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -25,8 +24,6 @@ export default function App() {
     return <AppLoading />;
 
   return (
-    <Screen title='My Garden' green>
-        <Button>Continue</Button>
-      </Screen>
+    <HomeScreen />
   );
 }

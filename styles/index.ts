@@ -20,9 +20,10 @@ export const COLORS = {
 
   DARK: '#000000',
   LIGHT: '#ffffff',
+  HALF_LIGHT: '#f1f1f1'
 };
 
-export default StyleSheet.create({
+export const FONT_STYLES =  StyleSheet.create({
   h1: {
     fontFamily: 'Poppins_700Bold',
     fontSize: 36,
