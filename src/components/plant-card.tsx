@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
-import { BORDER_RADIUS, BOX_SHADOW, COLORS, FONT_STYLES } from '../styles';
 
+import { BORDER_RADIUS, BOX_SHADOW, COLORS, FONT_STYLES } from '../styles';
 import { Plant } from '../types';
 
 export interface PlantCardProps {

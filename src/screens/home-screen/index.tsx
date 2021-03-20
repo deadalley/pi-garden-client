@@ -5,20 +5,53 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { NavHeader } from '../../components/nav-header';
 import { Plants } from './plants';
 import { COLORS, FONT_STYLES, PADDING } from '../../styles';
-import { Plant, Mood } from '../../types';
+import { Plant, Mood, Avatar, SensorType } from '../../types';
+import { Rooms } from './room';
 
 export interface SectionProps {
   title: string;
   color?: string;
 }
 
+const ROOM_MOCK_1 = {
+  id: '546B',
+  name: 'Bedroom',
+  avatar: Avatar.bedroom,
+  sensors: [
+    {
+      type: SensorType.temperature,
+    },
+    {
+      type: SensorType.brightness,
+    },
+    {
+      type: SensorType.soil,
+    },
+    {
+      type: SensorType.humidity,
+    },
+  ],
+};
+
+const ROOM_MOCK_2 = {
+  id: '5463B',
+  name: 'Bedroom',
+  avatar: Avatar.bedroom,
+  sensors: [
+    {
+      type: SensorType.temperature,
+    },
+    {
+      type: SensorType.humidity,
+    },
+  ],
+};
+
 const PLANT_MOCK: Plant = {
   id: '123',
   name: 'Strawberry',
   mood: Mood.happy,
-  room: {
-    name: 'Bedroom',
-  },
+  room: ROOM_MOCK_1,
 };
 
 const HomeScreenLayout: React.FC = ({ children }) => (
@@ -58,7 +91,9 @@ export const HomeScreen: React.FC = () => (
     <Section title="My Garden" color={COLORS.LIGHT}>
       <Plants plants={[PLANT_MOCK, PLANT_MOCK, PLANT_MOCK, PLANT_MOCK, PLANT_MOCK]} />
     </Section>
-    <Section title="Rooms" color={COLORS.MAIN_DARKER} />
+    <Section title="Rooms" color={COLORS.MAIN_DARKER}>
+      <Rooms rooms={[ROOM_MOCK_1, ROOM_MOCK_2, ROOM_MOCK_1, ROOM_MOCK_2]} />
+    </Section>
   </HomeScreenLayout>
 );
 
@@ -98,12 +133,9 @@ const styles = StyleSheet.create({
     top: 0,
   },
   sectionContent: {
-    paddingVertical: PADDING.MEDIUM,
-    // backgroundColor: 'red',
-    // position: 'absolute',
+    paddingVertical: PADDING.SMALLER,
   },
   content: {
     height: '100%',
-    // paddingHorizontal: PADDING.BIGGER,
   },
 });

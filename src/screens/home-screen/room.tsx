@@ -1,25 +1,25 @@
 import React from 'react';
 import { FlatList } from 'react-native';
 
-import { PlantCard } from '../../components/plant-card';
+import { RoomCard } from '../../components/room-card';
+import { Room } from '../../types';
 import { PADDING } from '../../styles';
-import { Plant } from '../../types';
 
-export interface PlantsProps {
-  plants: Plant[];
+export interface RoomsProps {
+  rooms: Room[];
 }
 
-export const Plants: React.FC<PlantsProps> = ({ plants }) => (
+export const Rooms: React.FC<RoomsProps> = ({ rooms }) => (
   <FlatList
     horizontal
-    data={plants}
+    data={rooms}
     renderItem={({ item, index }) => (
-      <PlantCard
-        plant={item}
+      <RoomCard
+        room={item}
         style={{
           ...(index === 0
             ? { marginLeft: PADDING.BIGGER, marginRight: PADDING.SMALLER }
-            : index < plants.length - 1
+            : index < rooms.length - 1
             ? { marginRight: PADDING.SMALLER }
             : { marginRight: PADDING.SMALL }),
         }}

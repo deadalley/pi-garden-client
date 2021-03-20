@@ -23,10 +23,10 @@ export const AddButton: React.FC = () => {
       <TouchableWithoutFeedback onPress={() => setModalVisible(!modalVisible)}>
         <View style={styles.outerButton}>
           <LinearGradient
-            start={{ x: 1, y: 0.47 }}
-            end={{ x: 1, y: 0 }}
-            locations={[0, 0]}
-            colors={['rgba(0,0,0,0.1)', COLORS.HALF_LIGHT]}
+            start={{ x: 1, y: 0.46 }}
+            end={{ x: 1, y: 0.47 }}
+            locations={[0, 32]}
+            colors={['rgba(0,0,0,0)', '#E2E2E2']}
             style={{
               borderRadius: 360,
               position: 'absolute',
@@ -34,9 +34,12 @@ export const AddButton: React.FC = () => {
               width: 69,
             }}
           />
-          <View
+          <LinearGradient
+            start={{ x: 1, y: 0.46 }}
+            end={{ x: 1, y: 0.47 }}
+            locations={[0, 32]}
+            colors={['rgba(0,0,0,0)', '#F0F0F0']}
             style={{
-              backgroundColor: COLORS.HALF_LIGHT,
               borderRadius: 360,
               position: 'absolute',
               height: 68,
@@ -104,7 +107,6 @@ const styles = StyleSheet.create({
   outerButton: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: COLORS.HALF_LIGHT,
     position: 'absolute',
     top: -32,
     left: Dimensions.get('window').width / 2 - 34,
