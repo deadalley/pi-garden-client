@@ -5,6 +5,12 @@ export * from './icons';
 export const BORDER_RADIUS = 18;
 export const BOX_SHADOW = '0px 4px 14px -1px rgba(0, 0, 0, 0.25)';
 
+export const PADDING = {
+  SMALL: 20,
+  BIG: 36,
+  BIGGER: 40,
+};
+
 export const COLORS = {
   MAIN_DARKER: '#1e4951',
   MAIN_DARK: '#2c6975',

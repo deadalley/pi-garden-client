@@ -1,7 +1,7 @@
 import React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 
-import { COLORS } from '../styles';
+import { COLORS, PADDING } from '../styles';
 import { NavHeader } from './nav-header';
 
 export interface ScreenProps {
@@ -33,10 +33,11 @@ const styles = StyleSheet.create({
   top: {
     height: 160,
     justifyContent: 'center',
+    paddingHorizontal: PADDING.SMALL,
   },
   content: {
     backgroundColor: COLORS.LIGHT,
     height: '100%',
-    paddingHorizontal: 20,
+    paddingHorizontal: PADDING.SMALL,
   }
 });
