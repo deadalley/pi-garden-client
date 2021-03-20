@@ -8,7 +8,7 @@ import {
   Poppins_700Bold,
 } from '@expo-google-fonts/poppins';
 
-import { HomeScreen } from './src/screens/home-screen';
+import AppRouting from './src/routes';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -22,5 +22,5 @@ export default function App() {
 
   if (!fontsLoaded) return <AppLoading />;
 
-  return <HomeScreen />;
+  return <AppRouting />;
 }

@@ -13,6 +13,12 @@ export interface SectionProps {
 const HomeScreenLayout: React.FC = ({ children }) => (
   <View style={{ ...styles.wrapper }}>
     <LinearGradient
+      style={styles.background}
+      start={{ x: 0, y: 1 }}
+      end={{ x: 0, y: 0 }}
+      colors={[COLORS.HALF_LIGHT, COLORS.LIGHT]}
+    />
+    <LinearGradient
       start={{ x: 0, y: 1 }}
       end={{ x: 0.8, y: 0.2 }}
       colors={['#1E4951', '#2C6975']}
@@ -40,8 +46,8 @@ export const HomeScreen: React.FC = () => (
 
 const styles = StyleSheet.create({
   wrapper: {
-    flex: 1,
-    backgroundColor: COLORS.LIGHT,
+    // flex: 1,
+    height: '100%',
     flexDirection: 'column',
     paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
   },
@@ -67,7 +73,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: PADDING.SMALL,
     position: 'absolute',
     width: '100%',
+    top: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
   },
+  background: { height: '100%', width: '100%', position: 'absolute', top: 0 },
   content: {
     height: '100%',
     paddingHorizontal: PADDING.BIGGER,

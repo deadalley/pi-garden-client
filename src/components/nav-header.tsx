@@ -19,7 +19,7 @@ export const NavHeader: React.FC<NavHeaderProps> = ({
       ...(position === 'left' ? styles.left : styles.right),
     }}
   >
-    <UiIcon name={`fi-rr-angle-small-${position}`} size={30} color={color} />
+    <UiIcon name={`fi-rr-angle-small-${position}`} size={38} color={color} />
     <Text style={{ ...styles.text, ...{ color } }}>{children}</Text>
   </TouchableOpacity>
 );
@@ -31,8 +31,9 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   text: {
-    ...FONT_STYLES.h1,
+    ...FONT_STYLES.h2,
     color: COLORS.MAIN_DARK,
+    lineHeight: 48,
   },
   left: {
     justifyContent: 'flex-start',

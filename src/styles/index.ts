@@ -3,9 +3,9 @@ import { StyleSheet } from 'react-native';
 export * from './icons';
 
 export const BORDER_RADIUS = 18;
-export const BOX_SHADOW = '0px 4px 14px -1px rgba(0, 0, 0, 0.25)';
 
 export const PADDING = {
+  SMALLER: 16,
   SMALL: 20,
   BIG: 36,
   BIGGER: 40,
@@ -19,8 +19,20 @@ export const COLORS = {
   MAIN_LIGHTER: '#e0ecde',
 
   DARK: '#000000',
+  HALF_DARK: '#444444',
   LIGHT: '#ffffff',
   HALF_LIGHT: '#f1f1f1',
+};
+
+export const BOX_SHADOW = {
+  shadowColor: COLORS.HALF_DARK,
+  shadowOffset: {
+    width: 0,
+    height: 2,
+  },
+  shadowOpacity: 0.01,
+  shadowRadius: 2,
+  elevation: 4,
 };
 
 export const FONT_STYLES = StyleSheet.create({
