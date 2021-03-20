@@ -7,6 +7,7 @@ export const BORDER_RADIUS = 18;
 export const PADDING = {
   SMALLER: 16,
   SMALL: 20,
+  MEDIUM: 24,
   BIG: 36,
   BIGGER: 40,
 };

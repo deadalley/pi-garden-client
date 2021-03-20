@@ -6,17 +6,20 @@ import { COLORS, FONT_STYLES, UiIcon } from '../styles';
 export interface NavHeaderProps {
   position?: 'left' | 'right';
   color?: string;
+  style?: object;
 }
 
 export const NavHeader: React.FC<NavHeaderProps> = ({
   children,
   position = 'left',
   color = COLORS.MAIN_DARK,
+  style = {},
 }) => (
   <TouchableOpacity
     style={{
       ...styles.wrapper,
       ...(position === 'left' ? styles.left : styles.right),
+      ...style,
     }}
   >
     <UiIcon name={`fi-rr-angle-small-${position}`} size={38} color={color} />

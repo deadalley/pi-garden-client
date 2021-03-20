@@ -2,13 +2,24 @@ import React from 'react';
 import { Platform, StatusBar, StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
-import { COLORS, FONT_STYLES, PADDING } from '../../styles';
 import { NavHeader } from '../../components/nav-header';
+import { Plants } from './plants';
+import { COLORS, FONT_STYLES, PADDING } from '../../styles';
+import { Plant, Mood } from '../../types';
 
 export interface SectionProps {
   title: string;
   color?: string;
 }
+
+const PLANT_MOCK: Plant = {
+  id: '123',
+  name: 'Strawberry',
+  mood: Mood.happy,
+  room: {
+    name: 'Bedroom',
+  },
+};
 
 const HomeScreenLayout: React.FC = ({ children }) => (
   <View style={{ ...styles.wrapper }}>
@@ -29,24 +40,30 @@ const HomeScreenLayout: React.FC = ({ children }) => (
   </View>
 );
 
-const Section: React.FC<SectionProps> = ({ title, color }) => (
+const Section: React.FC<SectionProps> = ({ title, color, children }) => (
   <View>
-    <NavHeader position="right" color={color}>
+    <NavHeader
+      position="right"
+      color={color}
+      style={{ paddingRight: PADDING.BIGGER, paddingLeft: PADDING.SMALL }}
+    >
       {title}
     </NavHeader>
+    <View style={styles.sectionContent}>{children}</View>
   </View>
 );
 
 export const HomeScreen: React.FC = () => (
   <HomeScreenLayout>
-    <Section title="My Garden" color={COLORS.LIGHT} />
+    <Section title="My Garden" color={COLORS.LIGHT}>
+      <Plants plants={[PLANT_MOCK, PLANT_MOCK, PLANT_MOCK, PLANT_MOCK, PLANT_MOCK]} />
+    </Section>
     <Section title="Rooms" color={COLORS.MAIN_DARKER} />
   </HomeScreenLayout>
 );
 
 const styles = StyleSheet.create({
   wrapper: {
-    // flex: 1,
     height: '100%',
     flexDirection: 'column',
     paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
@@ -73,11 +90,20 @@ const styles = StyleSheet.create({
     paddingHorizontal: PADDING.SMALL,
     position: 'absolute',
     width: '100%',
-    top: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
   },
-  background: { height: '100%', width: '100%', position: 'absolute', top: 0 },
+  background: {
+    height: '100%',
+    width: '100%',
+    position: 'absolute',
+    top: 0,
+  },
+  sectionContent: {
+    paddingVertical: PADDING.MEDIUM,
+    // backgroundColor: 'red',
+    // position: 'absolute',
+  },
   content: {
     height: '100%',
-    paddingHorizontal: PADDING.BIGGER,
+    // paddingHorizontal: PADDING.BIGGER,
   },
 });
