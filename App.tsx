@@ -8,11 +8,11 @@ import {
   Poppins_700Bold,
 } from '@expo-google-fonts/poppins';
 
-import { Screen } from "./components/screen";
+import { Screen } from './components/screen';
 import { Button } from './components/button';
 
 export default function App() {
-  let [fontsLoaded] = useFonts({
+  const [fontsLoaded] = useFonts({
     Poppins_500Medium,
     Poppins_400Regular,
     Poppins_600SemiBold,

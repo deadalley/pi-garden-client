@@ -6,7 +6,7 @@ import { NavHeader } from './nav-header';
 
 export interface ScreenProps {
   title: string;
-  green?: boolean,
+  green?: boolean;
 }
 
 export const Screen: React.FC<ScreenProps> = ({ children, title, green }) => (
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
     backgroundColor: COLORS.LIGHT,
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
     flexDirection: 'column',
   },
   green: {
@@ -39,4 +39,4 @@ const styles = StyleSheet.create({
     height: '100%',
     paddingHorizontal: 20,
   }
-})
+});
