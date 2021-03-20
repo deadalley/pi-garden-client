@@ -20,9 +20,7 @@ export const NavHeader: React.FC<NavHeaderProps> = ({
     }}
   >
     <UiIcon name={`fi-rr-angle-small-${position}`} size={30} color={color} />
-    <Text style={{...styles.text, ...({ color })}} >
-      {children}
-    </Text>
+    <Text style={{ ...styles.text, ...{ color } }}>{children}</Text>
   </TouchableOpacity>
 );
 

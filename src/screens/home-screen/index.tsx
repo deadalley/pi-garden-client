@@ -13,30 +13,30 @@ export interface SectionProps {
 const HomeScreenLayout: React.FC = ({ children }) => (
   <View style={{ ...styles.wrapper }}>
     <LinearGradient
-        start={{ x: 0, y: 1 }}
-        end={{ x: 0.8, y: 0.2 }}
-        colors={['#1E4951', '#2C6975']}
-        style={styles.top}
-      />
+      start={{ x: 0, y: 1 }}
+      end={{ x: 0.8, y: 0.2 }}
+      colors={['#1E4951', '#2C6975']}
+      style={styles.top}
+    />
     <Text style={styles.header}>PiGarden</Text>
-    <View style={styles.content}>
-      {children}
-    </View>
+    <View style={styles.content}>{children}</View>
   </View>
-)
+);
 
 const Section: React.FC<SectionProps> = ({ title, color }) => (
   <View>
-    <NavHeader position='right' color={color}>{title}</NavHeader>
+    <NavHeader position="right" color={color}>
+      {title}
+    </NavHeader>
   </View>
-)
+);
 
 export const HomeScreen: React.FC = () => (
   <HomeScreenLayout>
-    <Section title='My Garden' color={COLORS.LIGHT}></Section>
-    <Section title='Rooms' color={COLORS.MAIN_DARKER}></Section>
+    <Section title="My Garden" color={COLORS.LIGHT} />
+    <Section title="Rooms" color={COLORS.MAIN_DARKER} />
   </HomeScreenLayout>
-)
+);
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -71,5 +71,5 @@ const styles = StyleSheet.create({
   content: {
     height: '100%',
     paddingHorizontal: PADDING.BIGGER,
-  }
-})
+  },
+});

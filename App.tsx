@@ -8,7 +8,7 @@ import {
   Poppins_700Bold,
 } from '@expo-google-fonts/poppins';
 
-import { HomeScreen } from './screens/home-screen';
+import { HomeScreen } from './src/screens/home-screen';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -20,10 +20,7 @@ export default function App() {
     Uicons: require('./assets/fonts/uicons.ttf'),
   });
 
-  if (!fontsLoaded)
-    return <AppLoading />;
+  if (!fontsLoaded) return <AppLoading />;
 
-  return (
-    <HomeScreen />
-  );
+  return <HomeScreen />;
 }

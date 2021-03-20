@@ -11,12 +11,10 @@ export interface ScreenProps {
 
 export const Screen: React.FC<ScreenProps> = ({ children, title, green }) => (
   <View style={{ ...styles.wrapper, ...(green ? styles.green : {}) }}>
-    <View style={{...styles.top, ...(green ? styles.green : {}) }}>
+    <View style={{ ...styles.top, ...(green ? styles.green : {}) }}>
       <NavHeader {...(green ? { color: COLORS.LIGHT } : {})}>{title}</NavHeader>
     </View>
-    <View style={styles.content}>
-      {children}
-    </View>
+    <View style={styles.content}>{children}</View>
   </View>
 );
 
@@ -28,7 +26,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   green: {
-    backgroundColor: COLORS.MAIN_MEDIUM
+    backgroundColor: COLORS.MAIN_MEDIUM,
   },
   top: {
     height: 160,
@@ -39,5 +37,5 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.LIGHT,
     height: '100%',
     paddingHorizontal: PADDING.SMALL,
-  }
+  },
 });
