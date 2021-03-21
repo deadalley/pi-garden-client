@@ -22,14 +22,13 @@ const Status: React.FC<StatusProps> = ({ status }) => (
 );
 
 export const SensorStatus: React.FC<SensorStatusProps> = ({ sensor }) => (
-  <View style={styles.wrapper}>
+  <View>
     <Status status={sensor.status} />
     <WeatherIcon name={SensorTypeIcon[sensor.type]} color={COLORS.MAIN_DARKER} size={18} />
   </View>
 );
 
 const styles = StyleSheet.create({
-  wrapper: {},
   status: {
     borderRadius: 360,
     position: 'absolute',

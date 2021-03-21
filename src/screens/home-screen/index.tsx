@@ -53,11 +53,12 @@ const ROOM_MOCK_2 = {
   ],
 };
 
-const PLANT_MOCK: Plant = {
+const PLANT_MOCK = {
   id: '123',
   name: 'Strawberry',
   mood: Mood.happy,
   room: ROOM_MOCK_1,
+  hasNotification: true,
 };
 
 const HomeScreenLayout: React.FC = ({ children }) => (

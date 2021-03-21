@@ -3,6 +3,11 @@ export enum Mood {
   sad = 'sad',
 }
 
+export const MoodIcon = {
+  [Mood.happy]: 'happy',
+  [Mood.sad]: 'sad',
+};
+
 export enum SensorType {
   temperature = 'temperature',
   humidity = 'humidity',
@@ -19,7 +24,7 @@ export const SensorTypeIcon = {
 
 export enum Avatar {
   bedroom = 'bedside-table',
-  kitchen = 'dinnig table',
+  kitchen = 'dinning-table',
 }
 
 export enum SensorStatus {
@@ -29,9 +34,9 @@ export enum SensorStatus {
 }
 
 export const StatusColorMap = {
-  online: 'GREEN',
-  warnings: 'ORANGE',
-  offline: 'RED',
+  [SensorStatus.online]: 'GREEN',
+  [SensorStatus.warnings]: 'ORANGE',
+  [SensorStatus.offline]: 'RED',
 };
 
 export interface Sensor {

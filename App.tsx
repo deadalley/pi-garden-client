@@ -1,6 +1,7 @@
 import React from 'react';
 import AppLoading from 'expo-app-loading';
 import { useFonts } from 'expo-font';
+import { useAssets } from 'expo-asset';
 import {
   Poppins_400Regular,
   Poppins_500Medium,
@@ -11,6 +12,8 @@ import {
 import AppRouting from './src/routes';
 
 export default function App() {
+  const [assetsLoaded] = useAssets([require('./assets/images/plants/plant01.png')]);
+
   const [fontsLoaded] = useFonts({
     Poppins_500Medium,
     Poppins_400Regular,
@@ -20,9 +23,10 @@ export default function App() {
     PlantIcons: require('./assets/fonts/plant-icons.ttf'),
     Uicons: require('./assets/fonts/uicons.ttf'),
     WeatherIcons: require('./assets/fonts/weather-icons.ttf'),
+    Emoji: require('./assets/fonts/emoji.ttf'),
   });
 
-  if (!fontsLoaded) return <AppLoading />;
+  if (!fontsLoaded || !assetsLoaded) return <AppLoading />;
 
   return <AppRouting />;
 }

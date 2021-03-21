@@ -1,5 +1,11 @@
 import { createIconSetFromIcoMoon } from '@expo/vector-icons';
 
+export const EmojiIcon = createIconSetFromIcoMoon(
+  require('../../assets/fonts/emoji.json'),
+  'Emoji',
+  'emoji.ttf'
+);
+
 export const FurnitureIcon = createIconSetFromIcoMoon(
   require('../../assets/fonts/furniture-icons.json'),
   'FurnitureIcons',

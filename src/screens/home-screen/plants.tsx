@@ -5,8 +5,12 @@ import { PlantCard } from '../../components/plant-card';
 import { PADDING } from '../../styles';
 import { Plant } from '../../types';
 
+interface PlantExtended extends Plant {
+  hasNotification?: boolean;
+}
+
 export interface PlantsProps {
-  plants: Plant[];
+  plants: PlantExtended[];
 }
 
 export const Plants: React.FC<PlantsProps> = ({ plants }) => (
@@ -16,6 +20,7 @@ export const Plants: React.FC<PlantsProps> = ({ plants }) => (
     renderItem={({ item, index }) => (
       <PlantCard
         plant={item}
+        hasNotification={item.hasNotification}
         style={{
           ...(index === 0
             ? { marginLeft: PADDING.BIGGER, marginRight: PADDING.SMALLER }

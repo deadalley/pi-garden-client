@@ -1,18 +1,31 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
+import { Image, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 
-import { BORDER_RADIUS, BOX_SHADOW, COLORS, FONT_STYLES } from '../styles';
-import { Plant } from '../types';
+import { BORDER_RADIUS, BOX_SHADOW, COLORS, EmojiIcon, FONT_STYLES, PADDING } from '../styles';
+import { MoodIcon, Plant } from '../types';
+import { NotificationBadge } from './notification-badge';
+
+import image from '../../assets/images/plants/plant01.png';
 
 export interface PlantCardProps {
   plant: Plant;
   style?: object;
+  hasNotification?: boolean;
 }
 
-export const PlantCard: React.FC<PlantCardProps> = ({ plant, style }) => (
+export const PlantCard: React.FC<PlantCardProps> = ({ plant, style, hasNotification }) => (
   <TouchableWithoutFeedback>
     <View style={{ ...styles.wrapper, ...(style ?? {}) }}>
-      <Text style={styles.image}>Placeholder Image</Text>
+      <EmojiIcon
+        name={MoodIcon[plant.mood]}
+        size={18}
+        color={COLORS.MAIN_DARK}
+        style={styles.mood}
+      />
+      {hasNotification && <NotificationBadge />}
+      <View style={styles.imageWrapper}>
+        <Image style={styles.image} source={image} />
+      </View>
       <View style={styles.bottom}>
         <Text style={styles.plantName}>{plant.name}</Text>
         <Text style={styles.roomName}>{plant.room.name}</Text>
@@ -33,13 +46,16 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     width: 136,
   },
+  imageWrapper: {
+    flex: 5,
+    padding: PADDING.SMALLER,
+  },
   image: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 2,
+    flex: 1,
+    resizeMode: 'center',
   },
   bottom: {
-    flex: 1,
+    flex: 3,
     backgroundColor: COLORS.LIGHT,
     alignItems: 'center',
     justifyContent: 'center',
@@ -50,9 +66,15 @@ const styles = StyleSheet.create({
   plantName: {
     ...FONT_STYLES.h4,
     color: COLORS.MAIN_DARKER,
+    lineHeight: 22,
   },
   roomName: {
     ...FONT_STYLES.text,
     color: COLORS.MAIN_DARKER,
+  },
+  mood: {
+    position: 'absolute',
+    top: PADDING.SMALLER,
+    left: PADDING.SMALLER,
   },
 });
