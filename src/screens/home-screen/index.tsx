@@ -5,7 +5,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { NavHeader } from '../../components/nav-header';
 import { Plants } from './plants';
 import { COLORS, FONT_STYLES, PADDING } from '../../styles';
-import { Plant, Mood, Avatar, SensorType } from '../../types';
+import { Plant, Mood, Avatar, SensorType, SensorStatus } from '../../types';
 import { Rooms } from './room';
 
 export interface SectionProps {
@@ -20,29 +20,35 @@ const ROOM_MOCK_1 = {
   sensors: [
     {
       type: SensorType.temperature,
+      status: SensorStatus.online,
     },
     {
       type: SensorType.brightness,
+      status: SensorStatus.warnings,
     },
     {
       type: SensorType.soil,
+      status: SensorStatus.offline,
     },
     {
       type: SensorType.humidity,
+      status: SensorStatus.online,
     },
   ],
 };
 
 const ROOM_MOCK_2 = {
   id: '5463B',
-  name: 'Bedroom',
-  avatar: Avatar.bedroom,
+  name: 'Kitchen',
+  avatar: Avatar.kitchen,
   sensors: [
     {
       type: SensorType.temperature,
+      status: SensorStatus.offline,
     },
     {
       type: SensorType.humidity,
+      status: SensorStatus.online,
     },
   ],
 };

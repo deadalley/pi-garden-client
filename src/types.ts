@@ -11,18 +11,32 @@ export enum SensorType {
 }
 
 export const SensorTypeIcon = {
-  [SensorType.temperature]: 'fi-rr-comment-alt',
-  [SensorType.humidity]: 'fi-rr-cloud',
-  [SensorType.soil]: 'fi-rr-compress',
-  [SensorType.brightness]: 'fi-rr-computer',
+  [SensorType.temperature]: 'temperature',
+  [SensorType.humidity]: 'light',
+  [SensorType.soil]: 'windy-4',
+  [SensorType.brightness]: 'sun-1',
 };
 
 export enum Avatar {
-  bedroom = 'fi-rr-alarm-clock',
+  bedroom = 'bedside-table',
+  kitchen = 'dinnig table',
 }
+
+export enum SensorStatus {
+  online = 'online',
+  warnings = 'warnings',
+  offline = 'offline',
+}
+
+export const StatusColorMap = {
+  online: 'GREEN',
+  warnings: 'ORANGE',
+  offline: 'RED',
+};
 
 export interface Sensor {
   type: SensorType;
+  status: SensorStatus;
 }
 
 export interface Room {

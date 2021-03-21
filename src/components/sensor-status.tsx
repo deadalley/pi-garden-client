@@ -1,0 +1,41 @@
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
+
+import { COLORS, WeatherIcon } from '../styles';
+import { Sensor, SensorTypeIcon, StatusColorMap } from '../types';
+
+export interface StatusProps {
+  status: keyof typeof StatusColorMap;
+}
+
+export interface SensorStatusProps {
+  sensor: Sensor;
+}
+
+const Status: React.FC<StatusProps> = ({ status }) => (
+  <View
+    style={{
+      ...styles.status,
+      backgroundColor: COLORS[StatusColorMap[status] as keyof typeof COLORS],
+    }}
+  />
+);
+
+export const SensorStatus: React.FC<SensorStatusProps> = ({ sensor }) => (
+  <View style={styles.wrapper}>
+    <Status status={sensor.status} />
+    <WeatherIcon name={SensorTypeIcon[sensor.type]} color={COLORS.MAIN_DARKER} size={18} />
+  </View>
+);
+
+const styles = StyleSheet.create({
+  wrapper: {},
+  status: {
+    borderRadius: 360,
+    position: 'absolute',
+    top: 0,
+    right: -8,
+    height: 6,
+    width: 6,
+  },
+});

@@ -16,8 +16,10 @@ export default function App() {
     Poppins_400Regular,
     Poppins_600SemiBold,
     Poppins_700Bold,
-    'Inter-Black': require('./assets/fonts/Inter-Black.otf'),
+    FurnitureIcons: require('./assets/fonts/furniture-icons.ttf'),
+    PlantIcons: require('./assets/fonts/plant-icons.ttf'),
     Uicons: require('./assets/fonts/uicons.ttf'),
+    WeatherIcons: require('./assets/fonts/weather-icons.ttf'),
   });
 
   if (!fontsLoaded) return <AppLoading />;

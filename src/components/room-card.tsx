@@ -1,8 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 
-import { BORDER_RADIUS, BOX_SHADOW, COLORS, FONT_STYLES, UiIcon } from '../styles';
-import { Room, SensorTypeIcon } from '../types';
+import { BORDER_RADIUS, BOX_SHADOW, COLORS, FONT_STYLES, FurnitureIcon } from '../styles';
+import { Room } from '../types';
+import { SensorStatus } from './sensor-status';
 
 export interface RoomCardProps {
   room: Room;
@@ -13,12 +14,12 @@ export const RoomCard: React.FC<RoomCardProps> = ({ room, style }) => (
   <TouchableWithoutFeedback>
     <View style={{ ...styles.wrapper, ...(style ?? {}) }}>
       <View style={styles.sensors}>
-        {room.sensors.map(({ type }) => (
-          <UiIcon name={SensorTypeIcon[type]} color={COLORS.MAIN_DARKER} size={18} />
+        {room.sensors.map((sensor) => (
+          <SensorStatus sensor={sensor} />
         ))}
       </View>
       <View style={styles.room}>
-        <UiIcon name={room.avatar} color={COLORS.MAIN_DARKER} size={24} />
+        <FurnitureIcon name={room.avatar} color={COLORS.MAIN_DARKER} size={30} />
         <Text style={styles.roomName}>{room.name}</Text>
       </View>
     </View>

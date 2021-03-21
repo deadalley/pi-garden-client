@@ -23,6 +23,10 @@ export const COLORS = {
   HALF_DARK: '#444444',
   LIGHT: '#ffffff',
   HALF_LIGHT: '#f1f1f1',
+
+  GREEN: '#2AD227',
+  ORANGE: '#FF7905',
+  RED: '#C90100',
 };
 
 export const BOX_SHADOW = {
