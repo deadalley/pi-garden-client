@@ -5,61 +5,13 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { NavHeader } from '../../components/nav-header';
 import { Plants } from './plants';
 import { COLORS, FONT_STYLES, PADDING } from '../../styles';
-import { Plant, Mood, Avatar, SensorType, SensorStatus } from '../../types';
+import { ROOM_MOCK_1, ROOM_MOCK_2, PLANT_MOCK } from '../../mocks';
 import { Rooms } from './room';
 
 export interface SectionProps {
   title: string;
   color?: string;
 }
-
-const ROOM_MOCK_1 = {
-  id: '546B',
-  name: 'Bedroom',
-  avatar: Avatar.bedroom,
-  sensors: [
-    {
-      type: SensorType.temperature,
-      status: SensorStatus.online,
-    },
-    {
-      type: SensorType.brightness,
-      status: SensorStatus.warnings,
-    },
-    {
-      type: SensorType.soil,
-      status: SensorStatus.offline,
-    },
-    {
-      type: SensorType.humidity,
-      status: SensorStatus.online,
-    },
-  ],
-};
-
-const ROOM_MOCK_2 = {
-  id: '5463B',
-  name: 'Kitchen',
-  avatar: Avatar.kitchen,
-  sensors: [
-    {
-      type: SensorType.temperature,
-      status: SensorStatus.offline,
-    },
-    {
-      type: SensorType.humidity,
-      status: SensorStatus.online,
-    },
-  ],
-};
-
-const PLANT_MOCK = {
-  id: '123',
-  name: 'Strawberry',
-  mood: Mood.happy,
-  room: ROOM_MOCK_1,
-  hasNotification: true,
-};
 
 const HomeScreenLayout: React.FC = ({ children }) => (
   <View style={{ ...styles.wrapper }}>
@@ -96,10 +48,10 @@ const Section: React.FC<SectionProps> = ({ title, color, children }) => (
 export const HomeScreen: React.FC = () => (
   <HomeScreenLayout>
     <Section title="My Garden" color={COLORS.LIGHT}>
-      <Plants plants={[PLANT_MOCK, PLANT_MOCK, PLANT_MOCK, PLANT_MOCK, PLANT_MOCK]} />
+      <Plants plants={[PLANT_MOCK as any, PLANT_MOCK, PLANT_MOCK, PLANT_MOCK, PLANT_MOCK]} />
     </Section>
     <Section title="Rooms" color={COLORS.MAIN_DARKER}>
-      <Rooms rooms={[ROOM_MOCK_1, ROOM_MOCK_2, ROOM_MOCK_1, ROOM_MOCK_2]} />
+      <Rooms rooms={[ROOM_MOCK_1 as any, ROOM_MOCK_2, ROOM_MOCK_1, ROOM_MOCK_2]} />
     </Section>
   </HomeScreenLayout>
 );

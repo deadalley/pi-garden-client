@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform, StatusBar, StyleSheet, View } from 'react-native';
+import { GestureResponderEvent, Platform, StatusBar, StyleSheet, View } from 'react-native';
 
 import { COLORS, PADDING } from '../styles';
 import { NavHeader } from './nav-header';
@@ -7,14 +7,24 @@ import { NavHeader } from './nav-header';
 export interface ScreenProps {
   title: string;
   green?: boolean;
+  contentStyle: object;
+  onPress?: (event: GestureResponderEvent) => void;
 }
 
-export const Screen: React.FC<ScreenProps> = ({ children, title, green }) => (
+export const Screen: React.FC<ScreenProps> = ({
+  children,
+  title,
+  green,
+  contentStyle,
+  onPress,
+}) => (
   <View style={{ ...styles.wrapper, ...(green ? styles.green : {}) }}>
     <View style={{ ...styles.top, ...(green ? styles.green : {}) }}>
-      <NavHeader {...(green ? { color: COLORS.LIGHT } : {})}>{title}</NavHeader>
+      <NavHeader {...(green ? { color: COLORS.LIGHT } : {})} onPress={onPress}>
+        {title}
+      </NavHeader>
     </View>
-    <View style={styles.content}>{children}</View>
+    <View style={{ ...styles.content, ...(contentStyle ?? {}) }}>{children}</View>
   </View>
 );
 
@@ -35,7 +45,7 @@ const styles = StyleSheet.create({
   },
   content: {
     backgroundColor: COLORS.LIGHT,
-    height: '100%',
-    paddingHorizontal: PADDING.SMALL,
+    flex: 1,
+    paddingHorizontal: PADDING.BIG,
   },
 });

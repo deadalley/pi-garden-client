@@ -12,12 +12,19 @@ import {
 import { LinearGradient } from 'expo-linear-gradient';
 
 import { BORDER_RADIUS, BOX_SHADOW, COLORS, FONT_STYLES, PADDING, UiIcon } from '../styles';
+import { useNavigation } from '@react-navigation/core';
 
-const listItems = ['Sensor', 'Room', 'Plant'];
+const listItems = [
+  { label: 'Sensor', route: 'AddPlant' },
+  { label: 'Room', route: 'AddPlant' },
+  { label: 'Plant', route: 'AddPlant' },
+];
 
 export const AddButton: React.FC = () => {
   const [modalVisible, setModalVisible] = useState(false);
+  const navigation = useNavigation();
 
+  console.log({ navigation });
   return (
     <>
       <TouchableWithoutFeedback onPress={() => setModalVisible(!modalVisible)}>
@@ -62,10 +69,16 @@ export const AddButton: React.FC = () => {
             <View style={styles.modal}>
               <FlatList
                 data={listItems}
-                keyExtractor={(item) => item}
+                keyExtractor={(item) => item.label}
                 style={{ width: '100%' }}
                 renderItem={({ item, index }) => (
-                  <TouchableOpacity style={{ width: '100%' }}>
+                  <TouchableOpacity
+                    style={{ width: '100%' }}
+                    onPress={() => {
+                      navigation.navigate(item.route);
+                      setModalVisible(false);
+                    }}
+                  >
                     <Text
                       style={{
                         ...FONT_STYLES.h3,
@@ -74,7 +87,7 @@ export const AddButton: React.FC = () => {
                         marginBottom: index < listItems.length - 1 ? 10 : 0,
                       }}
                     >
-                      {item}
+                      {item.label}
                     </Text>
                   </TouchableOpacity>
                 )}

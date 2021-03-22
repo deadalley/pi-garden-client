@@ -33,6 +33,13 @@ export enum SensorStatus {
   offline = 'offline',
 }
 
+export const SensorName = {
+  [SensorType.temperature]: 'Temperature',
+  [SensorType.humidity]: 'Humidity',
+  [SensorType.soil]: 'Soil Moisture',
+  [SensorType.brightness]: 'Brightness',
+};
+
 export const StatusColorMap = {
   [SensorStatus.online]: 'GREEN',
   [SensorStatus.warnings]: 'ORANGE',
@@ -42,6 +49,7 @@ export const StatusColorMap = {
 export interface Sensor {
   type: SensorType;
   status: SensorStatus;
+  name: string;
 }
 
 export interface Room {
