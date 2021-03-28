@@ -50,6 +50,7 @@ export interface Sensor {
   type: SensorType;
   status: SensorStatus;
   name: string;
+  unit: string;
 }
 
 export interface Room {
@@ -64,4 +65,12 @@ export interface Plant {
   room: Room;
   name: string;
   mood: Mood;
+  specification: PlantSpecification;
+}
+
+export interface PlantSpecification {
+  temperature: { start: number; end: number };
+  humidity: { start: number; end: number };
+  soil: { start: number; end: number };
+  brightness: { start: number; end: number };
 }

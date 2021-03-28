@@ -9,21 +9,25 @@ export const ROOM_MOCK_1 = {
       type: SensorType.temperature,
       name: SensorName[SensorType.temperature],
       status: SensorStatus.online,
+      unit: '°C',
     },
     {
       type: SensorType.brightness,
       name: SensorName[SensorType.brightness],
       status: SensorStatus.warnings,
+      unit: '%',
     },
     {
       type: SensorType.soil,
       name: SensorName[SensorType.soil],
       status: SensorStatus.offline,
+      unit: '%',
     },
     {
       type: SensorType.humidity,
       name: SensorName[SensorType.humidity],
       status: SensorStatus.online,
+      unit: '%',
     },
   ],
 };
@@ -37,11 +41,13 @@ export const ROOM_MOCK_2 = {
       type: SensorType.temperature,
       name: SensorName[SensorType.temperature],
       status: SensorStatus.offline,
+      unit: '°C',
     },
     {
       type: SensorType.humidity,
       name: SensorName[SensorType.humidity],
       status: SensorStatus.online,
+      unit: '%',
     },
   ],
 };
@@ -51,5 +57,11 @@ export const PLANT_MOCK = {
   name: 'Strawberry',
   mood: Mood.happy,
   room: ROOM_MOCK_1,
+  specification: {
+    temperature: { start: 4, end: 90 },
+    humidity: { start: 4, end: 90 },
+    soil: { start: 4, end: 90 },
+    brightness: { start: 4, end: 90 },
+  },
   hasNotification: true,
 };

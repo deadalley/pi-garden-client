@@ -1,5 +1,13 @@
 import React from 'react';
-import { GestureResponderEvent, Platform, StatusBar, StyleSheet, View } from 'react-native';
+import {
+  GestureResponderEvent,
+  Platform,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  View,
+} from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import { COLORS, PADDING } from '../styles';
 import { NavHeader } from './nav-header';
@@ -18,14 +26,20 @@ export const Screen: React.FC<ScreenProps> = ({
   contentStyle,
   onPress,
 }) => (
-  <View style={{ ...styles.wrapper, ...(green ? styles.green : {}) }}>
+  <KeyboardAwareScrollView
+    contentContainerStyle={{ ...styles.wrapper, ...(green ? styles.green : {}) }}
+    style={{ ...styles.wrapper, ...(green ? styles.green : {}) }}
+    scrollEnabled
+    enableOnAndroid
+    enableAutomaticScroll
+  >
     <View style={{ ...styles.top, ...(green ? styles.green : {}) }}>
       <NavHeader {...(green ? { color: COLORS.LIGHT } : {})} onPress={onPress}>
         {title}
       </NavHeader>
     </View>
-    <View style={{ ...styles.content, ...(contentStyle ?? {}) }}>{children}</View>
-  </View>
+    <ScrollView style={{ ...styles.content, ...(contentStyle ?? {}) }}>{children}</ScrollView>
+  </KeyboardAwareScrollView>
 );
 
 const styles = StyleSheet.create({
