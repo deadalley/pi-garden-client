@@ -20,7 +20,7 @@ import { COLORS, UiIcon } from './styles';
 const TAB_ICONS = {
   Home: 'fi-rr-home',
   Stats: 'fi-rr-stats',
-  Notfications: 'fi-rr-bell',
+  Notifications: 'fi-rr-bell',
   Settings: 'fi-rr-settings-sliders',
 };
 
@@ -33,6 +33,7 @@ const HomeNavigator = () => (
     <HomeStack.Screen name="GardeScreen" component={GardenScreen} />
     <HomeStack.Screen name="PlantScreen" component={PlantScreen} />
     <HomeStack.Screen name="RoomScreen" component={RoomScreen} />
+    <HomeStack.Screen name="NotificationsScreen" component={NotificationsScreen} />
   </HomeStack.Navigator>
 );
 
@@ -65,7 +66,7 @@ const TabNavigator = () => (
       options={{ tabBarButton: (props) => <AddButton {...props} /> }}
       component={HomeScreen}
     />
-    <Tab.Screen name="Notfications" component={NotificationsScreen} />
+    <Tab.Screen name="Notifications" component={NotificationsScreen} />
     <Tab.Screen name="Settings" component={SettingsScreen} />
   </Tab.Navigator>
 );

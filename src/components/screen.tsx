@@ -63,11 +63,8 @@ const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
     backgroundColor: COLORS.LIGHT,
-    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+    paddingTop: (Platform.OS === 'android' ? StatusBar.currentHeight ?? 0 : 0) / 2, // TODO: fix
     flexDirection: 'column',
-  },
-  green: {
-    backgroundColor: COLORS.MAIN_DARK,
   },
   top: {
     flexDirection: 'row',
@@ -75,11 +72,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingLeft: PADDING.SMALL,
-    paddingRight: PADDING.BIG + 12,
+    paddingRight: PADDING.BIG + 12, // TODO: fix
   },
   content: {
     backgroundColor: COLORS.LIGHT,
     flex: 1,
     padding: PADDING.BIG,
+  },
+  green: {
+    backgroundColor: COLORS.MAIN_DARK,
   },
 });

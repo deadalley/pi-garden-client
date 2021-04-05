@@ -65,7 +65,11 @@ export const PlantScreen: React.FC<PlantScreenProps> = () => {
         </View>
         <View style={styles.buttons}>
           <Button onPress={() => {}}>Statistics</Button>
-          <Button onPress={() => {}}>Notifications</Button>
+          <Button
+            onPress={() => navigation.navigate('HomeNavigator', { screen: 'NotificationsScreen' })}
+          >
+            Notifications
+          </Button>
         </View>
       </View>
     </View>

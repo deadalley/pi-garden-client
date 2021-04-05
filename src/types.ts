@@ -79,3 +79,17 @@ export interface PlantSpecification {
   soil: { start: number; end: number };
   brightness: { start: number; end: number };
 }
+
+export interface Reading {
+  sensor: Sensor;
+  createdAt: Date;
+  value: number;
+}
+
+export interface Notification {
+  timestamp: Date;
+  plant: Plant;
+  text: string;
+  sensor: Sensor;
+  value: number;
+}

@@ -148,3 +148,11 @@ export const PLANT_MOCK = {
   },
   hasNotification: true,
 };
+
+export const NOTIFICATION = {
+  timestamp: new Date(),
+  plant: PLANT_MOCK,
+  text: "I'm cold!",
+  sensor: ROOM_MOCK_1.sensors[0],
+  value: 4,
+};
