@@ -1,4 +1,5 @@
 import React from 'react';
+import { FlatList } from 'react-native';
 
 import { PLANT_MOCK } from '../../mocks';
 import { Screen } from '../../components/screen';
@@ -18,9 +19,11 @@ export const GardenScreen: React.FC = () => {
   ];
   return (
     <Screen title={'My Garden'} contentStyle={{ paddingTop: 0, paddingRight: 0 }}>
-      {plants.map((plant) => (
-        <PlantItem {...plant} />
-      ))}
+      <FlatList
+        data={plants}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => <PlantItem {...item} />}
+      />
     </Screen>
   );
 };

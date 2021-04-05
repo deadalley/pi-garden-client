@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { FlatList } from 'react-native';
 
 import { NOTIFICATION } from '../../mocks';
 import { Screen } from '../../components/screen';
@@ -20,9 +20,11 @@ export const NotificationsScreen: React.FC = () => {
   ];
   return (
     <Screen title="Notifications" contentStyle={{ paddingTop: 0, paddingRight: 0 }}>
-      {notifications.map((notification) => (
-        <NotificationCard {...(notification as any)} />
-      ))}
+      <FlatList
+        data={notifications}
+        keyExtractor={(item) => item.timestamp.toISOString()}
+        renderItem={({ item }) => <NotificationCard {...(item as any)} />}
+      />
     </Screen>
   );
 };

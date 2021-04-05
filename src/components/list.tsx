@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, TouchableOpacity, StyleSheet, View } from 'react-native';
+import { FlatList, Text, TouchableOpacity, StyleSheet, View } from 'react-native';
 
 import { SensorStatus } from '../types';
 import { COLORS, FONT_STYLES, IconTypes, PADDING, UiIcon } from '../styles';
@@ -53,9 +53,7 @@ export const List: React.FC<ListProps> = ({ title, items }) => {
   return (
     <View style={{ flex: 1 }}>
       <Text style={styles.title}>{title}</Text>
-      {items.map((item) => (
-        <ListItem {...item} />
-      ))}
+      <FlatList data={items} renderItem={({ item }) => <ListItem {...item} />} />
     </View>
   );
 };

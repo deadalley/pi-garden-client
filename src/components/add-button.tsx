@@ -16,7 +16,7 @@ import { useNavigation } from '@react-navigation/core';
 
 const listItems = [
   { label: 'Sensor', route: 'AddPlant' },
-  { label: 'Room', route: 'AddPlant' },
+  { label: 'Room', route: 'AddRoom' },
   { label: 'Plant', route: 'AddPlant' },
 ];
 

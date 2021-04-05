@@ -9,6 +9,7 @@ import { StatisticsScreen } from './screens/statistics-screen';
 import { NotificationsScreen } from './screens/notifications-screen';
 import { SettingsScreen } from './screens/settings-screen';
 import { AddPlantScreen } from './screens/add-plant-screen';
+import { AddRoomScreen } from './screens/add-room-screen';
 import { PlantScreen } from './screens/plant-screen';
 import { RoomScreen } from './screens/room-screen';
 import { GardenScreen } from './screens/garden-screen';
@@ -126,6 +127,7 @@ export default () => (
       <RootStack.Screen name="Tab" component={TabNavigator} />
       <RootStack.Screen name="HomeNavigator" component={HomeNavigator} />
       <RootStack.Screen name="AddPlant" component={AddPlantScreen} />
+      <RootStack.Screen name="AddRoom" component={AddRoomScreen} />
     </RootStack.Navigator>
   </NavigationContainer>
 );

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 
@@ -15,6 +14,7 @@ import { COLORS, FONT_STYLES, PADDING, UiIcon } from '../../styles';
 import { Plant, PlantSpecification, Room, SensorName, SensorType } from '../../types';
 import { random } from '../../utils/number';
 import { renderSensors } from './utils';
+import { Navigation } from '../../components/navigation';
 
 export interface AddPlantScreenProps {
   rooms: Room[];
@@ -89,49 +89,6 @@ const PlantDate: React.FC<StateProps> = () => (
     <Bold>I was planted on...</Bold>
     <DateInput name="plantedDate" max={new Date()} />
   </>
-);
-
-const Previous: React.FC<NavigationProps> = ({ setIndex }) => (
-  <TouchableOpacity style={styles.navigationButton} onPress={() => setIndex()}>
-    <UiIcon
-      name="fi-rr-angle-small-left"
-      color={COLORS.MAIN_DARK}
-      size={24}
-      style={{
-        marginLeft: -6,
-      }}
-    />
-    <Text style={styles.navigationText}>Previous</Text>
-  </TouchableOpacity>
-);
-
-const Next: React.FC<NavigationProps> = ({ setIndex, disabled }) => (
-  <TouchableOpacity style={styles.navigationButton} onPress={() => setIndex()} disabled={disabled}>
-    <Text style={{ ...styles.navigationText, ...(disabled ? styles.disabled : {}) }}>Next</Text>
-    <UiIcon
-      name="fi-rr-angle-small-right"
-      color={COLORS.MAIN_DARK}
-      style={{
-        marginRight: -6,
-        ...(disabled ? styles.disabled : {}),
-      }}
-      size={24}
-    />
-  </TouchableOpacity>
-);
-
-const Finish: React.FC<{ onFinish: () => void }> = ({ onFinish }) => (
-  <TouchableOpacity style={styles.navigationButton} onPress={onFinish}>
-    <Text style={styles.navigationText}>Add plant</Text>
-    <UiIcon
-      name="fi-rr-angle-small-right"
-      color={COLORS.MAIN_DARK}
-      style={{
-        marginRight: -6,
-      }}
-      size={24}
-    />
-  </TouchableOpacity>
 );
 
 export const AddPlantScreen: React.FC<AddPlantScreenProps> = ({ rooms }) => {
@@ -217,7 +174,7 @@ export const AddPlantScreen: React.FC<AddPlantScreenProps> = ({ rooms }) => {
       {({ values, setValues, initialValues, isValid, submitForm }) => {
         return (
           <Screen
-            title="New plant"
+            title={'New Plant'}
             contentStyle={{ marginTop: 12, paddingHorizontal: PADDING.SMALL }}
           >
             <CurrentState
@@ -240,19 +197,16 @@ export const AddPlantScreen: React.FC<AddPlantScreenProps> = ({ rooms }) => {
               }}
             />
             {(hasPrevious || hasNext) && (
-              <View
-                style={{
-                  ...styles.navigation,
-                  ...(!hasPrevious ? styles.alignRight : {}),
-                  ...(!hasNext && !isLast ? styles.alignLeft : {}),
-                }}
-              >
-                {hasPrevious && <Previous setIndex={() => setIndex(currentIndex - 1)} />}
-                {hasNext && (
-                  <Next setIndex={() => setIndex(currentIndex + 1)} disabled={!isValid} />
-                )}
-                {isLast && <Finish onFinish={submitForm} />}
-              </View>
+              <Navigation
+                currentIndex={currentIndex}
+                setIndex={setIndex}
+                hasPrevious={hasPrevious}
+                hasNext={hasNext}
+                isLast={isLast}
+                canNext={isValid}
+                onFinish={submitForm}
+                finishLabel={'Add plant'}
+              />
             )}
           </Screen>
         );
@@ -262,33 +216,10 @@ export const AddPlantScreen: React.FC<AddPlantScreenProps> = ({ rooms }) => {
 };
 
 const styles = StyleSheet.create({
-  navigation: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: PADDING.SMALLER - 2,
-  },
-  navigationText: {
-    ...FONT_STYLES.h4,
-    color: COLORS.MAIN_DARK,
-    lineHeight: 24,
-  },
-  navigationButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  alignRight: {
-    justifyContent: 'flex-end',
-  },
-  alignLeft: {
-    justifyContent: 'flex-start',
-  },
   text: {
     ...FONT_STYLES.text,
     fontSize: 18,
     color: COLORS.MAIN_DARK,
     paddingHorizontal: PADDING.SMALLER - 2,
-  },
-  disabled: {
-    opacity: 0.5,
   },
 });
