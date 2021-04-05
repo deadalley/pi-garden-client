@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
   error: {
     ...FONT_STYLES.text,
     fontSize: 12,
-    height: 16,
+    minHeight: 16,
     color: COLORS.RED,
     paddingLeft: PADDING.SMALLER,
   },

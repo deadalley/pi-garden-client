@@ -162,18 +162,21 @@ export const AddPlantScreen: React.FC<AddPlantScreenProps> = ({ rooms }) => {
     room: yup.object().required(),
     plantedDate: yup.date().required(),
     specification: yup.object().shape({
-      temperature: yup.object({ start: yup.number().required(), end: yup.number().required() }),
+      temperature: yup.object({
+        start: yup.number().required().lessThan(yup.ref('end')),
+        end: yup.number().required().moreThan(yup.ref('start')),
+      }),
       soil: yup.object({
-        start: yup.number().required().min(0).max(100),
-        end: yup.number().required().min(0).max(100),
+        start: yup.number().required().min(0).max(100).lessThan(yup.ref('end')),
+        end: yup.number().required().min(0).max(100).moreThan(yup.ref('start')),
       }),
       humidity: yup.object({
-        start: yup.number().required().min(0).max(100),
-        end: yup.number().required().min(0).max(100),
+        start: yup.number().required().min(0).max(100).lessThan(yup.ref('end')),
+        end: yup.number().required().min(0).max(100).moreThan(yup.ref('start')),
       }),
       brightness: yup.object({
-        start: yup.number().required().min(0).max(100),
-        end: yup.number().required().min(0).max(100),
+        start: yup.number().required().min(0).max(100).lessThan(yup.ref('end')),
+        end: yup.number().required().min(0).max(100).moreThan(yup.ref('start')),
       }),
     }),
   });
