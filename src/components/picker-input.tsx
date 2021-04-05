@@ -3,28 +3,32 @@ import { StyleSheet, View } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 
 import { COLORS, FONT_STYLES, PADDING } from '../styles';
+import { useField } from 'formik';
 
 export interface PickerInputProps {
   options: { label: string; value: any }[];
-  initialValue?: any;
-  onChange?: (option: any) => void;
+  name: string;
 }
 
-export const PickerInput: React.FC<PickerInputProps> = ({ options, initialValue, onChange }) => (
-  <View style={styles.wrapper}>
-    <Picker
-      style={styles.picker}
-      itemStyle={styles.picker}
-      onValueChange={onChange}
-      mode="dropdown"
-      selectedValue={initialValue ?? options[0].value}
-    >
-      {options.map((option) => (
-        <Picker.Item {...option} />
-      ))}
-    </Picker>
-  </View>
-);
+export const PickerInput: React.FC<PickerInputProps> = ({ options, ...props }) => {
+  const [field, meta, helpers] = useField(props as any);
+
+  return (
+    <View style={styles.wrapper}>
+      <Picker
+        style={styles.picker}
+        itemStyle={styles.picker}
+        onValueChange={(value) => helpers.setValue(value)}
+        mode="dropdown"
+        selectedValue={field.value ?? meta.initialValue ?? options[0].value}
+      >
+        {options.map((option) => (
+          <Picker.Item {...option} />
+        ))}
+      </Picker>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   wrapper: {

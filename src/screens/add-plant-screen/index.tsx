@@ -1,15 +1,20 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Formik } from 'formik';
+import * as yup from 'yup';
+
+import { Bold } from '../../components/typography';
 import { DateInput } from '../../components/date-input';
 import { PickerInput } from '../../components/picker-input';
-
 import { Screen } from '../../components/screen';
 import { TextInput } from '../../components/text-input';
 import { ThresholdInput } from '../../components/threshold-input';
-import { ROOM_MOCK_1 } from '../../mocks';
+import { ROOM_MOCK_1, ROOM_MOCK_2 } from '../../mocks';
 import { COLORS, FONT_STYLES, PADDING, UiIcon } from '../../styles';
 import { Plant, PlantSpecification, Room, SensorName, SensorType } from '../../types';
+import { random } from '../../utils/number';
+import { renderSensors } from './utils';
 
 export interface AddPlantScreenProps {
   rooms: Room[];
@@ -18,13 +23,16 @@ export interface AddPlantScreenProps {
 interface NewPlant {
   name?: string;
   room?: Room;
+  plantedDate?: Date;
   specification?: { [key in keyof PlantSpecification]?: { start?: number; end?: number } };
 }
 
 interface StateProps {
-  setPlant: Function;
   plant: Plant;
   room: Room;
+  rooms: Room[];
+  name: string;
+  setPlant: Function;
   setThreshold: (type: SensorType, { start, end }: { start?: number; end?: number }) => void;
 }
 
@@ -33,41 +41,25 @@ interface NavigationProps {
   disabled?: boolean;
 }
 
-const Bold: React.FC = ({ children }) => (
-  <Text
-    style={{ ...FONT_STYLES.h4, color: COLORS.MAIN_DARK, paddingHorizontal: PADDING.SMALLER - 2 }}
-  >
-    {children}
-  </Text>
-);
-
-const AddPlantName: React.FC<StateProps> = ({ setPlant }) => (
+const AddPlantName: React.FC<StateProps> = () => (
   <>
     <Bold>What type of plant am I?</Bold>
-    <TextInput required onChange={(name: string) => setPlant({ name })} autoCorrect />
+    <TextInput name="name" autoCorrect />
   </>
 );
 
-const AddRoom: React.FC<StateProps & { name: string; rooms: Room[] }> = ({ name, rooms }) => (
+const AddRoom: React.FC<StateProps> = ({ name, rooms }) => (
   <>
     <Text style={styles.text}>
       I'm a <Bold>{name}</Bold>, cool!
     </Text>
     <Text style={{ ...styles.text, marginBottom: PADDING.SMALL }}>Where am I?</Text>
     <Bold>I'm in the...</Bold>
-    <PickerInput options={rooms.map(({ name, id }) => ({ label: name, value: id }))} />
+    <PickerInput name="room" options={rooms.map((room) => ({ label: room.name, value: room }))} />
   </>
 );
 
-const renderSensors = (room: Room) =>
-  room.sensors.map(({ name }, index) => (
-    <>
-      <Bold>{name}</Bold>
-      {index === room.sensors.length - 2 ? ' and ' : index < room.sensors.length - 1 ? ', ' : ''}
-    </>
-  ));
-
-const AddSensors: React.FC<StateProps> = ({ room, plant, setThreshold }) => (
+const AddSensors: React.FC<StateProps> = ({ room }) => (
   <>
     <Text style={{ ...styles.text, marginBottom: PADDING.BIG }}>
       I'm in the <Bold>{room.name}</Bold>, which means you can monitor {renderSensors(room)}.
@@ -80,12 +72,11 @@ const AddSensors: React.FC<StateProps> = ({ room, plant, setThreshold }) => (
     >
       {room.sensors.map((sensor) => (
         <ThresholdInput
+          name={`specification.${sensor.type}`}
           key={sensor.type}
           label={SensorName[sensor.type]}
           unit={sensor.unit}
-          threshold={plant.specification?.[sensor.type] || {}}
           {...(sensor.type !== SensorType.temperature ? { min: 0, max: 100 } : {})}
-          onChange={(value) => setThreshold(sensor.type, value)}
         />
       ))}
     </View>
@@ -96,7 +87,7 @@ const PlantDate: React.FC<StateProps> = () => (
   <>
     <Text style={{ ...styles.text, marginBottom: PADDING.BIG }}>Almost there! How old am I?</Text>
     <Bold>I was planted on...</Bold>
-    <DateInput />
+    <DateInput name="plantedDate" max={new Date()} />
   </>
 );
 
@@ -129,9 +120,9 @@ const Next: React.FC<NavigationProps> = ({ setIndex, disabled }) => (
   </TouchableOpacity>
 );
 
-const Finish: React.FC = () => (
-  <TouchableOpacity style={styles.navigationButton} onPress={() => {}}>
-    <Text style={styles.navigationText}>Finish</Text>
+const Finish: React.FC<{ onFinish: () => void }> = ({ onFinish }) => (
+  <TouchableOpacity style={styles.navigationButton} onPress={onFinish}>
+    <Text style={styles.navigationText}>Add plant</Text>
     <UiIcon
       name="fi-rr-angle-small-right"
       color={COLORS.MAIN_DARK}
@@ -145,56 +136,125 @@ const Finish: React.FC = () => (
 
 export const AddPlantScreen: React.FC<AddPlantScreenProps> = ({ rooms }) => {
   const states: React.FC<any>[] = [AddPlantName, AddRoom, AddSensors, PlantDate];
-  const _rooms = [ROOM_MOCK_1];
+  const _rooms = [ROOM_MOCK_1, ROOM_MOCK_2];
+  const commonPlantTypes = [
+    'Strawberry',
+    'Potato',
+    'Basil',
+    'Tomato',
+    'Bell Pepper',
+    'Pepper',
+    'Jalapeño',
+    'Lettuce',
+    'Rocket',
+    'Cactus',
+  ];
 
-  const [plant, setPlant] = useState<NewPlant>({ room: _rooms[0] });
   const [currentIndex, setIndex] = useState(0);
-
   const CurrentState = states[currentIndex];
+
   const hasPrevious = !!states[currentIndex - 1];
   const hasNext = !!states[currentIndex + 1];
   const isLast = currentIndex === states.length - 1;
 
+  const validationSchema = yup.object().shape({
+    name: yup.string().required(),
+    room: yup.object().required(),
+    plantedDate: yup.date().required(),
+    specification: yup.object().shape({
+      temperature: yup.object({ start: yup.number().required(), end: yup.number().required() }),
+      soil: yup.object({
+        start: yup.number().required().min(0).max(100),
+        end: yup.number().required().min(0).max(100),
+      }),
+      humidity: yup.object({
+        start: yup.number().required().min(0).max(100),
+        end: yup.number().required().min(0).max(100),
+      }),
+      brightness: yup.object({
+        start: yup.number().required().min(0).max(100),
+        end: yup.number().required().min(0).max(100),
+      }),
+    }),
+  });
+
   return (
-    <Screen title="New plant" contentStyle={{ marginTop: 36, paddingHorizontal: PADDING.SMALL }}>
-      <CurrentState
-        name={plant?.name!}
-        room={plant?.room!}
-        rooms={_rooms}
-        plant={plant}
-        setPlant={(values: object) => setPlant({ ...plant, ...values })}
-        setThreshold={(type: SensorType, values: { start: number; end: number }) => {
-          setPlant((plantState) => ({
-            ...plantState,
-            specification: {
-              ...(plantState.specification ?? {}),
-              [type]: {
-                ...(plantState.specification?.[type] || {}),
-                ...values,
-              },
+    <Formik
+      initialValues={
+        {
+          name: commonPlantTypes[random(0, commonPlantTypes.length - 1)],
+          room: _rooms[0],
+          plantedDate: new Date(),
+          specification: {
+            temperature: {
+              start: 12,
+              end: 35,
             },
-          }));
-        }}
-      />
-      {(hasPrevious || hasNext) && (
-        <View
-          style={{
-            ...styles.navigation,
-            ...(!hasPrevious ? styles.alignRight : {}),
-            ...(!hasNext && !isLast ? styles.alignLeft : {}),
-          }}
-        >
-          {hasPrevious && <Previous setIndex={() => setIndex(currentIndex - 1)} />}
-          {hasNext && (
-            <Next
-              setIndex={() => setIndex(currentIndex + 1)}
-              disabled={currentIndex === 0 && !plant.name}
+            humidity: {
+              start: 0,
+              end: 100,
+            },
+            soil: {
+              start: 0,
+              end: 100,
+            },
+            brightness: {
+              start: 0,
+              end: 100,
+            },
+          },
+        } as NewPlant
+      }
+      validationSchema={validationSchema}
+      onSubmit={(values) => {
+        console.log('Submitting...', values);
+        return;
+      }}
+    >
+      {({ values, setValues, initialValues, isValid, submitForm }) => {
+        return (
+          <Screen
+            title="New plant"
+            contentStyle={{ marginTop: 36, paddingHorizontal: PADDING.SMALL }}
+          >
+            <CurrentState
+              name={values.name! ?? initialValues.name}
+              room={values.room! ?? initialValues.room}
+              rooms={_rooms}
+              plant={values}
+              setPlant={(newValues: object) => setValues({ ...values, ...newValues })}
+              setThreshold={(type: SensorType, newValues: { start: number; end: number }) => {
+                setValues({
+                  ...values,
+                  specification: {
+                    ...(values.specification ?? {}),
+                    [type]: {
+                      ...(values.specification?.[type] || {}),
+                      ...newValues,
+                    },
+                  },
+                });
+              }}
             />
-          )}
-          {isLast && <Finish />}
-        </View>
-      )}
-    </Screen>
+            {(hasPrevious || hasNext) && (
+              <View
+                style={{
+                  ...styles.navigation,
+                  ...(!hasPrevious ? styles.alignRight : {}),
+                  ...(!hasNext && !isLast ? styles.alignLeft : {}),
+                }}
+              >
+                {hasPrevious && <Previous setIndex={() => setIndex(currentIndex - 1)} />}
+                {hasNext && (
+                  <Next setIndex={() => setIndex(currentIndex + 1)} disabled={!isValid} />
+                )}
+                {isLast && <Finish onFinish={submitForm} />}
+              </View>
+            )}
+          </Screen>
+        );
+      }}
+    </Formik>
   );
 };
 

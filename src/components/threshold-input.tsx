@@ -1,75 +1,36 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import { useField } from 'formik';
 
 import { TextInput } from './text-input';
 
 export interface ThresholdInputProps {
-  onChange?: (option: { start?: number; end?: number }) => void;
   label: string;
   unit: string;
-  threshold: { start?: number; end?: number };
-  min?: number;
-  max?: number;
-  inputType?: 'text' | 'number';
+  name: string;
 }
 
-const calculateVariableMin = (fixedMin?: number, start?: number) => {
-  if (fixedMin === undefined || fixedMin === null) {
-    return start;
-  }
+export const ThresholdInput: React.FC<ThresholdInputProps> = (props) => {
+  const [field] = useField(props as any);
 
-  if (start === undefined || start === null) {
-    return fixedMin;
-  }
+  const { unit, label } = props;
 
-  return Math.min(fixedMin, start);
-};
-
-const calculateVariableMax = (fixedMax?: number, end?: number) => {
-  if (fixedMax === undefined || fixedMax === null) {
-    return end;
-  }
-
-  if (end === undefined || end === null) {
-    return fixedMax;
-  }
-
-  return Math.max(fixedMax, end);
-};
-
-export const ThresholdInput: React.FC<ThresholdInputProps> = ({
-  onChange = () => {},
-  unit,
-  label,
-  threshold,
-  min,
-  max,
-  inputType = 'number',
-}) => {
   return (
     <View style={styles.wrapper}>
       <TextInput
+        name={`${field.name}.start`}
         label={label}
         unit={unit}
-        inputType={inputType}
+        inputType={'number'}
         keyboardType="numeric"
         style={styles.input}
-        onChange={(value) => onChange({ start: +value })}
-        required
-        initialValue={0}
-        min={min}
-        max={calculateVariableMax(max, threshold.end)}
       />
       <TextInput
+        name={`${field.name}.end`}
         unit={unit}
-        inputType={inputType}
+        inputType={'number'}
         keyboardType="numeric"
         style={styles.input}
-        onChange={(value) => onChange({ end: +value })}
-        required
-        initialValue={0}
-        min={calculateVariableMin(min, threshold.start)}
-        max={max}
       />
     </View>
   );

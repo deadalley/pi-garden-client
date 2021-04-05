@@ -9,6 +9,7 @@ import {
   Poppins_700Bold,
 } from '@expo-google-fonts/poppins';
 
+import './src/utils/yup';
 import AppRouting from './src/routes';
 
 export default function App() {

@@ -1,40 +1,29 @@
 import React, { useState } from 'react';
 import { Text, StyleSheet, View } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { useField } from 'formik';
 
 import { COLORS, FONT_STYLES, PADDING } from '../styles';
 import { formatDate } from '../utils/date';
 
 export interface DateInputProps {
-  date?: Date;
   mode?: string;
-  required?: boolean;
   style?: object;
   label?: string;
   min?: Date;
   max?: Date;
+  name: string;
 }
 
-export const DateInput: React.FC<DateInputProps> = ({
-  date: initialDate,
-  mode,
-  required,
-  style,
-  label,
-  min,
-  max,
-}) => {
+export const DateInput: React.FC<DateInputProps> = ({ mode, style, label, min, max, ...props }) => {
+  const [field, meta, helpers] = useField(props as any);
   const [visible, setVisible] = useState<boolean>(false);
-  const [date, setDate] = useState(initialDate ?? new Date());
-  const [error, setError] = useState<string | undefined>();
 
-  const onChange = (_: any, selectedDate?: Date) => {
-    if (selectedDate === undefined) setVisible(false);
-    if (required && !selectedDate) setError('Required');
+  const handleOnChange = (_: any, selectedDate?: Date) => {
+    if (selectedDate === undefined) return;
 
-    const currentDate = selectedDate || date;
     setVisible(false);
-    setDate(currentDate);
+    helpers.setValue(selectedDate ?? new Date(), true);
   };
 
   return (
@@ -42,21 +31,20 @@ export const DateInput: React.FC<DateInputProps> = ({
       <View style={{ ...styles.wrapper, ...style }}>
         <Text style={styles.label}>{label}</Text>
         <Text onPress={() => setVisible(true)} style={styles.inputWrapper}>
-          {formatDate(date)}
+          {formatDate(field.value ?? meta.initialValue)}
         </Text>
-        <Text style={styles.error}>{error}</Text>
+        <Text style={styles.error}>{meta.error}</Text>
       </View>
       {visible && (
         <DateTimePicker
           testID="dateTimePicker"
-          value={date}
+          value={field.value ?? meta.initialValue}
           mode={mode as any}
           is24Hour={true}
           display="default"
-          onChange={onChange}
+          onChange={handleOnChange}
           minimumDate={min}
           maximumDate={max}
-          on
         />
       )}
     </>

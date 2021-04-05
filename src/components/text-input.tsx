@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React from 'react';
 import {
   Text,
   TextInput as NativeTextInput,
@@ -6,73 +6,30 @@ import {
   View,
   KeyboardTypeOptions,
 } from 'react-native';
+import { useField } from 'formik';
 
 import { COLORS, FONT_STYLES, PADDING } from '../styles';
 
 export interface TextInputProps {
-  onChange?: (text: string) => void;
   autoCorrect?: boolean;
   style?: object;
   label?: string;
   unit?: string;
   inputType?: 'text' | 'number';
   keyboardType?: KeyboardTypeOptions;
-  min?: number;
-  max?: number;
-  required?: boolean;
-  initialValue?: string | number;
+  name: string;
 }
 
 export const TextInput: React.FC<TextInputProps> = ({
-  onChange = () => {},
   autoCorrect,
   style = {},
   label,
   unit,
   inputType = 'text',
   keyboardType,
-  min,
-  max,
-  required,
-  initialValue,
+  ...props
 }) => {
-  const [inputValue, setInputValue] = useState<string | number>(initialValue ?? '');
-  const [error, setError] = useState<string | undefined>();
-
-  const onChangeText = useCallback(
-    (value: string) => {
-      if (required && (value === '' || value === undefined || value === null)) {
-        setError('Required');
-      }
-
-      if (inputType === 'number') {
-        if (/^[-+]?\d*$/.test(value) || !value) {
-          console.log(label, value, min, max);
-          if (value && min !== undefined && +value < min) {
-            setError(`Must be more than ${min}`);
-          } else if (value && max !== undefined && +value > max) {
-            setError(`Must be less than ${max}`);
-          } else {
-            setError(undefined);
-          }
-
-          if (!(value === '' || value === undefined || value === null)) {
-            onChange(value);
-          }
-          setInputValue(value);
-        }
-      } else {
-        onChange(value);
-        setInputValue(value);
-      }
-    },
-    [inputType, min, max, required]
-  );
-
-  useEffect(() => {
-    console.log('EFFECT');
-    onChange(`${inputValue}`);
-  }, [min, max]);
+  const [field, meta, helpers] = useField(props as any);
 
   return (
     <View style={{ ...styles.wrapper, ...style }}>
@@ -80,22 +37,14 @@ export const TextInput: React.FC<TextInputProps> = ({
       <View style={styles.inputWrapper}>
         <NativeTextInput
           style={{ ...styles.input }}
-          onChangeText={onChangeText}
+          onChangeText={(value: string) => helpers.setValue(value, true)}
           autoCorrect={autoCorrect}
           keyboardType={keyboardType}
-          value={`${inputValue}`}
-          onBlur={() => {
-            if (
-              required &&
-              (inputValue === '' || inputValue === undefined || inputValue === null)
-            ) {
-              setError('Required');
-            }
-          }}
+          value={`${field.value ?? meta.initialValue}`}
         />
         {unit && <Text style={styles.unit}>{unit}</Text>}
       </View>
-      <Text style={styles.error}>{error}</Text>
+      <Text style={styles.error}>{meta.error ?? meta.initialError}</Text>
     </View>
   );
 };
@@ -130,7 +79,7 @@ const styles = StyleSheet.create({
   error: {
     ...FONT_STYLES.text,
     fontSize: 12,
-    height: 14,
+    height: 16,
     color: COLORS.RED,
     paddingLeft: PADDING.SMALLER,
   },
