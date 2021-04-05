@@ -57,6 +57,7 @@ export const PLANT_MOCK = {
   name: 'Strawberry',
   mood: Mood.happy,
   room: ROOM_MOCK_1,
+  plantedDate: new Date('2020-01-01T00:00:00Z'),
   specification: {
     temperature: { start: 4, end: 90 },
     humidity: { start: 4, end: 90 },

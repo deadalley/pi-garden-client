@@ -9,6 +9,7 @@ import { StatisticsScreen } from './screens/statistics-screen';
 import { NotificationsScreen } from './screens/notifications-screen';
 import { SettingsScreen } from './screens/settings-screen';
 import { AddPlantScreen } from './screens/add-plant-screen';
+import { PlantScreen } from './screens/plant-screen';
 
 import { AddButton } from './components/add-button';
 
@@ -22,8 +23,14 @@ const TAB_ICONS = {
 };
 
 const Tab = createBottomTabNavigator();
-
 const RootStack = createStackNavigator();
+const HomeStack = createStackNavigator();
+
+const HomeNavigator = () => (
+  <HomeStack.Navigator initialRouteName="Home" headerMode="none">
+    <HomeStack.Screen name="PlantScreen" component={PlantScreen} />
+  </HomeStack.Navigator>
+);
 
 const TabNavigator = () => (
   <Tab.Navigator
@@ -110,8 +117,9 @@ const TabBar = ({ state, descriptors, navigation }: any) => (
 
 export default () => (
   <NavigationContainer>
-    <RootStack.Navigator initialRouteName="Home" headerMode="none">
-      <RootStack.Screen name="Home" component={TabNavigator} />
+    <RootStack.Navigator initialRouteName="Tab" headerMode="none">
+      <RootStack.Screen name="Tab" component={TabNavigator} />
+      <RootStack.Screen name="HomeNavigator" component={HomeNavigator} />
       <RootStack.Screen name="AddPlant" component={AddPlantScreen} />
     </RootStack.Navigator>
   </NavigationContainer>

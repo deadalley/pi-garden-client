@@ -12,6 +12,12 @@ export const FurnitureIcon = createIconSetFromIcoMoon(
   'furniture-icons.ttf'
 );
 
+export const NatureIcon = createIconSetFromIcoMoon(
+  require('../../assets/fonts/nature-icons.json'),
+  'NatureIcons',
+  'nature-icons.ttf'
+);
+
 export const PlantIcon = createIconSetFromIcoMoon(
   require('../../assets/fonts/plant-icons.json'),
   'PlantIcons',

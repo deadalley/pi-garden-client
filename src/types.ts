@@ -65,6 +65,7 @@ export interface Plant {
   room: Room;
   name: string;
   mood: Mood;
+  plantedDate: Date;
   specification: PlantSpecification;
 }
 

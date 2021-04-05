@@ -1,5 +1,6 @@
 import React from 'react';
 import { Image, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import { BORDER_RADIUS, BOX_SHADOW, COLORS, EmojiIcon, FONT_STYLES, PADDING } from '../styles';
 import { MoodIcon, Plant } from '../types';
@@ -13,26 +14,34 @@ export interface PlantCardProps {
   hasNotification?: boolean;
 }
 
-export const PlantCard: React.FC<PlantCardProps> = ({ plant, style, hasNotification }) => (
-  <TouchableWithoutFeedback>
-    <View style={{ ...styles.wrapper, ...(style ?? {}) }}>
-      <EmojiIcon
-        name={MoodIcon[plant.mood]}
-        size={18}
-        color={COLORS.MAIN_DARK}
-        style={styles.mood}
-      />
-      {hasNotification && <NotificationBadge />}
-      <View style={styles.imageWrapper}>
-        <Image style={styles.image} source={image} />
+export const PlantCard: React.FC<PlantCardProps> = ({ plant, style, hasNotification }) => {
+  const navigation = useNavigation();
+
+  return (
+    <TouchableWithoutFeedback
+      onPress={() =>
+        navigation.navigate('HomeNavigator', { screen: 'PlantScreen', params: { plant } })
+      }
+    >
+      <View style={{ ...styles.wrapper, ...(style ?? {}) }}>
+        <EmojiIcon
+          name={MoodIcon[plant.mood]}
+          size={18}
+          color={COLORS.MAIN_DARK}
+          style={styles.mood}
+        />
+        {hasNotification && <NotificationBadge />}
+        <View style={styles.imageWrapper}>
+          <Image style={styles.image} source={image} />
+        </View>
+        <View style={styles.bottom}>
+          <Text style={styles.plantName}>{plant.name}</Text>
+          <Text style={styles.roomName}>{plant.room.name}</Text>
+        </View>
       </View>
-      <View style={styles.bottom}>
-        <Text style={styles.plantName}>{plant.name}</Text>
-        <Text style={styles.roomName}>{plant.room.name}</Text>
-      </View>
-    </View>
-  </TouchableWithoutFeedback>
-);
+    </TouchableWithoutFeedback>
+  );
+};
 
 const styles = StyleSheet.create({
   wrapper: {

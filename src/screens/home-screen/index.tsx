@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Platform, StatusBar, StyleSheet, Text, View } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import { NavHeader } from '../../components/nav-header';
@@ -7,6 +8,7 @@ import { Plants } from './plants';
 import { COLORS, FONT_STYLES, PADDING } from '../../styles';
 import { ROOM_MOCK_1, ROOM_MOCK_2, PLANT_MOCK } from '../../mocks';
 import { Rooms } from './room';
+import { StatusBarContext, StatusBarStyles } from '../../components/status-bar';
 
 export interface SectionProps {
   title: string;
@@ -45,16 +47,21 @@ const Section: React.FC<SectionProps> = ({ title, color, children }) => (
   </View>
 );
 
-export const HomeScreen: React.FC = () => (
-  <HomeScreenLayout>
-    <Section title="My Garden" color={COLORS.LIGHT}>
-      <Plants plants={[PLANT_MOCK as any, PLANT_MOCK, PLANT_MOCK, PLANT_MOCK, PLANT_MOCK]} />
-    </Section>
-    <Section title="Rooms" color={COLORS.MAIN_DARKER}>
-      <Rooms rooms={[ROOM_MOCK_1 as any, ROOM_MOCK_2, ROOM_MOCK_1, ROOM_MOCK_2]} />
-    </Section>
-  </HomeScreenLayout>
-);
+export const HomeScreen: React.FC = () => {
+  const setStatusBarStyle = useContext(StatusBarContext);
+  useFocusEffect(() => setStatusBarStyle(StatusBarStyles[2]));
+
+  return (
+    <HomeScreenLayout>
+      <Section title="My Garden" color={COLORS.LIGHT}>
+        <Plants plants={[PLANT_MOCK as any, PLANT_MOCK, PLANT_MOCK, PLANT_MOCK, PLANT_MOCK]} />
+      </Section>
+      <Section title="Rooms" color={COLORS.MAIN_DARKER}>
+        <Rooms rooms={[ROOM_MOCK_1 as any, ROOM_MOCK_2, ROOM_MOCK_1, ROOM_MOCK_2]} />
+      </Section>
+    </HomeScreenLayout>
+  );
+};
 
 const styles = StyleSheet.create({
   wrapper: {

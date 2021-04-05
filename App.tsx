@@ -10,6 +10,7 @@ import {
 } from '@expo-google-fonts/poppins';
 
 import './src/utils/yup';
+import { StatusBarProvider } from './src/components/status-bar';
 import AppRouting from './src/routes';
 
 export default function App() {
@@ -25,9 +26,14 @@ export default function App() {
     Uicons: require('./assets/fonts/uicons.ttf'),
     WeatherIcons: require('./assets/fonts/weather-icons.ttf'),
     Emoji: require('./assets/fonts/emoji.ttf'),
+    NatureIcons: require('./assets/fonts/nature-icons.ttf'),
   });
 
   if (!fontsLoaded || !assetsLoaded) return <AppLoading />;
 
-  return <AppRouting />;
+  return (
+    <StatusBarProvider>
+      <AppRouting />
+    </StatusBarProvider>
+  );
 }

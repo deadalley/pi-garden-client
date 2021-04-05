@@ -1,37 +1,36 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
-import { BORDER_RADIUS, COLORS, FONT_STYLES } from '../styles';
+import { BORDER_RADIUS, COLORS, FONT_STYLES, PADDING } from '../../styles';
 
 export interface ButtonProps {
-  inline?: boolean;
+  onPress: () => void;
 }
 
-export const Button: React.FC<ButtonProps> = ({ inline = false, children, ...props }) => (
-  <TouchableOpacity style={{ ...styles.button, ...(inline ? {} : styles.fullWidth) }} {...props}>
+export const Button: React.FC<ButtonProps> = ({ children, onPress }) => (
+  <TouchableOpacity style={{ ...styles.button }} onPress={onPress}>
     <Text style={{ ...styles.text }}>{children}</Text>
   </TouchableOpacity>
 );
 
 const styles = StyleSheet.create({
   button: {
-    alignItems: 'center',
+    flex: 0.47,
+    alignItems: 'flex-start',
     justifyContent: 'center',
     backgroundColor: COLORS.MAIN_MEDIUM,
-    borderRadius: BORDER_RADIUS,
+    borderTopLeftRadius: BORDER_RADIUS,
+    borderTopRightRadius: BORDER_RADIUS,
     height: 66,
     shadowOpacity: 25,
     shadowRadius: 14,
     shadowColor: COLORS.DARK,
     shadowOffset: { width: 4, height: 4 },
-    paddingHorizontal: 64,
+    paddingVertical: PADDING.BIG,
+    paddingHorizontal: PADDING.SMALLER,
   },
   text: {
-    ...FONT_STYLES.h2,
+    ...FONT_STYLES.h4,
     color: COLORS.LIGHT,
-    fontSize: 24,
-  },
-  fullWidth: {
-    width: '100%',
   },
 });
