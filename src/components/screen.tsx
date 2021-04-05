@@ -10,7 +10,7 @@ import {
 import { useFocusEffect } from '@react-navigation/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-import { COLORS, PADDING } from '../styles';
+import { COLORS, HEADER_HEIGHT, PADDING, UiIcon } from '../styles';
 import { NavHeader } from './nav-header';
 import { StatusBarContext, StatusBarStyles } from './status-bar';
 
@@ -18,6 +18,7 @@ export interface ScreenProps {
   title: string;
   green?: boolean;
   contentStyle?: object;
+  editable?: boolean;
   onPress?: (event: GestureResponderEvent) => void;
 }
 
@@ -26,6 +27,7 @@ export const Screen: React.FC<ScreenProps> = ({
   title,
   green,
   contentStyle = {},
+  editable = false,
   onPress,
 }) => {
   const setStatusBarStyle = useContext(StatusBarContext);
@@ -43,8 +45,11 @@ export const Screen: React.FC<ScreenProps> = ({
         <NavHeader {...(green ? { color: COLORS.LIGHT } : {})} onPress={onPress}>
           {title}
         </NavHeader>
+        {editable && <UiIcon name={'fi-rr-edit'} color={COLORS.LIGHT} size={24} />}
       </View>
-      <ScrollView style={{ ...styles.content, ...(contentStyle ?? {}) }}>{children}</ScrollView>
+      <View style={{ ...styles.content, ...contentStyle }}>
+        <ScrollView style={{ paddingHorizontal: PADDING.BIG }}>{children}</ScrollView>
+      </View>
     </KeyboardAwareScrollView>
   );
 };
@@ -57,16 +62,19 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   green: {
-    backgroundColor: COLORS.MAIN_MEDIUM,
+    backgroundColor: COLORS.MAIN_DARK,
   },
   top: {
-    height: 160,
-    justifyContent: 'center',
-    paddingHorizontal: PADDING.SMALL,
+    flexDirection: 'row',
+    height: HEADER_HEIGHT,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingLeft: PADDING.SMALL,
+    paddingRight: PADDING.BIG + 12,
   },
   content: {
     backgroundColor: COLORS.LIGHT,
     flex: 1,
-    paddingHorizontal: PADDING.BIG,
+    paddingVertical: PADDING.BIG,
   },
 });

@@ -218,7 +218,7 @@ export const AddPlantScreen: React.FC<AddPlantScreenProps> = ({ rooms }) => {
         return (
           <Screen
             title="New plant"
-            contentStyle={{ marginTop: 36, paddingHorizontal: PADDING.SMALL }}
+            contentStyle={{ marginTop: 12, paddingHorizontal: PADDING.SMALL }}
           >
             <CurrentState
               name={values.name! ?? initialValues.name}

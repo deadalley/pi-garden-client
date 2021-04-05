@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import { BORDER_RADIUS, BOX_SHADOW, COLORS, FONT_STYLES, FurnitureIcon } from '../styles';
 import { Room } from '../types';
@@ -10,21 +11,29 @@ export interface RoomCardProps {
   style?: object;
 }
 
-export const RoomCard: React.FC<RoomCardProps> = ({ room, style }) => (
-  <TouchableWithoutFeedback>
-    <View style={{ ...styles.wrapper, ...(style ?? {}) }}>
-      <View style={styles.sensors}>
-        {room.sensors.map((sensor) => (
-          <SensorStatus sensor={sensor} />
-        ))}
+export const RoomCard: React.FC<RoomCardProps> = ({ room, style }) => {
+  const navigation = useNavigation();
+
+  return (
+    <TouchableWithoutFeedback
+      onPress={() =>
+        navigation.navigate('HomeNavigator', { screen: 'RoomScreen', params: { room } })
+      }
+    >
+      <View style={{ ...styles.wrapper, ...(style ?? {}) }}>
+        <View style={styles.sensors}>
+          {room.sensors.map((sensor) => (
+            <SensorStatus sensor={sensor} />
+          ))}
+        </View>
+        <View style={styles.room}>
+          <FurnitureIcon name={room.avatar} color={COLORS.MAIN_DARKER} size={30} />
+          <Text style={styles.roomName}>{room.name}</Text>
+        </View>
       </View>
-      <View style={styles.room}>
-        <FurnitureIcon name={room.avatar} color={COLORS.MAIN_DARKER} size={30} />
-        <Text style={styles.roomName}>{room.name}</Text>
-      </View>
-    </View>
-  </TouchableWithoutFeedback>
-);
+    </TouchableWithoutFeedback>
+  );
+};
 
 const styles = StyleSheet.create({
   wrapper: {

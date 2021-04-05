@@ -35,3 +35,12 @@ export const WeatherIcon = createIconSetFromIcoMoon(
   'WeatherIcons',
   'weather-icons.ttf'
 );
+
+export const IconTypes = {
+  emoji: EmojiIcon,
+  furniture: FurnitureIcon,
+  nature: NatureIcon,
+  plant: PlantIcon,
+  ui: UiIcon,
+  weather: WeatherIcon,
+};

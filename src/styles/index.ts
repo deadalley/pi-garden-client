@@ -4,6 +4,8 @@ export * from './icons';
 
 export const BORDER_RADIUS = 18;
 
+export const HEADER_HEIGHT = 140;
+
 export const PADDING = {
   SMALLER: 16,
   SMALL: 20,

@@ -3,7 +3,7 @@ import { Image, Platform, StatusBar, StyleSheet, Text, View } from 'react-native
 import { useNavigation, useRoute } from '@react-navigation/native';
 import capitalize from 'lodash/capitalize';
 
-import { COLORS, FONT_STYLES, PADDING, UiIcon } from '../../styles';
+import { COLORS, FONT_STYLES, HEADER_HEIGHT, PADDING, UiIcon } from '../../styles';
 import { MoodIcon, Plant } from '../../types';
 import { NavHeader } from '../../components/nav-header';
 import { IconLabel } from '../../components/icon-label';
@@ -40,22 +40,28 @@ export const PlantScreen: React.FC<PlantScreenProps> = () => {
       </View>
       <View style={{ ...styles.bottom }}>
         <Image style={styles.image} source={image} />
-        <View style={styles.warning}>
-          <View style={styles.divider} />
-          <Text style={styles.warningText}>The soil is too dry for this plant!</Text>
-        </View>
-        <View style={styles.iconLabels}>
-          <IconLabel iconType={'furniture'} iconName={plant.room.avatar} label={plant.room.name} />
-          <IconLabel
-            iconType={'emoji'}
-            iconName={MoodIcon[plant.mood]}
-            label={capitalize(plant.mood)}
-          />
-          <IconLabel
-            iconType={'nature'}
-            iconName={'sprout-1'}
-            label={capitalize(formatAge(plant.plantedDate)!)}
-          />
+        <View>
+          <View style={styles.warning}>
+            <View style={styles.divider} />
+            <Text style={styles.warningText}>The soil is too dry for this plant!</Text>
+          </View>
+          <View style={styles.iconLabels}>
+            <IconLabel
+              iconType={'furniture'}
+              iconName={plant.room.avatar}
+              label={plant.room.name}
+            />
+            <IconLabel
+              iconType={'emoji'}
+              iconName={MoodIcon[plant.mood]}
+              label={capitalize(plant.mood)}
+            />
+            <IconLabel
+              iconType={'nature'}
+              iconName={'sprout-1'}
+              label={capitalize(formatAge(plant.plantedDate)!)}
+            />
+          </View>
         </View>
         <View style={styles.buttons}>
           <Button onPress={() => {}}>Statistics</Button>
@@ -75,7 +81,7 @@ const styles = StyleSheet.create({
   },
   top: {
     flexDirection: 'row',
-    height: 160,
+    height: HEADER_HEIGHT,
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingLeft: PADDING.SMALL,
@@ -83,6 +89,7 @@ const styles = StyleSheet.create({
   },
   bottom: {
     flex: 4,
+    justifyContent: 'space-between',
     backgroundColor: COLORS.LIGHT,
     padding: PADDING.SMALL,
     paddingBottom: 0,
@@ -116,6 +123,9 @@ const styles = StyleSheet.create({
   buttons: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginTop: 'auto',
+    flex: 1,
+    alignItems: 'flex-end',
   },
   content: {
     flex: 6,

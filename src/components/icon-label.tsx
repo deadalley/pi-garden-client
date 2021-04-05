@@ -1,25 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import {
-  COLORS,
-  FONT_STYLES,
-  EmojiIcon,
-  FurnitureIcon,
-  NatureIcon,
-  PlantIcon,
-  UiIcon,
-  WeatherIcon,
-} from '../styles';
-
-const IconTypes = {
-  emoji: EmojiIcon,
-  furniture: FurnitureIcon,
-  nature: NatureIcon,
-  plant: PlantIcon,
-  ui: UiIcon,
-  weather: WeatherIcon,
-};
+import { COLORS, FONT_STYLES, IconTypes } from '../styles';
 
 export interface IconLabelProps {
   label: string;

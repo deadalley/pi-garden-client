@@ -4,6 +4,73 @@ export const ROOM_MOCK_1 = {
   id: '546B',
   name: 'Bedroom',
   avatar: Avatar.bedroom,
+  plants: [
+    {
+      id: '123',
+      name: 'Strawberry',
+      mood: Mood.happy,
+      plantedDate: new Date('2020-01-01T00:00:00Z'),
+      specification: {
+        temperature: { start: 4, end: 90 },
+        humidity: { start: 4, end: 90 },
+        soil: { start: 4, end: 90 },
+        brightness: { start: 4, end: 90 },
+      },
+      hasNotification: true,
+    },
+    {
+      id: '123',
+      name: 'Strawberry',
+      mood: Mood.happy,
+      plantedDate: new Date('2020-01-01T00:00:00Z'),
+      specification: {
+        temperature: { start: 4, end: 90 },
+        humidity: { start: 4, end: 90 },
+        soil: { start: 4, end: 90 },
+        brightness: { start: 4, end: 90 },
+      },
+      hasNotification: true,
+    },
+    {
+      id: '123',
+      name: 'Strawberry',
+      mood: Mood.happy,
+      plantedDate: new Date('2020-01-01T00:00:00Z'),
+      specification: {
+        temperature: { start: 4, end: 90 },
+        humidity: { start: 4, end: 90 },
+        soil: { start: 4, end: 90 },
+        brightness: { start: 4, end: 90 },
+      },
+      hasNotification: true,
+    },
+    {
+      id: '123',
+      name: 'Strawberry',
+      mood: Mood.happy,
+      plantedDate: new Date('2020-01-01T00:00:00Z'),
+      specification: {
+        temperature: { start: 4, end: 90 },
+        humidity: { start: 4, end: 90 },
+        soil: { start: 4, end: 90 },
+        brightness: { start: 4, end: 90 },
+      },
+      hasNotification: true,
+    },
+    {
+      id: '123',
+      name: 'Strawberry',
+      mood: Mood.happy,
+      plantedDate: new Date('2020-01-01T00:00:00Z'),
+      specification: {
+        temperature: { start: 4, end: 90 },
+        humidity: { start: 4, end: 90 },
+        soil: { start: 4, end: 90 },
+        brightness: { start: 4, end: 90 },
+      },
+      hasNotification: true,
+    },
+  ],
   sensors: [
     {
       type: SensorType.temperature,
@@ -36,6 +103,21 @@ export const ROOM_MOCK_2 = {
   id: '5463B',
   name: 'Kitchen',
   avatar: Avatar.kitchen,
+  plants: [
+    {
+      id: '123',
+      name: 'Strawberry',
+      mood: Mood.happy,
+      plantedDate: new Date('2020-01-01T00:00:00Z'),
+      specification: {
+        temperature: { start: 4, end: 90 },
+        humidity: { start: 4, end: 90 },
+        soil: { start: 4, end: 90 },
+        brightness: { start: 4, end: 90 },
+      },
+      hasNotification: true,
+    },
+  ],
   sensors: [
     {
       type: SensorType.temperature,

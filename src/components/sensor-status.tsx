@@ -6,17 +6,19 @@ import { Sensor, SensorTypeIcon, StatusColorMap } from '../types';
 
 export interface StatusProps {
   status: keyof typeof StatusColorMap;
+  style?: object;
 }
 
 export interface SensorStatusProps {
   sensor: Sensor;
 }
 
-const Status: React.FC<StatusProps> = ({ status }) => (
+export const Status: React.FC<StatusProps> = ({ status, style = {} }) => (
   <View
     style={{
       ...styles.status,
       backgroundColor: COLORS[StatusColorMap[status] as keyof typeof COLORS],
+      ...style,
     }}
   />
 );
