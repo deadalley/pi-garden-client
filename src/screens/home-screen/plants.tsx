@@ -3,11 +3,7 @@ import { FlatList } from 'react-native';
 
 import { PlantCard } from '../../components/plant-card';
 import { PADDING } from '../../styles';
-import { Plant } from '../../types';
-
-interface PlantExtended extends Plant {
-  hasNotification?: boolean;
-}
+import { PlantExtended } from '../../types';
 
 export interface PlantsProps {
   plants: PlantExtended[];

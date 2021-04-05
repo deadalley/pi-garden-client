@@ -1,18 +1,20 @@
 import React, { useContext } from 'react';
 import { Platform, StatusBar, StyleSheet, Text, View } from 'react-native';
-import { useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
 
-import { NavHeader } from '../../components/nav-header';
-import { Plants } from './plants';
 import { COLORS, FONT_STYLES, PADDING } from '../../styles';
 import { ROOM_MOCK_1, ROOM_MOCK_2, PLANT_MOCK } from '../../mocks';
-import { Rooms } from './room';
+import { NavHeader } from '../../components/nav-header';
 import { StatusBarContext, StatusBarStyles } from '../../components/status-bar';
+import { Plants } from './plants';
+import { Rooms } from './room';
 
 export interface SectionProps {
   title: string;
   color?: string;
+  navScreen: string;
+  navParams: object;
 }
 
 const HomeScreenLayout: React.FC = ({ children }) => (
@@ -34,18 +36,23 @@ const HomeScreenLayout: React.FC = ({ children }) => (
   </View>
 );
 
-const Section: React.FC<SectionProps> = ({ title, color, children }) => (
-  <View>
-    <NavHeader
-      position="right"
-      color={color}
-      style={{ paddingRight: PADDING.BIGGER, paddingLeft: PADDING.SMALL }}
-    >
-      {title}
-    </NavHeader>
-    <View style={styles.sectionContent}>{children}</View>
-  </View>
-);
+const Section: React.FC<SectionProps> = ({ title, color, children, navScreen, navParams }) => {
+  const navigation = useNavigation();
+
+  return (
+    <View>
+      <NavHeader
+        position="right"
+        color={color}
+        style={{ paddingRight: PADDING.BIGGER, paddingLeft: PADDING.SMALL }}
+        onPress={() => navigation.navigate(navScreen, navParams)}
+      >
+        {title}
+      </NavHeader>
+      <View style={styles.sectionContent}>{children}</View>
+    </View>
+  );
+};
 
 export const HomeScreen: React.FC = () => {
   const setStatusBarStyle = useContext(StatusBarContext);
@@ -53,10 +60,20 @@ export const HomeScreen: React.FC = () => {
 
   return (
     <HomeScreenLayout>
-      <Section title="My Garden" color={COLORS.LIGHT}>
+      <Section
+        title="My Garden"
+        color={COLORS.LIGHT}
+        navScreen="HomeNavigator"
+        navParams={{ screen: 'GardenScreen' }}
+      >
         <Plants plants={[PLANT_MOCK as any, PLANT_MOCK, PLANT_MOCK, PLANT_MOCK, PLANT_MOCK]} />
       </Section>
-      <Section title="Rooms" color={COLORS.MAIN_DARKER}>
+      <Section
+        title="Rooms"
+        color={COLORS.MAIN_DARKER}
+        navScreen="HomeNavigator"
+        navParams={{ screen: 'GardenScreen' }}
+      >
         <Rooms rooms={[ROOM_MOCK_1 as any, ROOM_MOCK_2, ROOM_MOCK_1, ROOM_MOCK_2]} />
       </Section>
     </HomeScreenLayout>

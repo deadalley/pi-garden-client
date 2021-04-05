@@ -47,9 +47,14 @@ export const Screen: React.FC<ScreenProps> = ({
         </NavHeader>
         {editable && <UiIcon name={'fi-rr-edit'} color={COLORS.LIGHT} size={24} />}
       </View>
-      <View style={{ ...styles.content, ...contentStyle }}>
-        <ScrollView style={{ paddingHorizontal: PADDING.BIG }}>{children}</ScrollView>
-      </View>
+      <ScrollView
+        style={{
+          ...styles.content,
+          ...contentStyle,
+        }}
+      >
+        {children}
+      </ScrollView>
     </KeyboardAwareScrollView>
   );
 };
@@ -75,6 +80,6 @@ const styles = StyleSheet.create({
   content: {
     backgroundColor: COLORS.LIGHT,
     flex: 1,
-    paddingVertical: PADDING.BIG,
+    padding: PADDING.BIG,
   },
 });

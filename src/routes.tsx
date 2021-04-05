@@ -11,6 +11,7 @@ import { SettingsScreen } from './screens/settings-screen';
 import { AddPlantScreen } from './screens/add-plant-screen';
 import { PlantScreen } from './screens/plant-screen';
 import { RoomScreen } from './screens/room-screen';
+import { GardenScreen } from './screens/garden-screen';
 
 import { AddButton } from './components/add-button';
 
@@ -29,6 +30,7 @@ const HomeStack = createStackNavigator();
 
 const HomeNavigator = () => (
   <HomeStack.Navigator initialRouteName="Home" headerMode="none">
+    <HomeStack.Screen name="GardeScreen" component={GardenScreen} />
     <HomeStack.Screen name="PlantScreen" component={PlantScreen} />
     <HomeStack.Screen name="RoomScreen" component={RoomScreen} />
   </HomeStack.Navigator>

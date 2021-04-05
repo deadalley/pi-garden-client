@@ -69,6 +69,10 @@ export interface Plant {
   specification: PlantSpecification;
 }
 
+export interface PlantExtended extends Plant {
+  hasNotification?: boolean;
+}
+
 export interface PlantSpecification {
   temperature: { start: number; end: number };
   humidity: { start: number; end: number };
