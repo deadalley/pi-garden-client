@@ -16,6 +16,7 @@ import { StatusBarContext, StatusBarStyles } from './status-bar';
 
 export interface ScreenProps {
   title: string;
+  subTitle?: string;
   green?: boolean;
   contentStyle?: object;
   editable?: boolean;
@@ -25,6 +26,7 @@ export interface ScreenProps {
 export const Screen: React.FC<ScreenProps> = ({
   children,
   title,
+  subTitle,
   green,
   contentStyle = {},
   editable = false,
@@ -42,7 +44,11 @@ export const Screen: React.FC<ScreenProps> = ({
       enableAutomaticScroll
     >
       <View style={{ ...styles.top, ...(green ? styles.green : {}) }}>
-        <NavHeader {...(green ? { color: COLORS.LIGHT } : {})} onPress={onPress}>
+        <NavHeader
+          {...(green ? { color: COLORS.LIGHT } : {})}
+          onPress={onPress}
+          subLabel={subTitle}
+        >
           {title}
         </NavHeader>
         {editable && <UiIcon name={'fi-rr-edit'} color={COLORS.LIGHT} size={24} />}

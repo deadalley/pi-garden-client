@@ -13,3 +13,9 @@ export const formatAge = (date: Date) => {
 
   throw new Error("Can't calculate age of plant");
 };
+
+export const formatTime = (date: Date) =>
+  DateTime.fromJSDate(date).toLocaleString(DateTime.TIME_24_SIMPLE);
+
+export const formatHour = (date: Date, withUnit: boolean = false) =>
+  `${DateTime.fromJSDate(date).toUTC().hour}${withUnit ? 'h' : ''}`;
