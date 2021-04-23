@@ -19,7 +19,11 @@ export const NotificationsScreen: React.FC = () => {
     NOTIFICATION,
   ];
   return (
-    <Screen title="Notifications" contentStyle={{ paddingTop: 0, paddingRight: 0 }}>
+    <Screen
+      title="Notifications"
+      contentStyle={{ paddingTop: 0, paddingRight: 0 }}
+      withBottomPadFix={false}
+    >
       <FlatList
         data={notifications}
         keyExtractor={(item) => item.timestamp.toISOString()}

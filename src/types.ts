@@ -47,6 +47,7 @@ export const StatusColorMap = {
 };
 
 export interface Sensor {
+  id: string;
   type: SensorType;
   status: SensorStatus;
   unit: string;

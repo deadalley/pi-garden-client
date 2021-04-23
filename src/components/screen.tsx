@@ -20,6 +20,7 @@ export interface ScreenProps {
   green?: boolean;
   contentStyle?: object;
   editable?: boolean;
+  withBottomPadFix?: boolean;
   onPress?: (event: GestureResponderEvent) => void;
 }
 
@@ -30,6 +31,7 @@ export const Screen: React.FC<ScreenProps> = ({
   green,
   contentStyle = {},
   editable = false,
+  withBottomPadFix = true,
   onPress,
 }) => {
   const setStatusBarStyle = useContext(StatusBarContext);
@@ -54,6 +56,7 @@ export const Screen: React.FC<ScreenProps> = ({
         {editable && <UiIcon name={'fi-rr-edit'} color={COLORS.LIGHT} size={24} />}
       </View>
       <ScrollView
+        contentContainerStyle={withBottomPadFix ? { paddingBottom: PADDING.SMALL * 2 } : {}}
         style={{
           ...styles.content,
           ...contentStyle,
@@ -81,9 +84,8 @@ const styles = StyleSheet.create({
     paddingRight: PADDING.BIG + 12, // TODO: fix
   },
   content: {
-    backgroundColor: COLORS.LIGHT,
-    flex: 1,
     padding: PADDING.SMALL,
+    flex: 1,
   },
   green: {
     backgroundColor: COLORS.MAIN_DARK,

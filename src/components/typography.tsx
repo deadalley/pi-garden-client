@@ -1,11 +1,17 @@
 import React from 'react';
 import { Text } from 'react-native';
 
-import { COLORS, FONT_STYLES, PADDING } from '../styles';
+import { COLORS, PADDING } from '../styles';
 
-export const Bold: React.FC = ({ children }) => (
+export const Bold: React.FC<{ style?: object }> = ({ children, style = {} }) => (
   <Text
-    style={{ ...FONT_STYLES.h4, color: COLORS.MAIN_DARK, paddingHorizontal: PADDING.SMALLER - 2 }}
+    style={{
+      fontFamily: 'Poppins_600SemiBold',
+      fontWeight: '600',
+      color: COLORS.MAIN_DARK,
+      paddingHorizontal: PADDING.SMALLER - 2,
+      ...style,
+    }}
   >
     {children}
   </Text>

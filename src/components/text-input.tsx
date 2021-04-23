@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
   },
   label: {
     ...FONT_STYLES.text,
-    color: COLORS.MAIN_MEDIUM,
+    color: COLORS.MAIN_DARK,
     paddingHorizontal: PADDING.SMALLER,
     lineHeight: 18,
   },

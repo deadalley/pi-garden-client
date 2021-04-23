@@ -14,6 +14,7 @@ import { PlantScreen } from './screens/plant-screen';
 import { RoomScreen } from './screens/room-screen';
 import { GardenScreen } from './screens/garden-screen';
 import { PlantStatisticsScreen } from './screens/plant-statistics-screen';
+import { PlantSettingsScreen } from './screens/plant-settings-screen';
 
 import { AddButton } from './components/add-button';
 
@@ -36,6 +37,7 @@ const HomeNavigator = () => (
     <HomeStack.Screen name="RoomScreen" component={RoomScreen} />
     <HomeStack.Screen name="NotificationsScreen" component={NotificationsScreen} />
     <HomeStack.Screen name="PlantStatisticsScreen" component={PlantStatisticsScreen} />
+    <HomeStack.Screen name="PlantSettingsScreen" component={PlantSettingsScreen} />
   </HomeStack.Navigator>
 );
 

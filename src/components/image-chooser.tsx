@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import {
+  Image,
+  ImageSourcePropType,
   Modal,
   StyleSheet,
   Text,
@@ -7,62 +9,55 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import { iconList } from 'react-icomoon';
 import { FlatGrid } from 'react-native-super-grid';
 
-import furnitureIconSet from '../../assets/fonts/furniture-icons.json';
+import plant01 from '../../assets/images/plants/plant01.png';
+import plant02 from '../../assets/images/plants/plant02.png';
+import plant03 from '../../assets/images/plants/plant03.png';
+import plant04 from '../../assets/images/plants/plant04.png';
 
-const IconSets = {
-  furniture: furnitureIconSet,
+const ImageSets = {
+  plants: [plant01, plant02, plant03, plant04],
 };
 
-import {
-  BORDER_RADIUS,
-  BOX_SHADOW,
-  COLORS,
-  FONT_STYLES,
-  IconTypes,
-  PADDING,
-  UiIcon,
-} from '../styles';
-import { Avatar } from '../types';
+import { BORDER_RADIUS, BOX_SHADOW, COLORS, FONT_STYLES, PADDING, UiIcon } from '../styles';
 
-export interface AvatarTileProps {
-  Icon: React.ElementType;
-  icon: Avatar;
-  setIcon: (value: Avatar) => void;
+export interface ImageTileProps {
+  imageUrl: ImageSourcePropType;
+  imageIndex: number;
+  setAvatar: (index: number) => void;
 }
 
-export interface AvatarChooserProps {
-  iconType: keyof typeof IconTypes;
-  icon: Avatar;
-  setIcon: (value: Avatar) => void;
+export interface ImageChooserProps {
+  imageSet: keyof typeof ImageSets;
+  imageIndex: number;
+  setAvatar: (index: number) => void;
 }
 
-const AvatarTile: React.FC<AvatarTileProps> = ({ Icon, icon, setIcon }) => {
+const ImageTile: React.FC<ImageTileProps> = ({ imageUrl, imageIndex, setAvatar }) => {
   return (
-    <TouchableWithoutFeedback onPress={() => setIcon(icon)}>
-      <View style={styles.avatarTile}>
-        <Icon name={icon} color={COLORS.MAIN_DARK} size={40} />
+    <TouchableWithoutFeedback onPress={() => setAvatar(imageIndex)}>
+      <View style={styles.imageTile}>
+        <Image style={styles.image} source={imageUrl} />
       </View>
     </TouchableWithoutFeedback>
   );
 };
 
-export const AvatarChooser: React.FC<AvatarChooserProps> = ({ iconType, icon, setIcon }) => {
+export const ImageChooser: React.FC<ImageChooserProps> = ({ imageSet, imageIndex, setAvatar }) => {
   const [modalVisible, setModalVisible] = useState(false);
-  const Icon = IconTypes[iconType];
+  const imageUrl = ImageSets[imageSet][imageIndex];
 
-  const availableIcons = iconList(IconSets[iconType as keyof typeof IconSets]);
+  const availableImages = ImageSets[imageSet];
 
   return (
     <View style={styles.wrapper}>
       <TouchableWithoutFeedback onPress={() => setModalVisible(true)}>
-        <View style={styles.avatarWrapper}>
-          <Icon name={icon} color={COLORS.MAIN_DARK} size={60} />
+        <View style={styles.imageWrapper}>
+          <Image style={styles.image} source={imageUrl} />
         </View>
       </TouchableWithoutFeedback>
-      <Text style={styles.text}>Choose a new avatar</Text>
+      <Text style={styles.text}>Choose a new image</Text>
       <Modal
         animationType="none"
         transparent
@@ -77,15 +72,15 @@ export const AvatarChooser: React.FC<AvatarChooserProps> = ({ iconType, icon, se
               </TouchableOpacity>
             </View>
             <FlatGrid
-              data={availableIcons}
+              data={availableImages}
               itemDimension={80}
               spacing={20}
-              renderItem={({ item }) => (
-                <AvatarTile
-                  Icon={Icon}
-                  icon={item}
-                  setIcon={(icon) => {
-                    setIcon(icon);
+              renderItem={({ item, index }) => (
+                <ImageTile
+                  imageIndex={index}
+                  imageUrl={item}
+                  setAvatar={(icon) => {
+                    setAvatar(icon);
                     setModalVisible(false);
                   }}
                 />
@@ -104,7 +99,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: PADDING.SMALL,
   },
-  avatarWrapper: {
+  imageWrapper: {
     backgroundColor: COLORS.MAIN_LIGHTER,
     justifyContent: 'center',
     alignItems: 'center',
@@ -117,7 +112,7 @@ const styles = StyleSheet.create({
     color: COLORS.MAIN_DARK,
     marginTop: PADDING.SMALL,
   },
-  avatarTile: {
+  imageTile: {
     backgroundColor: COLORS.MAIN_LIGHTER,
     justifyContent: 'center',
     alignItems: 'center',
@@ -130,7 +125,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-
   scroll: {
     ...BOX_SHADOW,
     backgroundColor: COLORS.LIGHT,
@@ -140,5 +134,9 @@ const styles = StyleSheet.create({
   modalHeader: {
     alignItems: 'flex-end',
     padding: PADDING.SMALLER,
+  },
+  image: {
+    flex: 0.8,
+    resizeMode: 'center',
   },
 });

@@ -1,12 +1,12 @@
 import React from 'react';
 
 import { Bold } from '../../components/typography';
-import { Plant, PlantSpecification, Room, SensorName, SensorType } from '../../types';
+import { Room, SensorName } from '../../types';
 
 export const renderSensors = (room: Room) =>
-  room.sensors.map(({ name }, index) => (
+  room.sensors.map(({ type }, index) => (
     <>
-      <Bold>{name}</Bold>
+      <Bold>{SensorName[type]}</Bold>
       {index === room.sensors.length - 2 ? ' and ' : index < room.sensors.length - 1 ? ', ' : ''}
     </>
   ));

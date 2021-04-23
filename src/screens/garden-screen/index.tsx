@@ -18,7 +18,11 @@ export const GardenScreen: React.FC = () => {
     PLANT_MOCK,
   ];
   return (
-    <Screen title={'My Garden'} contentStyle={{ paddingTop: 0, paddingRight: 0 }}>
+    <Screen
+      title={'My Garden'}
+      contentStyle={{ paddingTop: 0, paddingRight: 0 }}
+      withBottomPadFix={false}
+    >
       <FlatList
         data={plants}
         keyExtractor={(item) => item.id}

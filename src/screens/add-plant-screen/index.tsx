@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 
@@ -9,22 +9,16 @@ import { PickerInput } from '../../components/picker-input';
 import { Screen } from '../../components/screen';
 import { TextInput } from '../../components/text-input';
 import { ThresholdInput } from '../../components/threshold-input';
+import { Navigation } from '../../components/navigation';
+
 import { ROOM_MOCK_1, ROOM_MOCK_2 } from '../../mocks';
-import { COLORS, FONT_STYLES, PADDING, UiIcon } from '../../styles';
+import { COLORS, FONT_STYLES, PADDING } from '../../styles';
 import { Plant, PlantSpecification, Room, SensorName, SensorType } from '../../types';
 import { random } from '../../utils/number';
 import { renderSensors } from './utils';
-import { Navigation } from '../../components/navigation';
 
 export interface AddPlantScreenProps {
   rooms: Room[];
-}
-
-interface NewPlant {
-  name?: string;
-  room?: Room;
-  plantedDate?: Date;
-  specification?: { [key in keyof PlantSpecification]?: { start?: number; end?: number } };
 }
 
 interface StateProps {
@@ -140,31 +134,29 @@ export const AddPlantScreen: React.FC<AddPlantScreenProps> = ({ rooms }) => {
 
   return (
     <Formik
-      initialValues={
-        {
-          name: commonPlantTypes[random(0, commonPlantTypes.length - 1)],
-          room: _rooms[0],
-          plantedDate: new Date(),
-          specification: {
-            temperature: {
-              start: 12,
-              end: 35,
-            },
-            humidity: {
-              start: 0,
-              end: 100,
-            },
-            soil: {
-              start: 0,
-              end: 100,
-            },
-            brightness: {
-              start: 0,
-              end: 100,
-            },
+      initialValues={{
+        name: commonPlantTypes[random(0, commonPlantTypes.length - 1)],
+        room: _rooms[0],
+        plantedDate: new Date(),
+        specification: {
+          temperature: {
+            start: 12,
+            end: 35,
           },
-        } as NewPlant
-      }
+          humidity: {
+            start: 0,
+            end: 100,
+          },
+          soil: {
+            start: 0,
+            end: 100,
+          },
+          brightness: {
+            start: 0,
+            end: 100,
+          },
+        },
+      }}
       validationSchema={validationSchema}
       onSubmit={(values) => {
         console.log('Submitting...', values);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Platform, StatusBar, StyleSheet, Text, View } from 'react-native';
+import { Image, Platform, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import capitalize from 'lodash/capitalize';
 
@@ -32,7 +32,16 @@ export const PlantScreen: React.FC<PlantScreenProps> = () => {
         >
           {plant.name}
         </NavHeader>
-        <UiIcon name={'fi-rr-edit'} color={COLORS.LIGHT} size={24} />
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('HomeNavigator', {
+              screen: 'PlantSettingsScreen',
+              params: { plant },
+            })
+          }
+        >
+          <UiIcon name={'fi-rr-edit'} color={COLORS.LIGHT} size={24} />
+        </TouchableOpacity>
       </View>
       <View style={styles.content}>
         {plant.room.sensors.map((sensor) => (

@@ -5,10 +5,15 @@ import { BORDER_RADIUS, COLORS, FONT_STYLES } from '../styles';
 
 export interface ButtonProps {
   inline?: boolean;
+  onPress: () => void;
 }
 
-export const Button: React.FC<ButtonProps> = ({ inline = false, children, ...props }) => (
-  <TouchableOpacity style={{ ...styles.button, ...(inline ? {} : styles.fullWidth) }} {...props}>
+export const Button: React.FC<ButtonProps> = ({ inline = false, children, onPress, ...props }) => (
+  <TouchableOpacity
+    onPress={onPress}
+    style={{ ...styles.button, ...(inline ? {} : styles.fullWidth) }}
+    {...props}
+  >
     <Text style={{ ...styles.text }}>{children}</Text>
   </TouchableOpacity>
 );
