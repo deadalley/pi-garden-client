@@ -26,7 +26,10 @@ export const AddButton: React.FC = () => {
 
   return (
     <>
-      <TouchableWithoutFeedback onPress={() => setModalVisible(!modalVisible)}>
+      <TouchableWithoutFeedback
+        style={{ backgroundColor: 'red' }}
+        onPress={() => setModalVisible(!modalVisible)}
+      >
         <View style={styles.outerButton}>
           <LinearGradient
             start={{ x: 1, y: 0.46 }}
@@ -117,6 +120,7 @@ const styles = StyleSheet.create({
     ...BOX_SHADOW,
   },
   outerButton: {
+    backgroundColor: 'rgba(255,255,255,0.2)',
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',

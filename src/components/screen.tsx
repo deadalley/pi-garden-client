@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
   content: {
     backgroundColor: COLORS.LIGHT,
     flex: 1,
-    padding: PADDING.BIG,
+    padding: PADDING.SMALL,
   },
   green: {
     backgroundColor: COLORS.MAIN_DARK,

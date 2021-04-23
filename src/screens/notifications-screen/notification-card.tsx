@@ -1,5 +1,6 @@
 import React from 'react';
 import { Image, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import { formatDate } from '../../utils/date';
 import { BORDER_RADIUS, COLORS, FONT_STYLES, PADDING, BOX_SHADOW } from '../../styles';
@@ -14,26 +15,34 @@ export const NotificationCard: React.FC<Notification> = ({
   sensor,
   value,
 }) => {
+  const navigation = useNavigation();
+
   return (
-    <View style={styles.wrapper}>
-      <View style={styles.imageWrapper}>
-        <Image style={styles.image} source={image} />
-      </View>
-      <View style={styles.info}>
-        <View style={styles.nameWrapper}>
-          <Text style={styles.text}>{plant.name}</Text>
-          <Text style={styles.text}>{formatDate(timestamp)}</Text>
+    <TouchableWithoutFeedback
+      onPress={() =>
+        navigation.navigate('HomeNavigator', { screen: 'PlantScreen', params: { plant } })
+      }
+    >
+      <View style={styles.wrapper}>
+        <View style={styles.imageWrapper}>
+          <Image style={styles.image} source={image} />
         </View>
-        <Text style={{ ...styles.bold, marginBottom: PADDING.SMALLER / 2 }}>{text}</Text>
-        <Text style={styles.text}>
-          {SensorName[sensor.type]}:{' '}
-          <Text style={{ ...styles.bold, fontSize: 14 }}>
-            {value}
-            {sensor.unit}
+        <View style={styles.info}>
+          <View style={styles.nameWrapper}>
+            <Text style={styles.text}>{plant.name}</Text>
+            <Text style={styles.text}>{formatDate(timestamp)}</Text>
+          </View>
+          <Text style={{ ...styles.bold, marginBottom: PADDING.SMALLER / 2 }}>{text}</Text>
+          <Text style={styles.text}>
+            {SensorName[sensor.type]}:{' '}
+            <Text style={{ ...styles.bold, fontSize: 14 }}>
+              {value}
+              {sensor.unit}
+            </Text>
           </Text>
-        </Text>
+        </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 
