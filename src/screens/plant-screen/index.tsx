@@ -3,12 +3,13 @@ import { Image, Platform, StatusBar, StyleSheet, Text, View } from 'react-native
 import { useNavigation, useRoute } from '@react-navigation/native';
 import capitalize from 'lodash/capitalize';
 
-import { COLORS, FONT_STYLES, HEADER_HEIGHT, PADDING, UiIcon } from '../../styles';
-import { MoodIcon, Plant } from '../../types';
+import { MoodIcon, PlantExtended } from '../../types';
 import { NavHeader } from '../../components/nav-header';
 import { IconLabel } from '../../components/icon-label';
 import { SensorValue } from './sensor-value';
 import { Button } from './button';
+
+import { COLORS, FONT_STYLES, HEADER_HEIGHT, PADDING, UiIcon } from '../../styles';
 import { formatAge } from '../../utils/date';
 
 import image from '../../../assets/images/plants/plant01.png';
@@ -19,7 +20,7 @@ export const PlantScreen: React.FC<PlantScreenProps> = () => {
   const navigation = useNavigation();
   const route = useRoute();
 
-  const { plant } = route.params as { plant: Plant };
+  const { plant } = route.params as { plant: PlantExtended };
 
   return (
     <View style={{ ...styles.wrapper }}>
@@ -75,6 +76,7 @@ export const PlantScreen: React.FC<PlantScreenProps> = () => {
             Statistics
           </Button>
           <Button
+            hasNotification={plant.hasNotification}
             onPress={() => navigation.navigate('HomeNavigator', { screen: 'NotificationsScreen' })}
           >
             Notifications

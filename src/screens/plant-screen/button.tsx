@@ -1,14 +1,18 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
+import { NotificationBadge } from '../../components/notification-badge';
+
 import { BORDER_RADIUS, COLORS, FONT_STYLES, PADDING } from '../../styles';
 
 export interface ButtonProps {
   onPress: () => void;
+  hasNotification?: boolean;
 }
 
-export const Button: React.FC<ButtonProps> = ({ children, onPress }) => (
+export const Button: React.FC<ButtonProps> = ({ children, hasNotification, onPress }) => (
   <TouchableOpacity style={{ ...styles.button }} onPress={onPress}>
+    {hasNotification && <NotificationBadge style={{ right: 12, top: 20 }} />}
     <Text style={{ ...styles.text }}>{children}</Text>
   </TouchableOpacity>
 );
