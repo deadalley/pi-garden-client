@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 export * from './icons';
+export * from './images';
 
 export const BORDER_RADIUS = 18;
 

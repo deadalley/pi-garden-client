@@ -3,6 +3,12 @@ import { useRoute } from '@react-navigation/native';
 
 import { List } from '../../components/list';
 import { Screen } from '../../components/screen';
+import {
+  AddPlantAction,
+  AddSensorAction,
+  FloatingActionButton,
+} from '../../components/floating-action-button';
+
 import { Room, SensorName, SensorStatus, SensorTypeIcon } from '../../types';
 
 export const RoomScreen: React.FC = () => {
@@ -11,26 +17,29 @@ export const RoomScreen: React.FC = () => {
   const { room } = route.params as { room: Room };
 
   return (
-    <Screen green editable title={room.name}>
-      <List
-        title={'Sensors'}
-        items={room.sensors.map((sensor) => ({
-          label: SensorName[sensor.type],
-          smallLabel: '123',
-          iconName: SensorTypeIcon[sensor.type],
-          iconType: 'weather',
-          status: SensorStatus.online,
-        }))}
-      />
-      <List
-        title={'Plants'}
-        items={room.plants.map((plant) => ({
-          label: plant.name,
-          smallLabel: "I'm happy!",
-          iconName: 'anthurium',
-          iconType: 'plant',
-        }))}
-      />
-    </Screen>
+    <>
+      <Screen green editable title={room.name}>
+        <List
+          title={'Sensors'}
+          items={room.sensors.map((sensor) => ({
+            label: SensorName[sensor.type],
+            smallLabel: '123',
+            iconName: SensorTypeIcon[sensor.type],
+            iconType: 'weather',
+            status: SensorStatus.online,
+          }))}
+        />
+        <List
+          title={'Plants'}
+          items={room.plants.map((plant) => ({
+            label: plant.name,
+            smallLabel: "I'm happy!",
+            imageSet: 'plants',
+            imageIndex: 0,
+          }))}
+        />
+      </Screen>
+      <FloatingActionButton actions={[AddPlantAction, AddSensorAction]} />
+    </>
   );
 };

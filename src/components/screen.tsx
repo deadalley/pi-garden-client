@@ -84,6 +84,7 @@ const styles = StyleSheet.create({
     paddingRight: PADDING.BIG + 12, // TODO: fix
   },
   content: {
+    backgroundColor: COLORS.LIGHT,
     padding: PADDING.SMALL,
     flex: 1,
   },

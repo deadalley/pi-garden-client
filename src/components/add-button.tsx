@@ -56,7 +56,7 @@ export const AddButton: React.FC = () => {
             }}
           />
           <LinearGradient colors={['#2C6975', '#1E4951']} style={styles.button}>
-            <UiIcon name="fi-rr-plus" size={30} color={COLORS.LIGHT} />
+            <UiIcon name="fi-rr-plus-small" size={52} color={COLORS.LIGHT} />
           </LinearGradient>
         </View>
       </TouchableWithoutFeedback>

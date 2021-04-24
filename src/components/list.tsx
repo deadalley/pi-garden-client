@@ -1,15 +1,17 @@
 import React from 'react';
-import { FlatList, Text, TouchableOpacity, StyleSheet, View } from 'react-native';
+import { FlatList, Image, Text, TouchableOpacity, StyleSheet, View } from 'react-native';
 
 import { SensorStatus } from '../types';
-import { COLORS, FONT_STYLES, IconTypes, PADDING, UiIcon } from '../styles';
+import { COLORS, FONT_STYLES, IconTypes, PADDING, UiIcon, ImageSets } from '../styles';
 import { Status } from './sensor-status';
 
 type Item = {
   label: string;
   smallLabel?: string;
-  iconName: string;
-  iconType: keyof typeof IconTypes;
+  iconName?: string;
+  iconType?: keyof typeof IconTypes;
+  imageSet?: keyof typeof ImageSets;
+  imageIndex?: number;
   href?: string;
   status?: SensorStatus;
 };
@@ -24,13 +26,23 @@ export interface ListProps {
 }
 
 export const ListItem: React.FC<Item> = (props) => {
-  const { label, smallLabel, iconName, iconType, status, href } = props;
-  const Icon = IconTypes[iconType];
+  const { label, smallLabel, iconName, iconType, status, imageSet, imageIndex, href } = props;
+
+  let Element;
+  if (iconName && iconType) {
+    const Icon = IconTypes[iconType];
+    Element = () => <Icon name={iconName} color={COLORS.MAIN_DARK} size={36} />;
+  } else if (imageSet && imageIndex !== undefined) {
+    const imageUrl = ImageSets[imageSet][imageIndex];
+    Element = () => <Image style={styles.image} source={imageUrl} />;
+  }
+
+  if (!Element) return null;
 
   return (
     <TouchableOpacity style={styles.itemWrapper}>
       <View style={styles.alignLeft}>
-        <Icon name={iconName} color={COLORS.MAIN_DARK} size={36} />
+        <Element />
         <View style={styles.labels}>
           <Text style={styles.label}>{label}</Text>
           <Text style={styles.smallLabel}>{smallLabel}</Text>
@@ -88,5 +100,10 @@ const styles = StyleSheet.create({
   alignLeft: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  image: {
+    width: 36,
+    height: 50,
+    resizeMode: 'center',
   },
 });
