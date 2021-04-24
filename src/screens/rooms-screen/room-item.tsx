@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
+import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import { SensorIcon } from '../../components/sensor-icon';
@@ -11,25 +11,23 @@ import {
   PADDING,
   UiIcon,
   BOX_SHADOW,
-  EmojiIcon,
+  FurnitureIcon,
 } from '../../styles';
-import { MoodIcon, PlantExtended, SensorTypeIcon } from '../../types';
+import { Room, SensorType, SensorTypeIcon } from '../../types';
 
-import image from '../../../assets/images/plants/plant01.png';
-
-export const PlantItem: React.FC<PlantExtended> = (props) => {
-  const { name, room, mood, hasNotification } = props;
+export const RoomItem: React.FC<Room> = (props) => {
+  const { name, avatar, sensors } = props;
   const navigation = useNavigation();
 
   return (
     <TouchableWithoutFeedback
       onPress={() =>
-        navigation.navigate('HomeNavigator', { screen: 'PlantScreen', params: { plant: props } })
+        navigation.navigate('HomeNavigator', { screen: 'RoomScreen', params: { room: props } })
       }
     >
       <View style={styles.wrapper}>
         <View style={styles.imageWrapper}>
-          <Image style={styles.image} source={image} />
+          <FurnitureIcon name={avatar} color={COLORS.LIGHT} size={60} />
         </View>
         <View style={styles.info}>
           <View style={styles.nameWrapper}>
@@ -45,13 +43,15 @@ export const PlantItem: React.FC<PlantExtended> = (props) => {
           </View>
           <View style={{ paddingRight: PADDING.SMALL }}>
             <View style={styles.sensors}>
-              {room.sensors.map((sensor) => (
-                <SensorIcon value={'56%'} iconName={SensorTypeIcon[sensor.type]} />
-              ))}
-            </View>
-            <View style={styles.moodWrapper}>
-              <EmojiIcon name={MoodIcon[mood]} color={COLORS.LIGHT} size={20} />
-              <Text style={styles.mood}>I'm happy!</Text>
+              {sensors
+                .filter((sensor) => sensor.type !== SensorType.soil)
+                .map((sensor) => (
+                  <SensorIcon
+                    value={'56%'}
+                    iconName={SensorTypeIcon[sensor.type]}
+                    style={{ marginRight: PADDING.SMALL }}
+                  />
+                ))}
             </View>
           </View>
         </View>
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
   name: { ...FONT_STYLES.h3, color: COLORS.LIGHT },
   sensors: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     marginBottom: PADDING.SMALLER / 2,
   },
   moodWrapper: {

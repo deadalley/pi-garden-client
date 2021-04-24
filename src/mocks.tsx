@@ -1,6 +1,15 @@
-import { Mood, Avatar, SensorType, SensorStatus, SensorName } from './types';
+import {
+  Mood,
+  Avatar,
+  SensorType,
+  SensorStatus,
+  SensorName,
+  Room,
+  PlantExtended,
+  Notification,
+} from './types';
 
-export const ROOM_MOCK_1 = {
+export const ROOM_MOCK_1: Room = {
   id: '546B',
   name: 'Bedroom',
   avatar: Avatar.bedroom,
@@ -99,7 +108,7 @@ export const ROOM_MOCK_1 = {
   ],
 };
 
-export const ROOM_MOCK_2 = {
+export const ROOM_MOCK_2: Room = {
   id: '5463B',
   name: 'Kitchen',
   avatar: Avatar.kitchen,
@@ -134,7 +143,7 @@ export const ROOM_MOCK_2 = {
   ],
 };
 
-export const PLANT_MOCK = {
+export const PLANT_MOCK: PlantExtended = {
   id: '123',
   name: 'Strawberry',
   mood: Mood.happy,
@@ -149,7 +158,7 @@ export const PLANT_MOCK = {
   hasNotification: true,
 };
 
-export const NOTIFICATION = {
+export const NOTIFICATION: Notification = {
   timestamp: new Date(),
   plant: PLANT_MOCK,
   text: "I'm cold!",

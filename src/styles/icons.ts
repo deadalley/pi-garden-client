@@ -38,7 +38,7 @@ export const WeatherIcon = createIconSetFromIcoMoon(
 
 export const IconTypes = {
   emoji: EmojiIcon,
-  furnplaiture: FurnitureIcon,
+  furniture: FurnitureIcon,
   nature: NatureIcon,
   plant: PlantIcon,
   ui: UiIcon,

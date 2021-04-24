@@ -23,6 +23,13 @@ export const AddPlantAction: Action = {
   navigate: (navigation) => navigation.navigate('AddPlant'),
 };
 
+export const AddRoomAction: Action = {
+  label: 'Room',
+  iconType: 'furniture',
+  iconName: 'dinning-table',
+  navigate: (navigation) => navigation.navigate('AddRoom'),
+};
+
 export const AddSensorAction: Action = {
   label: 'Sensor',
   iconType: 'ui',

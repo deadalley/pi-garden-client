@@ -72,7 +72,7 @@ export const HomeScreen: React.FC = () => {
         title="Rooms"
         color={COLORS.MAIN_DARKER}
         navScreen="HomeNavigator"
-        navParams={{ screen: 'GardenScreen' }}
+        navParams={{ screen: 'RoomsScreen' }}
       >
         <Rooms rooms={[ROOM_MOCK_1 as any, ROOM_MOCK_2, ROOM_MOCK_1, ROOM_MOCK_2]} />
       </Section>

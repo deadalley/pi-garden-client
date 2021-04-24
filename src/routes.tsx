@@ -13,6 +13,7 @@ import { AddRoomScreen } from './screens/add-room-screen';
 import { PlantScreen } from './screens/plant-screen';
 import { RoomScreen } from './screens/room-screen';
 import { GardenScreen } from './screens/garden-screen';
+import { RoomsScreen } from './screens/rooms-screen';
 import { PlantStatisticsScreen } from './screens/plant-statistics-screen';
 import { PlantSettingsScreen } from './screens/plant-settings-screen';
 
@@ -32,7 +33,8 @@ const HomeStack = createStackNavigator();
 
 const HomeNavigator = () => (
   <HomeStack.Navigator initialRouteName="Home" headerMode="none">
-    <HomeStack.Screen name="GardeScreen" component={GardenScreen} />
+    <HomeStack.Screen name="GardenScreen" component={GardenScreen} />
+    <HomeStack.Screen name="RoomsScreen" component={RoomsScreen} />
     <HomeStack.Screen name="PlantScreen" component={PlantScreen} />
     <HomeStack.Screen name="RoomScreen" component={RoomScreen} />
     <HomeStack.Screen name="NotificationsScreen" component={NotificationsScreen} />
