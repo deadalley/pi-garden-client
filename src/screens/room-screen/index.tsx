@@ -27,6 +27,8 @@ export const RoomScreen: React.FC = () => {
             iconName: SensorTypeIcon[sensor.type],
             iconType: 'weather',
             status: SensorStatus.online,
+            href: 'SensorScreen',
+            params: { sensor },
           }))}
         />
         <List
@@ -36,6 +38,8 @@ export const RoomScreen: React.FC = () => {
             smallLabel: "I'm happy!",
             imageSet: 'plants',
             imageIndex: 0,
+            href: 'PlantScreen',
+            params: { plant: { ...plant, room } },
           }))}
         />
       </Screen>

@@ -40,6 +40,12 @@ export const SensorName = {
   [SensorType.brightness]: 'Brightness',
 };
 
+export const SensorStatusMap = {
+  [SensorStatus.online]: 'Online',
+  [SensorStatus.warnings]: 'Online',
+  [SensorStatus.offline]: 'Offline',
+};
+
 export const StatusColorMap = {
   [SensorStatus.online]: 'GREEN',
   [SensorStatus.warnings]: 'ORANGE',

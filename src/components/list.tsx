@@ -1,5 +1,6 @@
 import React from 'react';
 import { FlatList, Image, Text, TouchableOpacity, StyleSheet, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import { SensorStatus } from '../types';
 import { COLORS, FONT_STYLES, IconTypes, PADDING, UiIcon, ImageSets } from '../styles';
@@ -13,6 +14,7 @@ type Item = {
   imageSet?: keyof typeof ImageSets;
   imageIndex?: number;
   href?: string;
+  params?: object;
   status?: SensorStatus;
 };
 
@@ -26,7 +28,18 @@ export interface ListProps {
 }
 
 export const ListItem: React.FC<Item> = (props) => {
-  const { label, smallLabel, iconName, iconType, status, imageSet, imageIndex, href } = props;
+  const navigation = useNavigation();
+  const {
+    label,
+    smallLabel,
+    iconName,
+    iconType,
+    status,
+    imageSet,
+    imageIndex,
+    href,
+    params,
+  } = props;
 
   let Element;
   if (iconName && iconType) {
@@ -40,7 +53,10 @@ export const ListItem: React.FC<Item> = (props) => {
   if (!Element) return null;
 
   return (
-    <TouchableOpacity style={styles.itemWrapper}>
+    <TouchableOpacity
+      style={styles.itemWrapper}
+      onPress={() => navigation.navigate('HomeNavigator', { screen: href, params })}
+    >
       <View style={styles.alignLeft}>
         <Element />
         <View style={styles.labels}>

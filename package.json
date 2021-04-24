@@ -42,6 +42,7 @@
     "react-native-svg": "12.1.0",
     "react-native-svg-charts": "^5.4.0",
     "react-native-web": "~0.13.12",
+    "react-table": "^7.6.3",
     "yup": "^0.32.9"
   },
   "devDependencies": {
@@ -50,6 +51,7 @@
     "@types/react-dom": "~16.9.8",
     "@types/react-native": "~0.63.2",
     "@types/react-native-svg-charts": "^5.0.7",
+    "@types/react-table": "^7.0.29",
     "@types/yup": "^0.29.11",
     "prettier": "2.2.1",
     "tslint": "^6.1.3",
