@@ -3,7 +3,7 @@ import { Text, StyleSheet, View } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useField } from 'formik';
 
-import { COLORS, FONT_STYLES, PADDING } from '../styles';
+import { COLORS, FONT_STYLES, PADDING, UiIcon } from '../styles';
 import { formatDate } from '../utils/date';
 
 export interface DateInputProps {
@@ -30,9 +30,12 @@ export const DateInput: React.FC<DateInputProps> = ({ mode, style, label, min, m
     <>
       <View style={{ ...styles.wrapper, ...style }}>
         <Text style={styles.label}>{label}</Text>
-        <Text onPress={() => setVisible(true)} style={styles.inputWrapper}>
-          {formatDate(field.value ?? meta.initialValue)}
-        </Text>
+        <View style={styles.inputWrapper}>
+          <Text onPress={() => setVisible(true)} style={styles.input}>
+            {formatDate(field.value ?? meta.initialValue)}
+          </Text>
+          <UiIcon name="fi-rr-caret-down" size={22} color={COLORS.MAIN_DARK} />
+        </View>
         <Text style={styles.error}>{meta.error}</Text>
       </View>
       {visible && (
@@ -64,12 +67,14 @@ const styles = StyleSheet.create({
   inputWrapper: {
     height: 36,
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     alignItems: 'center',
     borderBottomColor: COLORS.MAIN_DARK,
     borderBottomWidth: 1,
     paddingVertical: 0,
     paddingHorizontal: PADDING.SMALLER,
+  },
+  input: {
     fontSize: 18,
     color: COLORS.MAIN_DARK,
     lineHeight: 36,
@@ -80,5 +85,8 @@ const styles = StyleSheet.create({
     height: 14,
     color: COLORS.RED,
     paddingLeft: PADDING.SMALLER,
+  },
+  icon: {
+    paddingTop: 8,
   },
 });

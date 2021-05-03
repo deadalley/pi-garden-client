@@ -165,3 +165,16 @@ export const NOTIFICATION: Notification = {
   sensor: ROOM_MOCK_1.sensors[0],
   value: 4,
 };
+
+export const commonPlantTypes = [
+  'Strawberry',
+  'Potato',
+  'Basil',
+  'Tomato',
+  'Bell Pepper',
+  'Pepper',
+  'Jalapeño',
+  'Lettuce',
+  'Rocket',
+  'Cactus',
+];

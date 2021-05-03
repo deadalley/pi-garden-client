@@ -11,7 +11,7 @@ import { TextInput } from '../../components/text-input';
 import { ThresholdInput } from '../../components/threshold-input';
 import { Navigation } from '../../components/navigation';
 
-import { ROOM_MOCK_1, ROOM_MOCK_2 } from '../../mocks';
+import { commonPlantTypes, ROOM_MOCK_1, ROOM_MOCK_2 } from '../../mocks';
 import { COLORS, FONT_STYLES, PADDING } from '../../styles';
 import { Plant, PlantSpecification, Room, SensorName, SensorType } from '../../types';
 import { random } from '../../utils/number';
@@ -88,18 +88,6 @@ const PlantDate: React.FC<StateProps> = () => (
 export const AddPlantScreen: React.FC<AddPlantScreenProps> = ({ rooms }) => {
   const states: React.FC<any>[] = [AddPlantName, AddRoom, AddSensors, PlantDate];
   const _rooms = [ROOM_MOCK_1, ROOM_MOCK_2];
-  const commonPlantTypes = [
-    'Strawberry',
-    'Potato',
-    'Basil',
-    'Tomato',
-    'Bell Pepper',
-    'Pepper',
-    'Jalapeño',
-    'Lettuce',
-    'Rocket',
-    'Cactus',
-  ];
 
   const [currentIndex, setIndex] = useState(0);
   const CurrentState = states[currentIndex];

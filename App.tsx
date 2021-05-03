@@ -1,4 +1,5 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 import AppLoading from 'expo-app-loading';
 import { useFonts } from 'expo-font';
 import { useAssets } from 'expo-asset';
@@ -10,8 +11,10 @@ import {
 } from '@expo-google-fonts/poppins';
 
 import './src/utils/yup';
+import { store } from './src/store';
+
+import AppEntrypoint from './src/';
 import { StatusBarProvider } from './src/components/status-bar';
-import AppRouting from './src/routes';
 
 export default function App() {
   const [assetsLoaded] = useAssets([require('./assets/images/plants/plant01.png')]);
@@ -32,8 +35,10 @@ export default function App() {
   if (!fontsLoaded || !assetsLoaded) return <AppLoading />;
 
   return (
-    <StatusBarProvider>
-      <AppRouting />
-    </StatusBarProvider>
+    <Provider store={store}>
+      <StatusBarProvider>
+        <AppEntrypoint />
+      </StatusBarProvider>
+    </Provider>
   );
 }

@@ -25,6 +25,7 @@ export const SensorTypeIcon = {
 export enum Avatar {
   bedroom = 'bedside-table',
   kitchen = 'dinning-table',
+  garden = 'vase',
 }
 
 export enum SensorStatus {
