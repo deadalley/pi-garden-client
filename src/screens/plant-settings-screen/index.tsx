@@ -94,7 +94,7 @@ export const PlantSettingsScreen: React.FC = () => {
           >
             <Text
               style={{
-                ...FONT_STYLES.h3,
+                ...FONT_STYLES.h4,
                 color: COLORS.RED,
                 marginBottom: PADDING.SMALL,
                 marginLeft: PADDING.SMALL,
@@ -104,7 +104,9 @@ export const PlantSettingsScreen: React.FC = () => {
             </Text>
           </TouchableOpacity>
 
-          <Button onPress={() => submitForm()}>Save</Button>
+          <Button small onPress={() => submitForm()}>
+            Save
+          </Button>
         </Screen>
       )}
     </Formik>

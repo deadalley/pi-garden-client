@@ -18,7 +18,12 @@ export const RoomScreen: React.FC = () => {
 
   return (
     <>
-      <Screen green editable title={room.name}>
+      <Screen
+        green
+        editable
+        editParams={{ screen: 'RoomSettingsScreen', params: { room } }}
+        title={room.name}
+      >
         <List
           title={'Sensors'}
           items={room.sensors.map((sensor) => ({

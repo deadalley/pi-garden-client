@@ -5,9 +5,10 @@ import {
   ScrollView,
   StatusBar,
   StyleSheet,
+  TouchableOpacity,
   View,
 } from 'react-native';
-import { useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import { COLORS, HEADER_HEIGHT, PADDING, UiIcon } from '../styles';
@@ -19,7 +20,10 @@ export interface ScreenProps {
   subTitle?: string;
   green?: boolean;
   contentStyle?: object;
+  contentContainerStyle?: object;
   editable?: boolean;
+  editRoute?: string;
+  editParams?: object;
   withBottomPadFix?: boolean;
   onPress?: (event: GestureResponderEvent) => void;
 }
@@ -30,10 +34,14 @@ export const Screen: React.FC<ScreenProps> = ({
   subTitle,
   green,
   contentStyle = {},
+  contentContainerStyle = {},
   editable = false,
+  editRoute = 'HomeNavigator',
+  editParams,
   withBottomPadFix = true,
   onPress,
 }) => {
+  const navigation = useNavigation();
   const setStatusBarStyle = useContext(StatusBarContext);
   useFocusEffect(() => setStatusBarStyle(StatusBarStyles[1]));
 
@@ -53,10 +61,17 @@ export const Screen: React.FC<ScreenProps> = ({
         >
           {title}
         </NavHeader>
-        {editable && <UiIcon name={'fi-rr-edit'} color={COLORS.LIGHT} size={24} />}
+        {editable && (
+          <TouchableOpacity onPress={() => navigation.navigate(editRoute, editParams)}>
+            <UiIcon name={'fi-rr-edit'} color={COLORS.LIGHT} size={24} />
+          </TouchableOpacity>
+        )}
       </View>
       <ScrollView
-        contentContainerStyle={withBottomPadFix ? { paddingBottom: PADDING.SMALL * 2 } : {}}
+        contentContainerStyle={{
+          ...contentContainerStyle,
+          ...(withBottomPadFix ? { paddingBottom: PADDING.SMALL * 2 } : {}),
+        }}
         style={{
           ...styles.content,
           ...contentStyle,
