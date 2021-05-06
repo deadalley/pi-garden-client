@@ -26,6 +26,7 @@ export const COLORS = {
   HALF_DARK: '#444444',
   LIGHT: '#ffffff',
   HALF_LIGHT: '#f1f1f1',
+  GRAY: '#cfcfcf',
 
   GREEN: '#2AD227',
   ORANGE: '#FF7905',

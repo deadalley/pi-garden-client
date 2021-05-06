@@ -9,21 +9,23 @@ export interface PickerInputProps {
   options: { label: string; value: any }[];
   name: string;
   label?: string;
+  light?: boolean;
 }
 
-export const PickerInput: React.FC<PickerInputProps> = ({ options, label, ...props }) => {
+export const PickerInput: React.FC<PickerInputProps> = ({ options, label, light, ...props }) => {
   const [field, meta, helpers] = useField(props as any);
 
   return (
     <View style={styles.wrapper}>
-      <Text style={styles.label}>{label}</Text>
-      <View style={styles.inputWrapper}>
+      <Text style={{ ...styles.label, ...(light ? styles.light : {}) }}>{label}</Text>
+      <View style={{ ...styles.inputWrapper, ...(light ? styles.light : {}) }}>
         <Picker
-          style={styles.picker}
-          itemStyle={styles.picker}
+          style={{ ...styles.picker, ...(light ? styles.light : {}) }}
+          itemStyle={{ ...styles.picker, ...(light ? styles.light : {}) }}
           onValueChange={(value) => helpers.setValue(value)}
           mode="dropdown"
           selectedValue={field.value ?? meta.initialValue ?? options[0].value}
+          dropdownIconColor={light ? COLORS.MAIN_MEDIUM : COLORS.MAIN_DARK}
         >
           {options.map((option) => (
             <Picker.Item {...option} />
@@ -63,5 +65,9 @@ const styles = StyleSheet.create({
     minHeight: 16,
     color: COLORS.RED,
     paddingLeft: PADDING.SMALLER,
+  },
+  light: {
+    color: COLORS.MAIN_MEDIUM,
+    borderBottomColor: COLORS.MAIN_MEDIUM,
   },
 });

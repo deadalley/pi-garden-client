@@ -101,3 +101,9 @@ export interface Notification {
   sensor: Sensor;
   value: number;
 }
+
+export enum NotificationSettingsOption {
+  all = 'all',
+  threshold = 'threshold',
+  none = 'none',
+}
