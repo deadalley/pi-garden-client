@@ -1,24 +1,18 @@
 import React from 'react';
 import { FlatList } from 'react-native';
+import { useRoute } from '@react-navigation/native';
 
 import { PLANT_MOCK } from '../../mocks';
 
 import { Screen } from '../../components/screen';
 import { AddPlantAction, FloatingActionButton } from '../../components/floating-action-button';
 import { PlantItem } from './plant-item';
+import { Plant } from '../../types';
 
 export const GardenScreen: React.FC = () => {
-  const plants = [
-    PLANT_MOCK as any,
-    PLANT_MOCK,
-    PLANT_MOCK,
-    PLANT_MOCK,
-    PLANT_MOCK,
-    PLANT_MOCK,
-    PLANT_MOCK,
-    PLANT_MOCK,
-    PLANT_MOCK,
-  ];
+  const route = useRoute();
+  const { plants } = route.params as { plants: Plant[] };
+
   return (
     <>
       <Screen

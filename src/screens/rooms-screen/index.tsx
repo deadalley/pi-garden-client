@@ -1,14 +1,17 @@
 import React from 'react';
 import { FlatList } from 'react-native';
-
-import { ROOM_MOCK_1, ROOM_MOCK_2 } from '../../mocks';
+import { useRoute } from '@react-navigation/native';
 
 import { Screen } from '../../components/screen';
 import { AddRoomAction, FloatingActionButton } from '../../components/floating-action-button';
 import { RoomItem } from './room-item';
 
+import { Room } from '../../types';
+
 export const RoomsScreen: React.FC = () => {
-  const rooms = [ROOM_MOCK_1, ROOM_MOCK_2, ROOM_MOCK_1, ROOM_MOCK_2];
+  const route = useRoute();
+  const { rooms } = route.params as { rooms: Room[] };
+
   return (
     <>
       <Screen

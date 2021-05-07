@@ -68,10 +68,12 @@ const HomeScreenComponent: React.FC<HomeScreenComponentProps> = ({ rooms, plants
     () => rooms.reduce((acc, room) => ({ ...acc, [room.id]: room }), {}),
     [rooms]
   );
+
   const plantsWithRooms = useMemo(
     () => plants.map((plant) => ({ ...plant, room: roomsMap[plant.room.id] })),
     [plants, roomsMap]
   );
+
   const setStatusBarStyle = useContext(StatusBarContext);
   useFocusEffect(() => setStatusBarStyle(StatusBarStyles[2]));
 
@@ -81,7 +83,7 @@ const HomeScreenComponent: React.FC<HomeScreenComponentProps> = ({ rooms, plants
         title="My Garden"
         color={COLORS.LIGHT}
         navScreen="HomeNavigator"
-        navParams={{ screen: 'GardenScreen' }}
+        navParams={{ screen: 'GardenScreen', params: { plants: plantsWithRooms } }}
       >
         <Plants plants={plantsWithRooms.map((p) => ({ ...PLANT_MOCK, ...p }))} />
       </Section>
@@ -89,7 +91,7 @@ const HomeScreenComponent: React.FC<HomeScreenComponentProps> = ({ rooms, plants
         title="Rooms"
         color={COLORS.MAIN_DARKER}
         navScreen="HomeNavigator"
-        navParams={{ screen: 'RoomsScreen' }}
+        navParams={{ screen: 'RoomsScreen', params: { rooms } }}
       >
         <Rooms rooms={rooms.map((r) => ({ ...ROOM_MOCK_1, ...r }))} />
       </Section>

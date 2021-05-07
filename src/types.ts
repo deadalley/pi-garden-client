@@ -75,6 +75,7 @@ export interface Plant {
   mood: Mood;
   plantedDate: Date;
   specification: PlantSpecification;
+  notifications?: Notification[];
 }
 
 export interface PlantExtended extends Plant {

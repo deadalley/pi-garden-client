@@ -10,6 +10,7 @@ import { DateInput } from '../../components/date-input';
 import { ThresholdInput } from '../../components/threshold-input';
 import { Button } from '../../components/button';
 import { ImageChooser } from '../../components/image-chooser';
+import { Bold } from '../../components/typography';
 
 import { PlantExtended, SensorName, SensorType } from '../../types';
 import { ROOM_MOCK_1, ROOM_MOCK_2 } from '../../mocks';
@@ -35,6 +36,8 @@ export const PlantSettingsScreen: React.FC = () => {
   const rooms = [ROOM_MOCK_1, ROOM_MOCK_2];
   const { plant } = route.params as { plant: PlantExtended };
 
+  console.log({ plant });
+
   return (
     <Formik
       initialValues={{ ...plant, soilMoistureSensor: 123, avatar: 0 }}
@@ -55,18 +58,26 @@ export const PlantSettingsScreen: React.FC = () => {
 
           <SectionTitle>Sensors</SectionTitle>
           <Text
-            style={{ ...FONT_STYLES.text, color: COLORS.MAIN_DARK, marginBottom: PADDING.SMALL }}
+            style={{
+              ...FONT_STYLES.text,
+              color: COLORS.MAIN_DARK,
+              marginBottom: PADDING.SMALL,
+              paddingHorizontal: PADDING.SMALLER,
+            }}
           >
-            This plant is using the <Text>{renderSensors(plant.room)}</Text> from{' '}
-            <Text>{plant.room.name}</Text>
+            This plant is using the <Text>{renderSensors(plant.room)}</Text>{' '}
+            {plant.room.sensors.length > 1 ? 'sensors' : 'sensor'} from{' '}
+            <Bold>{plant.room.name}</Bold>
           </Text>
-          <PickerInput
-            name="soilMoistureSensor"
-            label="Soil moisture sensor"
-            options={plant.room.sensors
-              .filter((sensor) => sensor.type === SensorType.soil)
-              .map((sensor, index) => ({ label: `SM ${index + 1}`, value: sensor.id }))}
-          />
+          {plant.room.sensors.some(({ type }) => type === SensorType.soil) && (
+            <PickerInput
+              name="soilMoistureSensor"
+              label="Soil moisture sensor"
+              options={plant.room.sensors
+                .filter((sensor) => sensor.type === SensorType.soil)
+                .map((sensor, index) => ({ label: `SM ${index + 1}`, value: sensor.id }))}
+            />
+          )}
 
           <SectionTitle>Thresholds</SectionTitle>
           {plant.room.sensors.map((sensor) => (
