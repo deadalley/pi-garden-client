@@ -13,7 +13,6 @@ export class SessionService {
   static getItem = async (key: string) => {
     try {
       const value = await AsyncStorage.getItem(key);
-      console.log({ value });
       if (value !== null) {
         return JSON.parse(value);
       }
