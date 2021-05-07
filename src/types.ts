@@ -24,8 +24,30 @@ export const SensorTypeIcon = {
 
 export enum Avatar {
   bedroom = 'bedside-table',
-  kitchen = 'dinning-table',
+  bedroom2 = 'dressing-table',
+  bedroom3 = 'bed',
+  bedroom4 = 'bed4',
+  bedroom5 = 'full-length-mirror',
+  bedroom6 = 'bedside-table1',
+  bedroom7 = 'bunk-bed',
+  chair = 'chair',
+  diningRoom = 'table',
+  diningRoom2 = 'chair1',
+  diningRoom3 = 'table1',
+  diningRoom4 = 'chandelier',
   garden = 'vase',
+  garden2 = 'vase1',
+  kitchen = 'dinning-table',
+  livingRoom = 'armchair',
+  livingRoom2 = 'ceiling-lamp',
+  livingRoom3 = 'tv-set',
+  livingRoom4 = 'chair2',
+  livingRoom5 = 'curtain',
+  livingRoom6 = 'painting',
+  livingRoom7 = 'pillow',
+  office = 'office-chair',
+  office2 = 'stool',
+  office3 = 'computer-desktop',
 }
 
 export enum SensorStatus {
@@ -76,6 +98,7 @@ export interface Plant {
   plantedDate: Date;
   specification: PlantSpecification;
   notifications?: Notification[];
+  imageUrl: string;
 }
 
 export interface PlantExtended extends Plant {

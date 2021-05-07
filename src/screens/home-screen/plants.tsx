@@ -16,7 +16,6 @@ export const Plants: React.FC<PlantsProps> = ({ plants }) => (
     renderItem={({ item, index }) => (
       <PlantCard
         plant={item}
-        hasNotification={item.hasNotification}
         style={{
           ...(index === 0
             ? { marginLeft: PADDING.BIGGER, marginRight: PADDING.SMALLER }

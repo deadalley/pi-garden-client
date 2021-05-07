@@ -1,21 +1,21 @@
 import React from 'react';
-import { Image, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
+import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import { BORDER_RADIUS, BOX_SHADOW, COLORS, EmojiIcon, FONT_STYLES, PADDING } from '../styles';
 import { MoodIcon, Plant } from '../types';
-import { NotificationBadge } from './notification-badge';
 
-import image from '../../assets/images/plants/plant01.png';
+import { Image } from './image';
+import { NotificationBadge } from './notification-badge';
 
 export interface PlantCardProps {
   plant: Plant;
   style?: object;
-  hasNotification?: boolean;
 }
 
-export const PlantCard: React.FC<PlantCardProps> = ({ plant, style, hasNotification }) => {
+export const PlantCard: React.FC<PlantCardProps> = ({ plant, style }) => {
   const navigation = useNavigation();
+  const hasNotification = !!(plant && plant.notifications && plant.notifications.length);
 
   return (
     <TouchableWithoutFeedback
@@ -32,7 +32,7 @@ export const PlantCard: React.FC<PlantCardProps> = ({ plant, style, hasNotificat
         />
         {hasNotification && <NotificationBadge />}
         <View style={styles.imageWrapper}>
-          <Image style={styles.image} source={image} />
+          <Image style={styles.image} imageUrl={plant.imageUrl} />
         </View>
         <View style={styles.bottom}>
           <Text style={styles.plantName}>{plant.name}</Text>
@@ -62,6 +62,7 @@ const styles = StyleSheet.create({
   image: {
     flex: 1,
     resizeMode: 'center',
+    width: 200,
   },
   bottom: {
     flex: 3,

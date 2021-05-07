@@ -1,18 +1,17 @@
 import React from 'react';
-import { Image, Platform, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Platform, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import capitalize from 'lodash/capitalize';
 
 import { MoodIcon, Plant } from '../../types';
 import { NavHeader } from '../../components/nav-header';
 import { IconLabel } from '../../components/icon-label';
+import { Image } from '../../components/image';
 import { SensorValue } from './sensor-value';
 import { Button } from './button';
 
 import { COLORS, FONT_STYLES, HEADER_HEIGHT, PADDING, UiIcon } from '../../styles';
 import { formatAge } from '../../utils/date';
-
-import image from '../../../assets/images/plants/plant01.png';
 
 export interface PlantScreenProps {}
 
@@ -50,7 +49,7 @@ export const PlantScreen: React.FC<PlantScreenProps> = () => {
         ))}
       </View>
       <View style={{ ...styles.bottom }}>
-        <Image style={styles.image} source={image} />
+        <Image style={styles.image} imageUrl={plant.imageUrl} />
         <View>
           <View style={styles.warning}>
             <View style={styles.divider} />
@@ -171,8 +170,8 @@ const styles = StyleSheet.create({
     resizeMode: 'center',
     position: 'absolute',
     bottom: 156,
-    left: -40,
+    left: -80,
     height: 420,
-    width: 240,
+    width: 340,
   },
 });

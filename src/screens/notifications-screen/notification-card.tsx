@@ -1,12 +1,12 @@
 import React from 'react';
-import { Image, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
+import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+
+import { Image } from '../../components/image';
 
 import { formatDate } from '../../utils/date';
 import { BORDER_RADIUS, COLORS, FONT_STYLES, PADDING, BOX_SHADOW } from '../../styles';
 import { Notification, SensorName } from '../../types';
-
-import image from '../../../assets/images/plants/plant01.png';
 
 export const NotificationCard: React.FC<Notification> = ({
   timestamp,
@@ -25,7 +25,7 @@ export const NotificationCard: React.FC<Notification> = ({
     >
       <View style={styles.wrapper}>
         <View style={styles.imageWrapper}>
-          <Image style={styles.image} source={image} />
+          <Image style={styles.image} imageUrl={plant.imageUrl} />
         </View>
         <View style={styles.info}>
           <View style={styles.nameWrapper}>

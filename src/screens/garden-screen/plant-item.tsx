@@ -1,7 +1,8 @@
 import React from 'react';
-import { Image, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
+import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
+import { Image } from '../../components/image';
 import { SensorIcon } from '../../components/sensor-icon';
 
 import {
@@ -15,10 +16,8 @@ import {
 } from '../../styles';
 import { MoodIcon, PlantExtended, SensorTypeIcon } from '../../types';
 
-import image from '../../../assets/images/plants/plant01.png';
-
 export const PlantItem: React.FC<PlantExtended> = (props) => {
-  const { name, room, mood, hasNotification } = props;
+  const { name, room, mood, imageUrl } = props;
   const navigation = useNavigation();
 
   return (
@@ -29,7 +28,7 @@ export const PlantItem: React.FC<PlantExtended> = (props) => {
     >
       <View style={styles.wrapper}>
         <View style={styles.imageWrapper}>
-          <Image style={styles.image} source={image} />
+          <Image style={styles.image} imageUrl={imageUrl} />
         </View>
         <View style={styles.info}>
           <View style={styles.nameWrapper}>
