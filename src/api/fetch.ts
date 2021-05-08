@@ -10,7 +10,6 @@ export const fetch = async (method: Method, route: string, data?: object) => {
 
     return { status: response.status, data: response.data };
   } catch (e) {
-    console.log({ e });
     return { data: [] };
   }
 };

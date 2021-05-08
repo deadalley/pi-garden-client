@@ -10,7 +10,10 @@ import { COLORS, FONT_STYLES, PADDING } from '../../styles';
 
 export const NotificationsScreen: React.FC = () => {
   const route = useRoute();
-  const { plant, hasNotification } = route.params as { plant?: Plant; hasNotification: boolean };
+  const { plant, hasNotification } = (route.params || {}) as {
+    plant?: Plant;
+    hasNotification: boolean;
+  };
 
   return (
     <Screen
@@ -20,7 +23,9 @@ export const NotificationsScreen: React.FC = () => {
       contentContainerStyle={hasNotification ? {} : styles.noNotificationsContainer}
     >
       {!hasNotification ? (
-        <Text style={styles.noNotifications}>No notifications for {plant?.name}</Text>
+        <Text style={styles.noNotifications}>
+          No notifications {plant ? `for ${plant.name}` : ''}
+        </Text>
       ) : (
         <FlatList
           data={plant?.notifications || []}

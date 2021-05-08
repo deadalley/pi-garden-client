@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, StyleSheet, View } from 'react-native';
+import { Text, TouchableWithoutFeedback, StyleSheet, View } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useField } from 'formik';
 
@@ -30,12 +30,12 @@ export const DateInput: React.FC<DateInputProps> = ({ mode, style, label, min, m
     <>
       <View style={{ ...styles.wrapper, ...style }}>
         <Text style={styles.label}>{label}</Text>
-        <View style={styles.inputWrapper}>
-          <Text onPress={() => setVisible(true)} style={styles.input}>
-            {formatDate(field.value ?? meta.initialValue)}
-          </Text>
-          <UiIcon name="fi-rr-caret-down" size={22} color={COLORS.MAIN_DARK} />
-        </View>
+        <TouchableWithoutFeedback onPress={() => setVisible(true)}>
+          <View style={styles.inputWrapper}>
+            <Text style={styles.input}>{formatDate(field.value ?? meta.initialValue)}</Text>
+            <UiIcon name="fi-rr-caret-down" size={22} color={COLORS.MAIN_DARK} />
+          </View>
+        </TouchableWithoutFeedback>
         <Text style={styles.error}>{meta.error}</Text>
       </View>
       {visible && (

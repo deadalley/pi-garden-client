@@ -27,7 +27,7 @@ export const PlantScreen: React.FC<PlantScreenProps> = () => {
       <View style={{ ...styles.top }}>
         <NavHeader
           color={COLORS.LIGHT}
-          onPress={() => navigation.goBack()}
+          onPress={() => navigation.navigate('Home')}
           style={{ width: '90%' }}
         >
           {plant.name}

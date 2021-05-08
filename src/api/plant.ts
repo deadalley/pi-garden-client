@@ -1,11 +1,12 @@
-import { Plant } from '../types';
+import { Plant, PlantSpecification } from '../types';
 import { fetch } from './fetch';
 
 export const getPlants = (): Promise<{ plants: Plant[] }> =>
   fetch('GET', 'plant').then(({ data }) => ({
     plants: data.map((plant: any) => ({
       ...plant,
-      specification: Object.keys(plant.specification[0]).reduce(
+      plantedDate: new Date(plant.plantedDate),
+      specification: Object.keys(plant.specification?.[0] ?? {}).reduce(
         (acc, key) => {
           let keyName;
           let value;
@@ -33,6 +34,15 @@ export const getPlants = (): Promise<{ plants: Plant[] }> =>
 
         {} as { [key: string]: object }
       ),
-      plantedDate: new Date(plant.plantedDate),
     })),
   }));
+
+export const createPlant = (
+  plant: Pick<Plant, 'plantedDate' | 'name' | 'imageUrl'> & {
+    room: string;
+    specification: { [key in keyof PlantSpecification]: { start: number; end: number } };
+  }
+): Promise<{ plant: Plant }> =>
+  fetch('POST', 'plant', plant).then(({ data }) => {
+    return { plant: { ...data, plantedDate: new Date(data.plantedDate) } };
+  });

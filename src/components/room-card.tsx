@@ -23,7 +23,7 @@ export const RoomCard: React.FC<RoomCardProps> = ({ room, style }) => {
       <View style={{ ...styles.wrapper, ...(style ?? {}) }}>
         <View style={styles.sensors}>
           {room.sensors.map((sensor) => (
-            <SensorStatus sensor={sensor} />
+            <SensorStatus key={sensor.id} sensor={sensor} />
           ))}
         </View>
         <View style={styles.room}>

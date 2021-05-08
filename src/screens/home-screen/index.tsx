@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from 'react';
+import React, { useContext } from 'react';
 import { Platform, StatusBar, StyleSheet, Text, View } from 'react-native';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -64,16 +64,6 @@ const Section: React.FC<SectionProps> = ({ title, color, children, navScreen, na
 };
 
 const HomeScreenComponent: React.FC<HomeScreenComponentProps> = ({ rooms, plants }) => {
-  const roomsMap: { [key: string]: Room } = useMemo(
-    () => rooms.reduce((acc, room) => ({ ...acc, [room.id]: room }), {}),
-    [rooms]
-  );
-
-  const plantsWithRooms = useMemo(
-    () => plants.map((plant) => ({ ...plant, room: roomsMap[plant.room.id] })),
-    [plants, roomsMap]
-  );
-
   const setStatusBarStyle = useContext(StatusBarContext);
   useFocusEffect(() => setStatusBarStyle(StatusBarStyles[2]));
 
@@ -83,9 +73,9 @@ const HomeScreenComponent: React.FC<HomeScreenComponentProps> = ({ rooms, plants
         title="My Garden"
         color={COLORS.LIGHT}
         navScreen="HomeNavigator"
-        navParams={{ screen: 'GardenScreen', params: { plants: plantsWithRooms } }}
+        navParams={{ screen: 'GardenScreen', params: { plants } }}
       >
-        <Plants plants={plantsWithRooms.map((p) => ({ ...PLANT_MOCK, ...p }))} />
+        <Plants plants={plants.map((p) => ({ ...PLANT_MOCK, ...p }))} />
       </Section>
       <Section
         title="Rooms"
@@ -99,7 +89,10 @@ const HomeScreenComponent: React.FC<HomeScreenComponentProps> = ({ rooms, plants
   );
 };
 
-export const HomeScreen = connectApi({ executeOnLoad: [getRooms, getPlants] }, HomeScreenComponent);
+export const HomeScreen = connectApi(
+  { executeOnMount: [getRooms, getPlants], reloadOnFocus: false },
+  HomeScreenComponent
+);
 
 const styles = StyleSheet.create({
   wrapper: {

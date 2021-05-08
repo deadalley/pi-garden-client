@@ -36,8 +36,6 @@ export const PlantSettingsScreen: React.FC = () => {
   const rooms = [ROOM_MOCK_1, ROOM_MOCK_2];
   const { plant } = route.params as { plant: PlantExtended };
 
-  console.log({ plant });
-
   return (
     <Formik
       initialValues={{ ...plant, soilMoistureSensor: 123, avatar: 0 }}
