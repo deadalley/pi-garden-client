@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { Platform, StatusBar, StyleSheet, Text, View } from 'react-native';
+import { useResource } from 'rest-hooks';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
 
@@ -10,20 +11,13 @@ import { Rooms } from './room';
 
 import { COLORS, FONT_STYLES, PADDING } from '../../styles';
 import { ROOM_MOCK_1, PLANT_MOCK } from '../../mocks';
-import { connectApi } from '../../utils/connect-api';
-import { getRooms, getPlants } from '../../api';
-import { Plant, Room } from '../../types';
+import { PlantResource, RoomResource } from '../../resources';
 
 export interface SectionProps {
   title: string;
   color?: string;
   navScreen: string;
   navParams: object;
-}
-
-export interface HomeScreenComponentProps {
-  rooms: Room[];
-  plants: Plant[];
 }
 
 const HomeScreenLayout: React.FC = ({ children }) => (
@@ -63,9 +57,11 @@ const Section: React.FC<SectionProps> = ({ title, color, children, navScreen, na
   );
 };
 
-const HomeScreenComponent: React.FC<HomeScreenComponentProps> = ({ rooms, plants }) => {
+export const HomeScreen: React.FC = () => {
   const setStatusBarStyle = useContext(StatusBarContext);
   useFocusEffect(() => setStatusBarStyle(StatusBarStyles[2]));
+
+  const [plants, rooms] = useResource([PlantResource.list(), {}], [RoomResource.list(), {}]);
 
   return (
     <HomeScreenLayout>
@@ -88,11 +84,6 @@ const HomeScreenComponent: React.FC<HomeScreenComponentProps> = ({ rooms, plants
     </HomeScreenLayout>
   );
 };
-
-export const HomeScreen = connectApi(
-  { executeOnMount: [getRooms, getPlants], reloadOnFocus: false },
-  HomeScreenComponent
-);
 
 const styles = StyleSheet.create({
   wrapper: {

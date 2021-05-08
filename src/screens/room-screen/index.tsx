@@ -42,7 +42,7 @@ export const RoomScreen: React.FC = () => {
             label: plant.name,
             smallLabel: "I'm happy!",
             imageSet: 'plants',
-            imageIndex: 0,
+            imageUrl: plant.imageUrl,
             href: 'PlantScreen',
             params: { plant: { ...plant, room } },
           }))}

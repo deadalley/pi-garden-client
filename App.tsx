@@ -1,5 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
+import { CacheProvider } from 'rest-hooks';
 import AppLoading from 'expo-app-loading';
 import { useFonts } from 'expo-font';
 import { useAssets } from 'expo-asset';
@@ -35,10 +36,12 @@ export default function App() {
   if (!fontsLoaded || !assetsLoaded) return <AppLoading />;
 
   return (
-    <Provider store={store}>
-      <StatusBarProvider>
-        <AppEntrypoint />
-      </StatusBarProvider>
-    </Provider>
+    <CacheProvider>
+      <Provider store={store}>
+        <StatusBarProvider>
+          <AppEntrypoint />
+        </StatusBarProvider>
+      </Provider>
+    </CacheProvider>
   );
 }

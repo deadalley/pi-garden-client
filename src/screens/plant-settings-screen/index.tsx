@@ -90,7 +90,7 @@ export const PlantSettingsScreen: React.FC = () => {
 
           <SectionTitle>Plant Avatar</SectionTitle>
           <ImageChooser
-            imageIndex={values.avatar}
+            imageUrl={values.imageUrl}
             setAvatar={(value) => setFieldValue('avatar', value)}
             imageSet={'plants'}
           />

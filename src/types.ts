@@ -112,6 +112,10 @@ export interface PlantSpecification {
   brightness: { start: number; end: number };
 }
 
+export type PartialPlantSpecification = {
+  [key in keyof PlantSpecification]: { start: number; end: number };
+};
+
 export interface Reading {
   sensor: Sensor;
   createdAt: Date;
