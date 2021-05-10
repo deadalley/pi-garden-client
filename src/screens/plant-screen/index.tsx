@@ -67,6 +67,7 @@ export const PlantScreen: React.FC<PlantScreenProps> = () => {
           </View>
           <View style={styles.iconLabels}>
             <IconLabel
+              big
               iconType={'furniture'}
               iconName={plant.room.avatar}
               label={plant.room.name}
@@ -79,7 +80,7 @@ export const PlantScreen: React.FC<PlantScreenProps> = () => {
             <IconLabel
               iconType={'nature'}
               iconName={'sprout-1'}
-              label={capitalize(formatAge(plant.plantedDate)!)}
+              label={formatAge(plant.plantedDate)!}
             />
           </View>
         </View>

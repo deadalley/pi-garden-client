@@ -44,9 +44,13 @@ export const PlantItem: React.FC<PlantExtended> = (props) => {
           </View>
           <View style={{ paddingRight: PADDING.SMALL }}>
             <View style={styles.sensors}>
-              {room.sensors.map((sensor) => (
-                <SensorIcon value={'56%'} iconName={SensorTypeIcon[sensor.type]} />
-              ))}
+              {room.sensors.length ? (
+                room.sensors.map((sensor) => (
+                  <SensorIcon value={'56%'} iconName={SensorTypeIcon[sensor.type]} />
+                ))
+              ) : (
+                <Text style={styles.empty}>No sensors</Text>
+              )}
             </View>
             <View style={styles.moodWrapper}>
               <EmojiIcon name={MoodIcon[mood]} color={COLORS.LIGHT} size={20} />
@@ -103,5 +107,9 @@ const styles = StyleSheet.create({
     ...FONT_STYLES.text,
     color: COLORS.LIGHT,
     marginLeft: PADDING.SMALLER / 2,
+  },
+  empty: {
+    ...FONT_STYLES.text,
+    color: COLORS.MAIN_LIGHT,
   },
 });
