@@ -1962,6 +1962,11 @@
     "@babel/runtime" "^7.7.2"
     "@rest-hooks/normalizr" "^6.1.1"
 
+"@rest-hooks/legacy@^2.0.6":
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/@rest-hooks/legacy/-/legacy-2.0.6.tgz#b5627439b6259819898d7da3a44aee6ca3e694cd"
+  integrity sha512-tmg5+3Aojk98JBbYFYsTyVr2ouyDRzKlXXocJv5TLRqUqSXmsTO2SOxcL1IMTuq6I7US3V7eC3HqT6b0LCMhUg==
+
 "@rest-hooks/normalizr@^6.1.1":
   version "6.1.1"
   resolved "https://registry.yarnpkg.com/@rest-hooks/normalizr/-/normalizr-6.1.1.tgz#c667e5e1323e641dd635c028f505678c52d4e42e"

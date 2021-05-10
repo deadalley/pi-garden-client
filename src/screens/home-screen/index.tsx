@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Platform, StatusBar, StyleSheet, Text, View } from 'react-native';
-import { useResource } from 'rest-hooks';
+import { useStatefulResource } from '@rest-hooks/legacy';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
 
@@ -61,7 +61,8 @@ export const HomeScreen: React.FC = () => {
   const setStatusBarStyle = useContext(StatusBarContext);
   useFocusEffect(() => setStatusBarStyle(StatusBarStyles[2]));
 
-  const [plants, rooms] = useResource([PlantResource.list(), {}], [RoomResource.list(), {}]);
+  const { data: plants } = useStatefulResource(PlantResource.list(), {});
+  const { data: rooms } = useStatefulResource(RoomResource.list(), {});
 
   return (
     <HomeScreenLayout>
@@ -71,7 +72,7 @@ export const HomeScreen: React.FC = () => {
         navScreen="HomeNavigator"
         navParams={{ screen: 'GardenScreen', params: { plants } }}
       >
-        <Plants plants={plants.map((p) => ({ ...PLANT_MOCK, ...p }))} />
+        <Plants plants={(plants || []).map((p) => ({ ...PLANT_MOCK, ...p }))} />
       </Section>
       <Section
         title="Rooms"
@@ -79,7 +80,7 @@ export const HomeScreen: React.FC = () => {
         navScreen="HomeNavigator"
         navParams={{ screen: 'RoomsScreen', params: { rooms } }}
       >
-        <Rooms rooms={rooms.map((r) => ({ ...ROOM_MOCK_1, ...r }))} />
+        <Rooms rooms={(rooms || []).map((r) => ({ ...ROOM_MOCK_1, ...r }))} />
       </Section>
     </HomeScreenLayout>
   );

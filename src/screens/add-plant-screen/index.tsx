@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { useFetcher, useResource } from 'rest-hooks';
+import { useFetcher, useInvalidator, useResource } from 'rest-hooks';
 import { useNavigation } from '@react-navigation/native';
 import { Formik } from 'formik';
 import * as yup from 'yup';
@@ -99,6 +99,7 @@ export const AddPlantScreen: React.FC = () => {
   const navigation = useNavigation();
   const rooms = useResource(RoomResource.list(), {});
   const createPlant = useFetcher(PlantResource.create());
+  const invalidatePlants = useInvalidator(PlantResource.list());
 
   const states: React.FC<any>[] = [AddPlantName, AddRoom, AddSensors, PlantImage, PlantDate];
 
@@ -174,12 +175,14 @@ export const AddPlantScreen: React.FC = () => {
         };
 
         console.log('Submitting...', parsedPlant);
-        createPlant({}, parsedPlant).then((plant) =>
-          navigation.navigate('HomeNavigator', {
-            screen: 'PlantScreen',
-            params: { plant },
-          })
-        );
+        createPlant({}, parsedPlant)
+          .then((plant) =>
+            navigation.navigate('HomeNavigator', {
+              screen: 'PlantScreen',
+              params: { plant },
+            })
+          )
+          .then(() => invalidatePlants({}));
 
         return;
       }}

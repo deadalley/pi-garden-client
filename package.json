@@ -19,6 +19,7 @@
     "@react-navigation/native": "^5.9.3",
     "@react-navigation/stack": "^5.14.3",
     "@reduxjs/toolkit": "^1.5.1",
+    "@rest-hooks/legacy": "^2.0.6",
     "@rest-hooks/rest": "^2.1.1",
     "@types/luxon": "^1.26.2",
     "axios": "^0.21.1",
