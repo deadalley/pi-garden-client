@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native';
 
 import { NavigationButton } from './navigation-button';
 import { PADDING } from '../styles';
+import { Index } from 'rest-hooks/*';
 
 export interface NavigationProps {
   hasPrevious?: boolean;
@@ -11,6 +12,7 @@ export interface NavigationProps {
   isLast?: boolean;
   currentIndex: number;
   finishLabel: string;
+  skip?: boolean;
   setIndex: (value: number) => void;
   onFinish: () => void;
 }
@@ -22,6 +24,7 @@ export const Navigation: React.FC<NavigationProps> = ({
   isLast,
   currentIndex,
   finishLabel,
+  skip,
   setIndex,
   onFinish,
 }) => {
@@ -39,7 +42,7 @@ export const Navigation: React.FC<NavigationProps> = ({
       {hasNext && (
         <NavigationButton
           position="right"
-          onPress={() => setIndex(currentIndex + 1)}
+          onPress={() => setIndex(currentIndex + (skip ? 2 : 1))}
           disabled={!canNext}
         >
           Next

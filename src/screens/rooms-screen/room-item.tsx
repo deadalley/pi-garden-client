@@ -43,15 +43,19 @@ export const RoomItem: React.FC<Room> = (props) => {
           </View>
           <View style={{ paddingRight: PADDING.SMALL }}>
             <View style={styles.sensors}>
-              {sensors
-                .filter((sensor) => sensor.type !== SensorType.soil)
-                .map((sensor) => (
-                  <SensorIcon
-                    value={'56%'}
-                    iconName={SensorTypeIcon[sensor.type]}
-                    style={{ marginRight: PADDING.SMALL }}
-                  />
-                ))}
+              {sensors.length ? (
+                sensors
+                  .filter((sensor) => sensor.type !== SensorType.soil)
+                  .map((sensor) => (
+                    <SensorIcon
+                      value={'56%'}
+                      iconName={SensorTypeIcon[sensor.type]}
+                      style={{ marginRight: PADDING.SMALL }}
+                    />
+                  ))
+              ) : (
+                <Text style={styles.empty}>No sensors</Text>
+              )}
             </View>
           </View>
         </View>
@@ -104,5 +108,9 @@ const styles = StyleSheet.create({
     ...FONT_STYLES.text,
     color: COLORS.LIGHT,
     marginLeft: PADDING.SMALLER / 2,
+  },
+  empty: {
+    ...FONT_STYLES.text,
+    color: COLORS.MAIN_LIGHT,
   },
 });

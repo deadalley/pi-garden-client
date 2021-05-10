@@ -26,6 +26,7 @@ export const RoomScreen: React.FC = () => {
       >
         <List
           title={'Sensors'}
+          emptyMessage={'There are no sensors in this room'}
           items={room.sensors.map((sensor) => ({
             label: SensorName[sensor.type],
             smallLabel: '123',
@@ -38,6 +39,7 @@ export const RoomScreen: React.FC = () => {
         />
         <List
           title={'Plants'}
+          emptyMessage={'There are no plants in this room'}
           items={room.plants.map((plant) => ({
             label: plant.name,
             smallLabel: "I'm happy!",

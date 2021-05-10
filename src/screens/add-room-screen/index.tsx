@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useFetcher, useInvalidator } from 'rest-hooks';
 import { Formik } from 'formik';
 import { random } from 'lodash';
 import * as yup from 'yup';
+import { useNavigation } from '@react-navigation/native';
 
 import { TextInput } from '../../components/text-input';
 import { AvatarChooser } from '../../components/avatar-chooser';
 import { Screen } from '../../components/screen';
 import { Avatar } from '../../types';
 import { Navigation } from '../../components/navigation';
+
+import { RoomResource } from '../../resources';
 
 export const AddRoomScreen: React.FC = () => {
   const commonRoomTypes = [
@@ -25,6 +29,10 @@ export const AddRoomScreen: React.FC = () => {
     avatar: yup.string().required(),
   });
 
+  const navigation = useNavigation();
+  const createRoom = useFetcher(RoomResource.create());
+  const invalidateRooms = useInvalidator(RoomResource.list());
+
   return (
     <Screen title={'New Room'}>
       <Formik
@@ -35,6 +43,11 @@ export const AddRoomScreen: React.FC = () => {
         }}
         onSubmit={(values) => {
           console.log('Submitting...', values);
+          createRoom({}, values)
+            .then((room) =>
+              navigation.navigate('HomeNavigator', { screen: 'RoomScreen', params: { room } })
+            )
+            .then(() => invalidateRooms({}));
           return;
         }}
       >

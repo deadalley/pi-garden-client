@@ -16,14 +16,7 @@ import { ImageChooser } from '../../components/image-chooser';
 
 import { commonPlantTypes } from '../../mocks';
 import { COLORS, FONT_STYLES, PADDING } from '../../styles';
-import {
-  PartialPlantSpecification,
-  Plant,
-  PlantSpecification,
-  Room,
-  SensorName,
-  SensorType,
-} from '../../types';
+import { PartialPlantSpecification, Plant, Room, SensorName, SensorType } from '../../types';
 import { random } from '../../utils/number';
 import { renderSensors } from './utils';
 import { PlantResource, RoomResource } from '../../resources';
@@ -214,6 +207,7 @@ export const AddPlantScreen: React.FC = () => {
             />
             {(hasPrevious || hasNext) && (
               <Navigation
+                skip={currentIndex === 1 && !values.room.sensors.length}
                 currentIndex={currentIndex}
                 setIndex={setIndex}
                 hasPrevious={hasPrevious}

@@ -12,6 +12,7 @@ import { Button } from './button';
 
 import { COLORS, FONT_STYLES, HEADER_HEIGHT, PADDING, UiIcon } from '../../styles';
 import { formatAge } from '../../utils/date';
+import { Bold } from '../../components/typography';
 
 export interface PlantScreenProps {}
 
@@ -44,9 +45,18 @@ export const PlantScreen: React.FC<PlantScreenProps> = () => {
         </TouchableOpacity>
       </View>
       <View style={styles.content}>
-        {plant.room.sensors.map((sensor) => (
-          <SensorValue sensor={sensor} />
-        ))}
+        {plant.room.sensors.length ? (
+          plant.room.sensors.map((sensor) => <SensorValue sensor={sensor} />)
+        ) : (
+          <View style={styles.emptyWrapper}>
+            <Text style={styles.empty}>
+              Uh oh, we don't have any info on this plant!
+              {'\n\n'}
+              <Bold style={{ color: COLORS.LIGHT }}>{plant.room.name}</Bold> has no sensors. Don't
+              forget to add sensors to the room!
+            </Text>
+          </View>
+        )}
       </View>
       <View style={{ ...styles.bottom }}>
         <Image style={styles.image} imageUrl={plant.imageUrl} />
@@ -173,5 +183,18 @@ const styles = StyleSheet.create({
     left: -80,
     height: 420,
     width: 340,
+  },
+  emptyWrapper: {
+    flexDirection: 'row',
+    width: 160,
+    marginBottom: PADDING.SMALL,
+    alignItems: 'center',
+  },
+  empty: {
+    ...FONT_STYLES.text,
+    color: COLORS.LIGHT,
+    fontSize: 18,
+    width: 160,
+    textAlign: 'right',
   },
 });

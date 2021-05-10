@@ -18,9 +18,14 @@ export default class RoomResource extends Resource {
   static async fetch(input: RequestInfo, init: RequestInit) {
     const jsonResponse = await super.fetch(input, init);
 
-    return jsonResponse.map((room: Room) => ({
-      ...room,
-      plants: room.plants.map((plant) => ({ ...plant, plantedDate: new Date(plant.plantedDate) })),
-    }));
+    return Array.isArray(jsonResponse)
+      ? jsonResponse.map((room: Room) => ({
+          ...room,
+          plants: room.plants.map((plant) => ({
+            ...plant,
+            plantedDate: new Date(plant.plantedDate),
+          })),
+        }))
+      : jsonResponse;
   }
 }

@@ -27,6 +27,7 @@ export interface ListItemProps {
 export interface ListProps {
   items: Item[];
   title?: string;
+  emptyMessage?: string;
 }
 
 export const ListItem: React.FC<Item> = (props) => {
@@ -68,11 +69,15 @@ export const ListItem: React.FC<Item> = (props) => {
   );
 };
 
-export const List: React.FC<ListProps> = ({ title, items }) => {
+export const List: React.FC<ListProps> = ({ title, items, emptyMessage }) => {
   return (
     <View style={{ flex: 1 }}>
       <Text style={styles.title}>{title}</Text>
-      <FlatList data={items} renderItem={({ item }) => <ListItem {...item} />} />
+      {items.length ? (
+        <FlatList data={items} renderItem={({ item }) => <ListItem {...item} />} />
+      ) : (
+        <Text style={styles.empty}>{emptyMessage}</Text>
+      )}
     </View>
   );
 };
@@ -112,5 +117,11 @@ const styles = StyleSheet.create({
     width: 36,
     height: 50,
     resizeMode: 'center',
+  },
+  empty: {
+    ...FONT_STYLES.text,
+    color: COLORS.MAIN_DARK,
+    marginBottom: PADDING.SMALL,
+    marginLeft: PADDING.SMALL,
   },
 });
