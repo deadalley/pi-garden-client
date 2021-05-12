@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Platform, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useStatefulResource } from '@rest-hooks/legacy';
+import { useInvalidator } from 'rest-hooks';
+import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/native';
 import capitalize from 'lodash/capitalize';
 
 import { MoodIcon, Plant } from '../../types';
@@ -13,6 +15,8 @@ import { Button } from './button';
 import { COLORS, FONT_STYLES, HEADER_HEIGHT, PADDING, UiIcon } from '../../styles';
 import { formatAge } from '../../utils/date';
 import { Bold } from '../../components/typography';
+import ReadingResource from '../../resources/reading';
+import { useCallback } from 'react';
 
 export interface PlantScreenProps {}
 
@@ -22,6 +26,24 @@ export const PlantScreen: React.FC<PlantScreenProps> = () => {
 
   const { plant } = route.params as { plant: Plant };
   const hasNotification = !!(plant && plant.notifications && plant.notifications.length);
+
+  const { data: readings, loading } = useStatefulResource(ReadingResource.last(), {
+    id: plant.room.id,
+  });
+  const [previousReadings, setPreviousReadings] = useState(readings);
+  const invalidateReadings = useInvalidator(ReadingResource.last());
+
+  useFocusEffect(
+    useCallback(() => {
+      invalidateReadings({ id: plant.room.id });
+    }, [invalidateReadings])
+  );
+
+  useEffect(() => {
+    if (!loading) {
+      setPreviousReadings(readings);
+    }
+  }, [loading]);
 
   return (
     <View style={{ ...styles.wrapper }}>
@@ -46,7 +68,13 @@ export const PlantScreen: React.FC<PlantScreenProps> = () => {
       </View>
       <View style={styles.content}>
         {plant.room.sensors.length ? (
-          plant.room.sensors.map((sensor) => <SensorValue sensor={sensor} />)
+          plant.room.sensors.map((sensor) => (
+            <SensorValue
+              key={sensor.id}
+              sensor={sensor}
+              value={(loading ? previousReadings : readings)?.[sensor.type]?.value ?? '--'}
+            />
+          ))
         ) : (
           <View style={styles.emptyWrapper}>
             <Text style={styles.empty}>

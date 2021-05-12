@@ -6,15 +6,18 @@ import { Sensor, SensorName, SensorTypeIcon } from '../../types';
 
 export interface SensorValueProps {
   sensor: Sensor;
+  value: number | '--';
 }
 
-export const SensorValue: React.FC<SensorValueProps> = ({ sensor }) => {
+export const SensorValue: React.FC<SensorValueProps> = ({ sensor, value }) => {
   return (
     <View style={{ ...styles.wrapper }}>
       <View style={{ ...styles.divider }} />
       <WeatherIcon name={SensorTypeIcon[sensor.type]} color={COLORS.LIGHT} size={42} />
       <View style={{ ...styles.info } as any}>
-        <Text style={styles.value}>34%</Text>
+        <Text style={styles.value}>
+          {value} {sensor.unit}
+        </Text>
         <Text style={styles.label}>{SensorName[sensor.type]}</Text>
       </View>
     </View>
