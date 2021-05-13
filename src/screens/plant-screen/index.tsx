@@ -18,9 +18,7 @@ import { Bold } from '../../components/typography';
 import ReadingResource from '../../resources/reading';
 import { useCallback } from 'react';
 
-export interface PlantScreenProps {}
-
-export const PlantScreen: React.FC<PlantScreenProps> = () => {
+export const PlantScreen: React.FC = () => {
   const navigation = useNavigation();
   const route = useRoute();
 

@@ -12,6 +12,7 @@ import { Rooms } from './room';
 import { COLORS, FONT_STYLES, PADDING } from '../../styles';
 import { ROOM_MOCK_1, PLANT_MOCK } from '../../mocks';
 import { PlantResource, RoomResource } from '../../resources';
+import { SocketService } from '../../services/socket.service';
 
 export interface SectionProps {
   title: string;
@@ -63,6 +64,10 @@ export const HomeScreen: React.FC = () => {
 
   const { data: plants } = useStatefulResource(PlantResource.list(), {});
   const { data: rooms } = useStatefulResource(RoomResource.list(), {});
+
+  React.useEffect(() => {
+    SocketService.initialize();
+  }, []);
 
   return (
     <HomeScreenLayout>
