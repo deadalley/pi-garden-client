@@ -14,10 +14,14 @@ import {
   FurnitureIcon,
 } from '../../styles';
 import { Room, SensorType, SensorTypeIcon } from '../../types';
+import { useAppSelector } from '../../store.hooks';
 
 export const RoomItem: React.FC<Room> = (props) => {
-  const { name, avatar, sensors } = props;
+  const { id, name, avatar, sensors } = props;
   const navigation = useNavigation();
+  const readings = useAppSelector(
+    (state) => state.rooms.rooms?.find(({ id: roomId }) => id === roomId)?.lastReadings
+  );
 
   return (
     <TouchableWithoutFeedback
@@ -48,7 +52,7 @@ export const RoomItem: React.FC<Room> = (props) => {
                   .filter((sensor) => sensor.type !== SensorType.soil)
                   .map((sensor) => (
                     <SensorIcon
-                      value={'56%'}
+                      value={`${readings?.[sensor.type]?.value ?? '--'} ${sensor.unit}`}
                       iconName={SensorTypeIcon[sensor.type]}
                       style={{ marginRight: PADDING.SMALL }}
                     />

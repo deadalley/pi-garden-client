@@ -14,8 +14,7 @@ import {
   BOX_SHADOW,
   EmojiIcon,
 } from '../../styles';
-import { MoodIcon, PlantExtended, SensorTypeIcon } from '../../types';
-import { LastReadings } from '../../resources/reading';
+import { LastReadings, MoodIcon, PlantExtended, SensorTypeIcon } from '../../types';
 
 export const PlantItem: React.FC<PlantExtended & { readings: LastReadings }> = (props) => {
   const { name, room, mood, imageUrl, readings } = props;
@@ -53,7 +52,7 @@ export const PlantItem: React.FC<PlantExtended & { readings: LastReadings }> = (
               {room.sensors.length ? (
                 room.sensors.map((sensor, index) => (
                   <SensorIcon
-                    value={`${readings?.[sensor.type]?.value ?? '--'}`}
+                    value={`${readings?.[sensor.type]?.value ?? '--'} ${sensor.unit}`}
                     iconName={SensorTypeIcon[sensor.type]}
                     style={index === room.sensors.length - 1 ? { marginRight: 0 } : {}}
                   />

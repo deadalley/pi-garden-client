@@ -1,11 +1,15 @@
-import { Entity, Resource } from '@rest-hooks/rest';
+import { Resource } from '@rest-hooks/rest';
 
-import { Sensor, SensorType } from '../types';
+import { Room, Sensor, SensorType } from '../types';
+
+interface ExpandedSensor extends Sensor {
+  room: Room['id'];
+}
 
 export default class ReadingResource extends Resource {
   readonly id: string = '';
   readonly value: number = 0;
-  readonly sensor: Sensor = {} as Sensor;
+  readonly sensor: ExpandedSensor = {} as ExpandedSensor;
 
   pk() {
     return this.id;
@@ -52,11 +56,4 @@ export default class ReadingResource extends Resource {
       },
     });
   }
-}
-
-export interface LastReadings {
-  [SensorType.brightness]: ReadingResource;
-  [SensorType.humidity]: ReadingResource;
-  [SensorType.soil]: ReadingResource;
-  [SensorType.temperature]: ReadingResource;
 }

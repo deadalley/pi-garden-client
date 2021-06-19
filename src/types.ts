@@ -1,3 +1,5 @@
+import ReadingResource from './resources/reading';
+
 export enum Mood {
   happy = 'happy',
   sad = 'sad',
@@ -90,6 +92,10 @@ export interface Room {
   avatar: Avatar;
 }
 
+export interface RoomExtended extends Room {
+  lastReadings: LastReadings;
+}
+
 export interface Plant {
   id: string;
   room: Room;
@@ -134,4 +140,11 @@ export enum NotificationSettingsOption {
   all = 'all',
   threshold = 'threshold',
   none = 'none',
+}
+
+export interface LastReadings {
+  [SensorType.brightness]: ReadingResource;
+  [SensorType.humidity]: ReadingResource;
+  [SensorType.soil]: ReadingResource;
+  [SensorType.temperature]: ReadingResource;
 }

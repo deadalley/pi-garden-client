@@ -13,6 +13,9 @@ import { COLORS, FONT_STYLES, PADDING } from '../../styles';
 import { ROOM_MOCK_1, PLANT_MOCK } from '../../mocks';
 import { PlantResource, RoomResource } from '../../resources';
 import { SocketService } from '../../services/socket.service';
+import { useAppDispatch } from '../../store.hooks';
+import { setRoomLastReadings } from '../../redux/room.slice';
+import { LastReadings } from '../../types';
 
 export interface SectionProps {
   title: string;
@@ -59,6 +62,7 @@ const Section: React.FC<SectionProps> = ({ title, color, children, navScreen, na
 };
 
 export const HomeScreen: React.FC = () => {
+  const dispatch = useAppDispatch();
   const setStatusBarStyle = useContext(StatusBarContext);
   useFocusEffect(() => setStatusBarStyle(StatusBarStyles[2]));
 
@@ -77,7 +81,10 @@ export const HomeScreen: React.FC = () => {
     SocketService.initialize();
     SocketService.connect().then(() => {
       SocketService.get(`/room/${rooms?.[0]?.id}/reading/subscribe`, (data: any) => {
-        console.log(data);
+        dispatch(setRoomLastReadings(data));
+      });
+      SocketService.on('sensor', (data: LastReadings) => {
+        dispatch(setRoomLastReadings(data));
       });
     });
   }, [finishedFirstLoad]);

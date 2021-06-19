@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 import onboardingReducer from './redux/onboarding.slice';
+import roomsReducer from './redux/room.slice';
 
 export const store = configureStore({
   reducer: {
     onboarding: onboardingReducer,
+    rooms: roomsReducer,
   },
 });
 

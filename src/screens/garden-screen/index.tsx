@@ -7,14 +7,13 @@ import { AddPlantAction, FloatingActionButton } from '../../components/floating-
 import { PlantItem } from './plant-item';
 
 import { Plant } from '../../types';
-import { useSubscribe } from '../../utils/use-subscribe';
-import { LastReadings } from '../../resources/reading';
+import { useAppSelector } from '../../store.hooks';
 
 export const GardenScreen: React.FC = () => {
   const route = useRoute();
   const { plants } = route.params as { plants: Plant[] };
 
-  const readings = useSubscribe<LastReadings>('sensor');
+  const allReadings = useAppSelector((state) => state.rooms.rooms);
 
   return (
     <>
@@ -26,7 +25,11 @@ export const GardenScreen: React.FC = () => {
         <FlatList
           data={plants}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <PlantItem {...item} readings={readings!} />}
+          renderItem={({ item }) => {
+            const readings = allReadings?.find(({ id }) => id === item.room.id)?.lastReadings;
+
+            return <PlantItem {...item} readings={readings!} />;
+          }}
         />
       </Screen>
       <FloatingActionButton actions={[AddPlantAction]} />

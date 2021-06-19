@@ -3,7 +3,7 @@ import { Platform, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'r
 import { useNavigation, useRoute } from '@react-navigation/native';
 import capitalize from 'lodash/capitalize';
 
-import { MoodIcon, Plant } from '../../types';
+import { LastReadings, MoodIcon, Plant } from '../../types';
 import { NavHeader } from '../../components/nav-header';
 import { IconLabel } from '../../components/icon-label';
 import { Image } from '../../components/image';
@@ -13,8 +13,7 @@ import { Button } from './button';
 
 import { COLORS, FONT_STYLES, HEADER_HEIGHT, PADDING, UiIcon } from '../../styles';
 import { formatAge } from '../../utils/date';
-import { LastReadings } from '../../resources/reading';
-import { useSubscribe } from '../../utils/use-subscribe';
+import { useAppSelector } from '../../store.hooks';
 
 export const PlantScreen: React.FC = () => {
   const navigation = useNavigation();
@@ -22,8 +21,9 @@ export const PlantScreen: React.FC = () => {
 
   const { plant } = route.params as { plant: Plant };
   const hasNotification = !!(plant && plant.notifications && plant.notifications.length);
-
-  const readings = useSubscribe<LastReadings>('sensor');
+  const readings = useAppSelector(
+    (state) => state.rooms.rooms.find(({ id }) => id === plant.room.id)?.lastReadings
+  );
 
   return (
     <View style={{ ...styles.wrapper }}>
