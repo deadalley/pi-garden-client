@@ -34,6 +34,7 @@
     "install": "^0.13.0",
     "lodash": "^4.17.21",
     "luxon": "^1.26.0",
+    "querystring": "^0.2.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-icomoon": "^2.2.4",

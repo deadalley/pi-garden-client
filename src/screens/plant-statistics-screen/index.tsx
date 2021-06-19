@@ -1,6 +1,8 @@
 import React from 'react';
 import { View } from 'react-native';
 import { useRoute } from '@react-navigation/native';
+import { useStatefulResource } from '@rest-hooks/legacy';
+import { DateTime } from 'luxon';
 
 import { NavHeader } from '../../components/nav-header';
 import { Screen } from '../../components/screen';
@@ -9,10 +11,17 @@ import { formatHour } from '../../utils/date';
 
 import { PADDING } from '../../styles';
 import { Plant, SensorName } from '../../types';
+import ReadingResource from '../../resources/reading';
 
 export const PlantStatisticsScreen: React.FC = () => {
   const route = useRoute();
   const { plant } = route.params as { plant: Plant };
+
+  const readings = useStatefulResource(ReadingResource.readings(), {
+    id: plant.room.id,
+    from: DateTime.now().toISODate(),
+    to: DateTime.now().plus({ days: 1 }).toISODate(),
+  });
 
   const data = [
     { timestamp: new Date('2021-04-08T00:00:00Z'), value: 50 },
