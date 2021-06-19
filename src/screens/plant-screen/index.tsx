@@ -1,22 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Platform, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { useStatefulResource } from '@rest-hooks/legacy';
-import { useInvalidator } from 'rest-hooks';
-import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import capitalize from 'lodash/capitalize';
 
 import { MoodIcon, Plant } from '../../types';
 import { NavHeader } from '../../components/nav-header';
 import { IconLabel } from '../../components/icon-label';
 import { Image } from '../../components/image';
+import { Bold } from '../../components/typography';
 import { SensorValue } from './sensor-value';
 import { Button } from './button';
 
 import { COLORS, FONT_STYLES, HEADER_HEIGHT, PADDING, UiIcon } from '../../styles';
 import { formatAge } from '../../utils/date';
-import { Bold } from '../../components/typography';
-import ReadingResource from '../../resources/reading';
-import { useCallback } from 'react';
+import { LastReadings } from '../../resources/reading';
+import { useSubscribe } from '../../utils/use-subscribe';
 
 export const PlantScreen: React.FC = () => {
   const navigation = useNavigation();
@@ -25,23 +23,7 @@ export const PlantScreen: React.FC = () => {
   const { plant } = route.params as { plant: Plant };
   const hasNotification = !!(plant && plant.notifications && plant.notifications.length);
 
-  const { data: readings, loading } = useStatefulResource(ReadingResource.last(), {
-    id: plant.room.id,
-  });
-  const [previousReadings, setPreviousReadings] = useState(readings);
-  const invalidateReadings = useInvalidator(ReadingResource.last());
-
-  useFocusEffect(
-    useCallback(() => {
-      invalidateReadings({ id: plant.room.id });
-    }, [invalidateReadings])
-  );
-
-  useEffect(() => {
-    if (!loading) {
-      setPreviousReadings(readings);
-    }
-  }, [loading]);
+  const readings = useSubscribe<LastReadings>('sensor');
 
   return (
     <View style={{ ...styles.wrapper }}>
@@ -70,7 +52,7 @@ export const PlantScreen: React.FC = () => {
             <SensorValue
               key={sensor.id}
               sensor={sensor}
-              value={(loading ? previousReadings : readings)?.[sensor.type]?.value ?? '--'}
+              value={readings?.[sensor.type]?.value ?? '--'}
             />
           ))
         ) : (
@@ -145,7 +127,7 @@ const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
     backgroundColor: COLORS.MAIN_DARK,
-    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight! : 0,
     flexDirection: 'column',
   },
   top: {

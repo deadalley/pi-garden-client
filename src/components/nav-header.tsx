@@ -6,7 +6,7 @@ import { COLORS, FONT_STYLES, UiIcon } from '../styles';
 
 export interface NavHeaderProps {
   position?: 'left' | 'right';
-  color?: string;
+  color?: string | undefined;
   small?: boolean;
   subLabel?: string;
   style?: object;

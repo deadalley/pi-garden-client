@@ -3,6 +3,7 @@ import sailsIOClient from 'sails.io.js';
 
 export class SocketService {
   static socket: any;
+  static io: any;
 
   static initialize = () => {
     console.log('Initializing socket...');
@@ -17,11 +18,30 @@ export class SocketService {
       io.sails.environment = 'production';
     }
 
-    console.log('Socket initialized. Attempting connect...');
-    SocketService.socket = io.sails.connect();
+    SocketService.io = io;
 
-    SocketService.socket.on('connect', () => {
-      console.log('Socket connected.');
+    console.log('Socket initialized.');
+  };
+
+  static connect = () => {
+    return new Promise<void>((resolve, reject) => {
+      if (!SocketService.io) reject('Socket must be initialized before connecting.');
+
+      console.log('Attempting to connect...');
+      SocketService.socket = SocketService.io.sails.connect();
+      SocketService.socket.on('connect', () => {
+        console.log('Socket connected.');
+        resolve();
+      });
     });
   };
+
+  static get(url: string, cb: (data: any, jwt: any) => void) {
+    if (!SocketService.io) throw 'Socket must be initialized before fetching resource.';
+    return SocketService.io.socket.get(url, cb);
+  }
+  static on(url: string, cb: (data: any, jwt: any) => void) {
+    if (!SocketService.io) throw 'Socket must be initialized before fetching resource.';
+    return SocketService.io.socket.on(url, cb);
+  }
 }

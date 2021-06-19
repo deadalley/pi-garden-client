@@ -1,4 +1,4 @@
-import { Resource } from '@rest-hooks/rest';
+import { Entity, Resource } from '@rest-hooks/rest';
 
 import { Sensor, SensorType } from '../types';
 
@@ -52,4 +52,11 @@ export default class ReadingResource extends Resource {
       },
     });
   }
+}
+
+export interface LastReadings {
+  [SensorType.brightness]: ReadingResource;
+  [SensorType.humidity]: ReadingResource;
+  [SensorType.soil]: ReadingResource;
+  [SensorType.temperature]: ReadingResource;
 }

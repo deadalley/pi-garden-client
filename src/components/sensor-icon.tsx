@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import { COLORS, FONT_STYLES, WeatherIcon } from '../styles';
+import { COLORS, FONT_STYLES, PADDING, WeatherIcon } from '../styles';
 
 export interface SensorIconProps {
   value: string;
@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
   wrapper: {
     alignItems: 'center',
     justifyContent: 'center',
+    marginRight: PADDING.SMALL,
   },
   value: {
     ...FONT_STYLES.text,

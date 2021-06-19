@@ -2,16 +2,19 @@ import React from 'react';
 import { FlatList } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 
-import { PLANT_MOCK } from '../../mocks';
-
 import { Screen } from '../../components/screen';
 import { AddPlantAction, FloatingActionButton } from '../../components/floating-action-button';
 import { PlantItem } from './plant-item';
+
 import { Plant } from '../../types';
+import { useSubscribe } from '../../utils/use-subscribe';
+import { LastReadings } from '../../resources/reading';
 
 export const GardenScreen: React.FC = () => {
   const route = useRoute();
   const { plants } = route.params as { plants: Plant[] };
+
+  const readings = useSubscribe<LastReadings>('sensor');
 
   return (
     <>
@@ -23,7 +26,7 @@ export const GardenScreen: React.FC = () => {
         <FlatList
           data={plants}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <PlantItem {...item} />}
+          renderItem={({ item }) => <PlantItem {...item} readings={readings!} />}
         />
       </Screen>
       <FloatingActionButton actions={[AddPlantAction]} />

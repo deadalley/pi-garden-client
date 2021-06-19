@@ -15,9 +15,10 @@ import {
   EmojiIcon,
 } from '../../styles';
 import { MoodIcon, PlantExtended, SensorTypeIcon } from '../../types';
+import { LastReadings } from '../../resources/reading';
 
-export const PlantItem: React.FC<PlantExtended> = (props) => {
-  const { name, room, mood, imageUrl } = props;
+export const PlantItem: React.FC<PlantExtended & { readings: LastReadings }> = (props) => {
+  const { name, room, mood, imageUrl, readings } = props;
   const navigation = useNavigation();
 
   return (
@@ -43,10 +44,19 @@ export const PlantItem: React.FC<PlantExtended> = (props) => {
             />
           </View>
           <View style={{ paddingRight: PADDING.SMALL }}>
-            <View style={styles.sensors}>
+            <View
+              style={{
+                ...styles.sensors,
+                ...(room.sensors.length < 4 ? { justifyContent: 'flex-start' } : {}),
+              }}
+            >
               {room.sensors.length ? (
-                room.sensors.map((sensor) => (
-                  <SensorIcon value={'56%'} iconName={SensorTypeIcon[sensor.type]} />
+                room.sensors.map((sensor, index) => (
+                  <SensorIcon
+                    value={`${readings?.[sensor.type]?.value ?? '--'}`}
+                    iconName={SensorTypeIcon[sensor.type]}
+                    style={index === room.sensors.length - 1 ? { marginRight: 0 } : {}}
+                  />
                 ))
               ) : (
                 <Text style={styles.empty}>No sensors</Text>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
+import { LogBox } from 'react-native';
 import { CacheProvider } from 'rest-hooks';
 import AppLoading from 'expo-app-loading';
 import { useFonts } from 'expo-font';
@@ -16,6 +17,11 @@ import { store } from './src/store';
 
 import AppEntrypoint from './src/';
 import { StatusBarProvider } from './src/components/status-bar';
+
+LogBox.ignoreLogs([
+  'Setting a timer for a long period of time, i.e. multiple minutes, is a performance and correctness issue on Android as it keeps the timer module awake, and timers can only be called when the app is in the foreground. See https://github.com/facebook/react-native/issues/12981 for more info.\n(Saw setTimeout with duration 85000ms)',
+  'Unrecognized WebSocket connection option(s) `agent`, `perMessageDeflate`, `pfx`, `key`, `passphrase`, `cert`, `ca`, `ciphers`, `rejectUnauthorized`. Did you mean to put these under `headers`?',
+]);
 
 export default function App() {
   const [assetsLoaded] = useAssets([require('./assets/images/plants/plant01.png')]);

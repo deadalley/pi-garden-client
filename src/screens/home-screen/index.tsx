@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Platform, StatusBar, StyleSheet, Text, View } from 'react-native';
 import { useStatefulResource } from '@rest-hooks/legacy';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
@@ -63,11 +63,24 @@ export const HomeScreen: React.FC = () => {
   useFocusEffect(() => setStatusBarStyle(StatusBarStyles[2]));
 
   const { data: plants } = useStatefulResource(PlantResource.list(), {});
-  const { data: rooms } = useStatefulResource(RoomResource.list(), {});
+  const { data: rooms, loading } = useStatefulResource(RoomResource.list(), {});
 
-  React.useEffect(() => {
+  const [finishedFirstLoad, setFinishedFirstLoad] = useState(false);
+
+  useEffect(() => {
+    if (rooms && !loading) setFinishedFirstLoad(true);
+  }, [rooms]);
+
+  useEffect(() => {
+    if (!finishedFirstLoad) return;
+
     SocketService.initialize();
-  }, []);
+    SocketService.connect().then(() => {
+      SocketService.get(`/room/${rooms?.[0]?.id}/reading/subscribe`, (data: any) => {
+        console.log(data);
+      });
+    });
+  }, [finishedFirstLoad]);
 
   return (
     <HomeScreenLayout>
@@ -95,7 +108,7 @@ const styles = StyleSheet.create({
   wrapper: {
     height: '100%',
     flexDirection: 'column',
-    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight! : 0,
   },
   header: {
     ...FONT_STYLES.h1,
