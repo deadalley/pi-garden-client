@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Text, TouchableWithoutFeedback, StyleSheet, View } from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import DatePicker from 'react-native-date-picker';
 import { useField } from 'formik';
 
 import { COLORS, FONT_STYLES, PADDING, UiIcon } from '../styles';
@@ -19,7 +19,7 @@ export const DateInput: React.FC<DateInputProps> = ({ mode, style, label, min, m
   const [field, meta, helpers] = useField(props as any);
   const [visible, setVisible] = useState<boolean>(false);
 
-  const handleOnChange = (_: any, selectedDate?: Date) => {
+  const handleOnChange = (selectedDate?: Date) => {
     if (selectedDate === undefined) return;
 
     setVisible(false);
@@ -38,18 +38,18 @@ export const DateInput: React.FC<DateInputProps> = ({ mode, style, label, min, m
         </TouchableWithoutFeedback>
         <Text style={styles.error}>{meta.error}</Text>
       </View>
-      {visible && (
-        <DateTimePicker
-          testID="dateTimePicker"
-          value={field.value ?? meta.initialValue}
-          mode={mode as any}
-          is24Hour={true}
-          display="default"
-          onChange={handleOnChange}
-          minimumDate={min}
-          maximumDate={max}
-        />
-      )}
+      <DatePicker
+        modal
+        open={visible}
+        date={field.value ?? meta.initialValue}
+        onConfirm={(date) => {
+          setVisible(false);
+          handleOnChange(date);
+        }}
+        onCancel={() => {
+          setVisible(false);
+        }}
+      />
     </>
   );
 };
