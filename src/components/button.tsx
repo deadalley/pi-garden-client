@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
-import { BORDER_RADIUS, BOX_SHADOW, COLORS, FONT_STYLES } from '../styles';
+import { BORDER_RADIUS, COLORS, FONT_STYLES } from '../styles';
 
 export interface ButtonProps {
   inline?: boolean;
@@ -36,6 +36,7 @@ export const Button: React.FC<ButtonProps> = ({
         ...styles.text,
         ...(inverted ? styles.textInverted : {}),
         ...(small ? styles.textSmall : {}),
+        ...(dark ? styles.textDark : {}),
       }}
     >
       {children}
@@ -52,8 +53,7 @@ const styles = StyleSheet.create({
     marginBottom: 6,
   },
   background: {
-    backgroundColor: COLORS.MAIN_MEDIUM,
-    ...BOX_SHADOW,
+    backgroundColor: COLORS.MAIN_LIGHT,
   },
   textSmall: {
     ...FONT_STYLES.h4,
@@ -63,8 +63,11 @@ const styles = StyleSheet.create({
   },
   text: {
     ...FONT_STYLES.h3,
-    color: COLORS.LIGHT,
+    color: COLORS.MAIN_DARK,
     fontSize: 24,
+  },
+  textDark: {
+    color: COLORS.LIGHT,
   },
   fullWidth: {
     width: '100%',

@@ -1,3 +1,4 @@
+import { useFormikContext } from 'formik';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
@@ -6,41 +7,40 @@ import { Button } from '../../components/button';
 import { TextInput } from '../../components/text-input';
 
 import { COLORS, FONT_STYLES } from '../../styles';
-import { Avatar } from '../../types';
+import { Room } from '../../types';
+import { OnboardingContext } from './context';
 
-export interface Screen3Props {
-  avatar: Avatar;
-  currentIndex: number;
-  setIndex: (index: number) => void;
-  setFieldValue: (name: string, value: Avatar) => void;
-}
+export interface Screen3Props {}
 
-export const Screen3: React.FC<Screen3Props> = ({
-  avatar,
-  currentIndex,
-  setIndex,
-  setFieldValue,
-}) => (
-  <>
-    <View style={styles.wrapper}>
-      <Text style={styles.text}>
-        We're online!
-        {'\n\n'}
-        Let's start by adding a room to your garden...
-        {'\n\n'}
-      </Text>
-      <AvatarChooser
-        icon={avatar}
-        setIcon={(value) => setFieldValue('room.avatar', value)}
-        iconType={'furniture'}
-      />
-      <TextInput label={'Name'} name="room.name" autoCorrect />
-    </View>
-    <Button small onPress={() => setIndex(currentIndex + 1)}>
-      Add Room
-    </Button>
-  </>
-);
+export const Screen3: React.FC<Screen3Props> = ({}) => {
+  const { values, setFieldValue } = useFormikContext<{ room: Room }>();
+
+  return (
+    <OnboardingContext.Consumer>
+      {({ currentIndex, setCurrentIndex }) => (
+        <>
+          <View style={styles.wrapper}>
+            <Text style={styles.text}>
+              We're online!
+              {'\n\n'}
+              Let's start by adding a room to your garden
+              {'\n\n'}
+            </Text>
+            <AvatarChooser
+              icon={values.room.avatar}
+              setIcon={(value) => setFieldValue('room.avatar', value)}
+              iconType={'furniture'}
+            />
+            <TextInput label={'Name'} name="room.name" autoCorrect />
+          </View>
+          <Button dark small onPress={() => setCurrentIndex(currentIndex + 1)}>
+            Add Room
+          </Button>
+        </>
+      )}
+    </OnboardingContext.Consumer>
+  );
+};
 
 const styles = StyleSheet.create({
   wrapper: {

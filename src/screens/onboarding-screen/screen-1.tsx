@@ -4,19 +4,21 @@ import { StyleSheet, Text } from 'react-native';
 import { Button } from '../../components/button';
 
 import { COLORS, FONT_STYLES } from '../../styles';
+import { OnboardingContext } from './context';
 
-export interface Screen1Props {
-  currentIndex: number;
-  setIndex: (index: number) => void;
-}
+export interface Screen1Props {}
 
-export const Screen1: React.FC<Screen1Props> = ({ currentIndex, setIndex }) => (
-  <>
-    <Text style={styles.text}>Welcome to PiGarden!</Text>
-    <Button dark onPress={() => setIndex(currentIndex + 1)}>
-      Get Started
-    </Button>
-  </>
+export const Screen1: React.FC<Screen1Props> = () => (
+  <OnboardingContext.Consumer>
+    {({ currentIndex, setCurrentIndex }) => (
+      <>
+        <Text style={styles.text}>Welcome to PiGarden!</Text>
+        <Button dark small onPress={() => setCurrentIndex(currentIndex + 1)}>
+          Get Started
+        </Button>
+      </>
+    )}
+  </OnboardingContext.Consumer>
 );
 
 const styles = StyleSheet.create({
