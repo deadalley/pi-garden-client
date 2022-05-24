@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     ...FONT_STYLES.h4,
   },
   textInverted: {
-    color: COLORS.MAIN_MEDIUM,
+    color: COLORS.MAIN_DARK,
   },
   text: {
     ...FONT_STYLES.h3,

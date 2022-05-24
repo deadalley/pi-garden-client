@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Text,
   TextInput as NativeTextInput,
@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { useField } from 'formik';
 
-import { COLORS, FONT_STYLES, PADDING } from '../styles';
+import { BORDER_RADIUS, COLORS, FONT_STYLES, PADDING } from '../styles';
 
 export interface TextInputProps {
   autoCorrect?: boolean;
@@ -29,15 +29,18 @@ export const TextInput: React.FC<TextInputProps> = ({
   keyboardType,
   ...props
 }) => {
+  const [backgroundColor, setBackgroundColor] = useState(COLORS.LIGHT);
   const [field, meta, helpers] = useField(props as any);
 
   return (
     <View style={{ ...styles.wrapper, ...style }}>
       <Text style={styles.label}>{label}</Text>
-      <View style={styles.inputWrapper}>
+      <View style={{ ...styles.inputWrapper, backgroundColor }}>
         <NativeTextInput
           style={{ ...styles.input }}
           onChangeText={(value: string) => helpers.setValue(value, true)}
+          onFocus={() => setBackgroundColor(COLORS.MAIN_LIGHT)}
+          onBlur={() => setBackgroundColor(COLORS.LIGHT)}
           autoCorrect={autoCorrect}
           keyboardType={keyboardType}
           value={`${field.value ?? meta.initialValue}`}
@@ -54,10 +57,8 @@ const styles = StyleSheet.create({
     marginBottom: PADDING.SMALL,
   },
   label: {
-    ...FONT_STYLES.text,
+    ...FONT_STYLES.h4,
     color: COLORS.MAIN_DARK,
-    paddingHorizontal: PADDING.SMALLER,
-    lineHeight: 18,
   },
   inputWrapper: {
     height: 36,
@@ -68,6 +69,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     paddingVertical: 0,
     paddingHorizontal: PADDING.SMALLER,
+    borderTopLeftRadius: BORDER_RADIUS / 2,
+    borderTopRightRadius: BORDER_RADIUS / 2,
   },
   input: {
     flex: 1,
