@@ -1,9 +1,8 @@
 import { StyleSheet } from 'react-native';
 
 export * from './icons';
-export * from './images';
 
-export const BORDER_RADIUS = 18;
+export const BORDER_RADIUS = 12;
 
 export const HEADER_HEIGHT = 140;
 

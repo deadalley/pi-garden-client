@@ -12,7 +12,7 @@ import { Screen6 } from './screen-6';
 import { Screen7 } from './screen-7';
 import { Screen8 } from './screen-8';
 
-import { COLORS, PADDING } from '../../styles';
+import { PADDING } from '../../styles';
 import { Avatar, SensorName, SensorStatus, SensorType } from '../../types';
 import { commonPlantTypes } from '../../mocks';
 import { random } from '../../utils/number';
@@ -107,9 +107,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
-    padding: PADDING.BIG,
-  },
-  dots: {
-    marginBottom: 3 * PADDING.BIG,
+    padding: PADDING.MEDIUM,
   },
 });

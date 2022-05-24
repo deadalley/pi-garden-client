@@ -2,9 +2,10 @@ import { useFormikContext } from 'formik';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import { AvatarChooser } from '../../components/avatar-chooser';
 import { Button } from '../../components/button';
+import { ImagePicker } from '../../components/image-picker';
 import { TextInput } from '../../components/text-input';
+import Images from '../../images';
 
 import { COLORS, FONT_STYLES } from '../../styles';
 import { Room } from '../../types';
@@ -26,10 +27,10 @@ export const Screen3: React.FC<Screen3Props> = ({}) => {
               Let's start by adding a room to your garden
               {'\n\n'}
             </Text>
-            <AvatarChooser
-              icon={values.room.avatar}
-              setIcon={(value) => setFieldValue('room.avatar', value)}
-              iconType={'furniture'}
+            <ImagePicker
+              onImagePicked={(value) => {}}
+              imageSet={'rooms'}
+              image={Images.rooms.patio}
             />
             <TextInput label={'Name'} name="room.name" autoCorrect />
           </View>
