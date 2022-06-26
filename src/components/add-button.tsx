@@ -27,7 +27,7 @@ export const AddButton: React.FC = () => {
     <>
       <TouchableWithoutFeedback onPress={() => setModalVisible(!modalVisible)}>
         <View style={styles.button}>
-          <UiIcon name="fi-rr-plus" size={32} color={COLORS.LIGHT} />
+          <UiIcon name="fi-rr-plus" size={30} color={COLORS.LIGHT} />
         </View>
       </TouchableWithoutFeedback>
       <Modal
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     height: 54,
     width: 54,
     position: 'absolute',
-    top: -32,
-    left: Dimensions.get('window').width / 2 - 34,
+    top: -30,
+    left: Dimensions.get('window').width / 2 - 54 / 2,
   },
 });
