@@ -24,7 +24,22 @@ LogBox.ignoreLogs([
 ]);
 
 export default function App() {
-  const [assetsLoaded] = useAssets([require('./assets/images/plants/plant01.png')]);
+  const [assetsLoaded] = useAssets([
+    require('./assets/images/plants/plant01.png'),
+    require('./assets/images/rooms/balcony.jpg'),
+    require('./assets/images/rooms/bedroom-1.jpg'),
+    require('./assets/images/rooms/bedroom-2.jpg'),
+    require('./assets/images/rooms/bedroom-3.jpg'),
+    require('./assets/images/rooms/dining-room.jpg'),
+    require('./assets/images/rooms/foyer.jpg'),
+    require('./assets/images/rooms/garage.jpg'),
+    require('./assets/images/rooms/hallway.jpg'),
+    require('./assets/images/rooms/kitchen.jpg'),
+    require('./assets/images/rooms/living-room.jpg'),
+    require('./assets/images/rooms/office.jpg'),
+    require('./assets/images/rooms/patio.jpg'),
+    require('./assets/images/rooms/terrace.jpg'),
+  ]);
 
   const [fontsLoaded] = useFonts({
     Poppins_500Medium,

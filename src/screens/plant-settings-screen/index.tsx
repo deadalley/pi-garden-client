@@ -9,7 +9,7 @@ import { PickerInput } from '../../components/picker-input';
 import { DateInput } from '../../components/date-input';
 import { ThresholdInput } from '../../components/threshold-input';
 import { Button } from '../../components/button';
-import { ImageChooser } from '../../components/image-chooser';
+import { ImagePicker } from '../../components/image-picker';
 import { Bold } from '../../components/typography';
 
 import { PlantExtended, SensorName, SensorType } from '../../types';
@@ -89,7 +89,7 @@ export const PlantSettingsScreen: React.FC = () => {
           ))}
 
           <SectionTitle>Plant Avatar</SectionTitle>
-          <ImageChooser
+          <ImagePicker
             imageUrl={values.imageUrl}
             setAvatar={(value) => setFieldValue('avatar', value)}
             imageSet={'plants'}

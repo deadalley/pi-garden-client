@@ -12,7 +12,7 @@ import { Screen } from '../../components/screen';
 import { TextInput } from '../../components/text-input';
 import { ThresholdInput } from '../../components/threshold-input';
 import { Navigation } from '../../components/navigation';
-import { ImageChooser } from '../../components/image-chooser';
+import { ImagePicker } from '../../components/image-picker';
 
 import { commonPlantTypes } from '../../mocks';
 import { COLORS, FONT_STYLES, PADDING } from '../../styles';
@@ -73,7 +73,7 @@ const AddSensors: React.FC<StateProps> = ({ room }) => (
 );
 
 const PlantImage: React.FC<StateProps> = ({ plant, setPlant }) => (
-  <ImageChooser
+  <ImagePicker
     imageUrl={plant.imageUrl}
     setAvatar={(value) => setPlant({ imageUrl: value })}
     imageSet={'plants'}

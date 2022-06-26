@@ -1,9 +1,8 @@
 {
-  "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
+    "start": "expo start --dev-client",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
     "web": "expo start --web",
     "eject": "expo eject",
     "lint": "tslint -c tslint.json src/**/*.{ts,tsx} --fix --format verbose",
@@ -49,13 +48,15 @@
     "react-native-super-grid": "^4.1.1",
     "react-native-svg": "12.3.0",
     "react-native-svg-charts": "^5.4.0",
+    "react-native-swiper": "^1.6.0",
     "react-native-web": "0.17.7",
     "react-redux": "^7.2.4",
     "react-table": "^7.6.3",
     "rest-hooks": "^5.0.23",
     "sails.io.js": "^1.2.1",
     "socket.io-client": "2.2.0",
-    "yup": "^0.32.9"
+    "yup": "^0.32.9",
+    "expo-splash-screen": "~0.15.1"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",
@@ -73,5 +74,7 @@
     "tslint-react": "^5.0.0",
     "typescript": "~4.0.0"
   },
-  "private": true
+  "private": true,
+  "name": "pi-garden-client",
+  "version": "1.0.0"
 }

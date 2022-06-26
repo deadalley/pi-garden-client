@@ -1,9 +1,8 @@
 import { StyleSheet } from 'react-native';
 
 export * from './icons';
-export * from './images';
 
-export const BORDER_RADIUS = 18;
+export const BORDER_RADIUS = 12;
 
 export const HEADER_HEIGHT = 140;
 
@@ -17,9 +16,9 @@ export const PADDING = {
 
 export const COLORS = {
   MAIN_DARKER: '#1e4951',
-  MAIN_DARK: '#2c6975',
-  MAIN_MEDIUM: '#68b2a0',
-  MAIN_LIGHT: '#cde0c9',
+  MAIN_DARK: '#3D5736',
+  MAIN_MEDIUM: '#B9B6A2',
+  MAIN_LIGHT: '#E7F2E3',
   MAIN_LIGHTER: '#e0ecde',
 
   DARK: '#000000',
@@ -29,8 +28,8 @@ export const COLORS = {
   GRAY: '#cfcfcf',
 
   GREEN: '#2AD227',
-  ORANGE: '#FF7905',
-  RED: '#C90100',
+  ORANGE: '#FC7A1E',
+  RED: '#E9190F',
 };
 
 export const BOX_SHADOW = {

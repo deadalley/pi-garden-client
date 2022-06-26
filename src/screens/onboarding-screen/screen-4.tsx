@@ -4,30 +4,32 @@ import { StyleSheet, Text } from 'react-native';
 import { Button } from '../../components/button';
 
 import { COLORS, FONT_STYLES } from '../../styles';
+import { OnboardingContext } from './context';
 
-export interface Screen4Props {
-  currentIndex: number;
-  setIndex: (index: number) => void;
-}
+export interface Screen4Props {}
 
-export const Screen4: React.FC<Screen4Props> = ({ currentIndex, setIndex }) => (
-  <>
-    <Text style={styles.text}>
-      Your PiGarden already comes with three types of sensor:
-      {'\n\n'}
-      Temperature{'\n'}Brightness{'\n'}Humidity
-      {'\n\n'}
-      These sensors are already configured and automatically added to your first room.
-      {'\n\n'}
-      Would you like to configure your first Soil Moisture sensor?
-    </Text>
-    <Button small onPress={() => setIndex(currentIndex + 1)}>
-      Yes
-    </Button>
-    <Button small inverted onPress={() => setIndex(currentIndex + 1)}>
-      No, I'll do that later
-    </Button>
-  </>
+export const Screen4: React.FC<Screen4Props> = () => (
+  <OnboardingContext.Consumer>
+    {({ currentIndex, setCurrentIndex }) => (
+      <>
+        <Text style={styles.text}>
+          Your PiGarden already comes with three types of sensor:
+          {'\n\n'}
+          Temperature{'\n'}Brightness{'\n'}Humidity
+          {'\n\n'}
+          These sensors are already configured and automatically added to your first room.
+          {'\n\n'}
+          Would you like to configure your first Soil Moisture sensor?
+        </Text>
+        <Button small onPress={() => setCurrentIndex(currentIndex + 1)}>
+          Configure Sensor
+        </Button>
+        <Button small inverted onPress={() => setCurrentIndex(currentIndex + 1)}>
+          Skip
+        </Button>
+      </>
+    )}
+  </OnboardingContext.Consumer>
 );
 
 const styles = StyleSheet.create({

@@ -18,6 +18,7 @@ export interface DateInputProps {
 export const DateInput: React.FC<DateInputProps> = ({ mode, style, label, min, max, ...props }) => {
   const [field, meta, helpers] = useField(props as any);
   const [visible, setVisible] = useState<boolean>(false);
+  const [backgroundColor, setBackgroundColor] = useState(COLORS.HALF_LIGHT);
 
   const handleOnChange = (selectedDate?: Date) => {
     if (selectedDate === undefined) return;
@@ -30,10 +31,17 @@ export const DateInput: React.FC<DateInputProps> = ({ mode, style, label, min, m
     <>
       <View style={{ ...styles.wrapper, ...style }}>
         <Text style={styles.label}>{label}</Text>
-        <TouchableWithoutFeedback onPress={() => setVisible(true)}>
+        <TouchableWithoutFeedback
+          onPress={() => {
+            setVisible(true);
+            setBackgroundColor(COLORS.MAIN_LIGHT);
+          }}
+        >
           <View style={styles.inputWrapper}>
-            <Text style={styles.input}>{formatDate(field.value ?? meta.initialValue)}</Text>
-            <UiIcon name="fi-rr-caret-down" size={22} color={COLORS.MAIN_DARK} />
+            <Text style={{ ...styles.input, backgroundColor }}>
+              {formatDate(field.value ?? meta.initialValue)}
+            </Text>
+            <UiIcon name="fi-sr-triangle" size={12} color={COLORS.MAIN_DARK} style={styles.icon} />
           </View>
         </TouchableWithoutFeedback>
         <Text style={styles.error}>{meta.error}</Text>
@@ -41,12 +49,14 @@ export const DateInput: React.FC<DateInputProps> = ({ mode, style, label, min, m
       <DatePicker
         modal
         open={visible}
-        date={field.value ?? meta.initialValue}
+        date={new Date()}
         onConfirm={(date) => {
           setVisible(false);
           handleOnChange(date);
+          setBackgroundColor(COLORS.HALF_LIGHT);
         }}
         onCancel={() => {
+          setBackgroundColor(COLORS.HALF_LIGHT);
           setVisible(false);
         }}
       />
@@ -87,6 +97,6 @@ const styles = StyleSheet.create({
     paddingLeft: PADDING.SMALLER,
   },
   icon: {
-    paddingTop: 8,
+    transform: [{ rotate: '180deg' }, { scaleY: 0.9 }],
   },
 });

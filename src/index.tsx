@@ -27,7 +27,7 @@ export default memo(() => {
 
   if (!done) return <AppLoading />;
 
-  if (!onboardingComplete) return <OnboardingScreen />;
+  if (true || !onboardingComplete) return <OnboardingScreen />;
 
   return (
     <Suspense

@@ -17,6 +17,7 @@ import { Avatar, SensorName, SensorStatus, SensorType } from '../../types';
 import { commonPlantTypes } from '../../mocks';
 import { random } from '../../utils/number';
 import { setOnboardingComplete } from '../../redux/onboarding.slice';
+import { OnboardingContext } from './context';
 
 export const OnboardingScreen: React.FC = () => {
   const dispatch = useDispatch();
@@ -26,7 +27,7 @@ export const OnboardingScreen: React.FC = () => {
     []
   );
 
-  const [currentIndex, setIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const CurrentScreen = screens[currentIndex];
 
   if (!CurrentScreen) return null;
@@ -90,18 +91,12 @@ export const OnboardingScreen: React.FC = () => {
         return;
       }}
     >
-      {({ values, setFieldValue, submitForm }) => (
-        <View style={styles.wrapper}>
-          <CurrentScreen
-            currentIndex={currentIndex}
-            setIndex={setIndex}
-            plantName={values.plant.name}
-            avatar={values.room.avatar}
-            sensors={values.room.sensors}
-            setFieldValue={setFieldValue}
-            onFinish={() => submitForm()}
-          />
-        </View>
+      {() => (
+        <OnboardingContext.Provider value={{ currentIndex, setCurrentIndex }}>
+          <View style={{ ...styles.wrapper }}>
+            <CurrentScreen />
+          </View>
+        </OnboardingContext.Provider>
       )}
     </Formik>
   );
@@ -112,6 +107,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
-    padding: PADDING.BIG,
+    padding: PADDING.MEDIUM,
   },
 });
