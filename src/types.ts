@@ -1,3 +1,4 @@
+import images from './images';
 import ReadingResource from './resources/reading';
 
 export enum Mood {
@@ -98,13 +99,17 @@ export interface RoomExtended extends Room {
 
 export interface Plant {
   id: string;
-  room: Room;
+  room: string;
   name: string;
-  mood: Mood;
+  // mood: Mood;
   plantedDate: Date;
   specification: PlantSpecification;
   notifications?: Notification[];
-  imageUrl: string;
+  image: keyof typeof images.plants;
+}
+
+export interface ExtendedPlant extends Plant {
+  roomName: string;
 }
 
 export interface PlantExtended extends Plant {

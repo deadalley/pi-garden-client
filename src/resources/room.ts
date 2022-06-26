@@ -1,4 +1,5 @@
 import { Resource } from '@rest-hooks/rest';
+import mocks from '../mocks';
 
 import { Avatar, Plant, Room, Sensor } from '../types';
 
@@ -16,16 +17,17 @@ export default class RoomResource extends Resource {
   static urlRoot = `http://192.168.0.91:1337/room`;
 
   static async fetch(input: RequestInfo, init: RequestInit) {
-    const jsonResponse = await super.fetch(input, init);
+    return mocks.rooms;
+    //   const jsonResponse = await super.fetch(input, init);
 
-    return Array.isArray(jsonResponse)
-      ? jsonResponse.map((room: Room) => ({
-          ...room,
-          plants: room.plants.map((plant) => ({
-            ...plant,
-            plantedDate: new Date(plant.plantedDate),
-          })),
-        }))
-      : jsonResponse;
+    //   return Array.isArray(jsonResponse)
+    //     ? jsonResponse.map((room: Room) => ({
+    //         ...room,
+    //         plants: room.plants.map((plant) => ({
+    //           ...plant,
+    //           plantedDate: new Date(plant.plantedDate),
+    //         })),
+    //       }))
+    //     : jsonResponse;
   }
 }

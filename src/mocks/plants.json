@@ -1,0 +1,80 @@
+[
+  {
+    "id": "plant01",
+    "room": "room01",
+    "name": "Strawberry",
+    "mood": "happy",
+    "plantedDate": "2020-03-12",
+    "image": "plant101",
+    "specification": {
+      "temperature": {
+        "start": "23",
+        "end": "45"
+      },
+      "humidity": {
+        "start": "12",
+        "end": "98"
+      },
+      "soil": {
+        "start": "23",
+        "end": "85"
+      },
+      "brightness": {
+        "start": "50",
+        "end": "100"
+      }
+    }
+  },
+  {
+    "id": "plant02",
+    "room": "room01",
+    "name": "Tomato",
+    "mood": "happy",
+    "plantedDate": "2020-10-24",
+    "image": "plant103",
+    "specification": {
+      "temperature": {
+        "start": "23",
+        "end": "45"
+      },
+      "humidity": {
+        "start": "12",
+        "end": "98"
+      },
+      "soil": {
+        "start": "23",
+        "end": "85"
+      },
+      "brightness": {
+        "start": "50",
+        "end": "100"
+      }
+    }
+  },
+  {
+    "id": "plant03",
+    "room": "room02",
+    "name": "Carrot",
+    "mood": "sad",
+    "plantedDate": "2022-02-01",
+    "image": "plant111",
+    "specification": {
+      "temperature": {
+        "start": "23",
+        "end": "45"
+      },
+      "humidity": {
+        "start": "12",
+        "end": "98"
+      },
+      "soil": {
+        "start": "23",
+        "end": "85"
+      },
+      "brightness": {
+        "start": "50",
+        "end": "100"
+      }
+    }
+  }
+]

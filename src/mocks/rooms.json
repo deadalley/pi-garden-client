@@ -1,0 +1,12 @@
+[
+  {
+    "id": "room01",
+    "name": "Kitchen",
+    "sensors": []
+  },
+  {
+    "id": "room02",
+    "name": "Living Room",
+    "sensors": []
+  }
+]

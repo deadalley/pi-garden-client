@@ -3,10 +3,10 @@ import { FlatList } from 'react-native';
 
 import { PlantCard } from '../../components/plant-card';
 import { PADDING } from '../../styles';
-import { PlantExtended } from '../../types';
+import { ExtendedPlant } from '../../types';
 
 export interface PlantsProps {
-  plants: PlantExtended[];
+  plants: ExtendedPlant[];
 }
 
 export const Plants: React.FC<PlantsProps> = ({ plants }) => (
@@ -17,9 +17,7 @@ export const Plants: React.FC<PlantsProps> = ({ plants }) => (
       <PlantCard
         plant={item}
         style={{
-          ...(index === 0
-            ? { marginLeft: PADDING.BIGGER, marginRight: PADDING.SMALLER }
-            : index < plants.length - 1
+          ...(index < plants.length - 1
             ? { marginRight: PADDING.SMALLER }
             : { marginRight: PADDING.SMALL }),
         }}

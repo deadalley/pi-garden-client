@@ -2,20 +2,20 @@ import React from 'react';
 import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import { BORDER_RADIUS, BOX_SHADOW, COLORS, EmojiIcon, FONT_STYLES, PADDING } from '../styles';
-import { MoodIcon, Plant } from '../types';
+import { BORDER_RADIUS, COLORS, FONT_STYLES, PADDING } from '../styles';
+import { ExtendedPlant } from '../types';
 
 import { Image } from './image';
-import { NotificationBadge } from './notification-badge';
+import images from '../images';
 
 export interface PlantCardProps {
-  plant: Plant;
+  plant: ExtendedPlant;
   style?: object;
 }
 
 export const PlantCard: React.FC<PlantCardProps> = ({ plant, style }) => {
   const navigation = useNavigation();
-  const hasNotification = !!(plant && plant.notifications && plant.notifications.length);
+  const avatar = images.plants[plant.image];
 
   return (
     <TouchableWithoutFeedback
@@ -24,19 +24,10 @@ export const PlantCard: React.FC<PlantCardProps> = ({ plant, style }) => {
       }
     >
       <View style={{ ...styles.wrapper, ...(style ?? {}) }}>
-        <EmojiIcon
-          name={MoodIcon[plant.mood]}
-          size={18}
-          color={COLORS.MAIN_DARK}
-          style={styles.mood}
-        />
-        {hasNotification && <NotificationBadge />}
-        <View style={styles.imageWrapper}>
-          <Image style={styles.image} imageUrl={plant.imageUrl} />
-        </View>
-        <View style={styles.bottom}>
+        <Image style={styles.image} image={avatar} />
+        <View style={styles.tile}>
           <Text style={styles.plantName}>{plant.name}</Text>
-          <Text style={styles.roomName}>{plant.room.name}</Text>
+          <Text style={styles.roomName}>{plant.roomName}</Text>
         </View>
       </View>
     </TouchableWithoutFeedback>
@@ -45,24 +36,26 @@ export const PlantCard: React.FC<PlantCardProps> = ({ plant, style }) => {
 
 const styles = StyleSheet.create({
   wrapper: {
-    ...BOX_SHADOW,
-    borderRadius: BORDER_RADIUS,
-    backgroundColor: COLORS.MAIN_LIGHTER,
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 200,
-    marginHorizontal: 2,
-    marginVertical: 8,
-    width: 136,
+    marginTop: PADDING.BIG * 2,
   },
-  imageWrapper: {
-    flex: 5,
-    padding: PADDING.SMALLER,
+  tile: {
+    padding: PADDING.SMALL,
+    borderRadius: BORDER_RADIUS,
+    backgroundColor: COLORS.MAIN_LIGHT,
+    alignItems: 'flex-start',
+    justifyContent: 'flex-end',
+    height: 176,
+    width: 176,
   },
   image: {
-    flex: 1,
-    resizeMode: 'center',
-    width: 200,
+    zIndex: 2,
+    justifyContent: 'flex-end',
+    position: 'absolute',
+    top: -PADDING.BIG * 2,
+    right: 0,
+    height: 140,
+    width: 140,
+    resizeMode: 'contain',
   },
   bottom: {
     flex: 3,
@@ -74,17 +67,13 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: BORDER_RADIUS,
   },
   plantName: {
-    ...FONT_STYLES.h4,
-    color: COLORS.MAIN_DARKER,
-    lineHeight: 22,
+    ...FONT_STYLES.h3,
+    color: COLORS.MAIN_DARK,
+    lineHeight: 32,
   },
   roomName: {
     ...FONT_STYLES.text,
-    color: COLORS.MAIN_DARKER,
-  },
-  mood: {
-    position: 'absolute',
-    top: PADDING.SMALLER,
-    left: PADDING.SMALLER,
+    fontSize: FONT_STYLES.h4.fontSize,
+    color: COLORS.MAIN_DARK,
   },
 });

@@ -27,6 +27,8 @@ export const COLORS = {
   HALF_LIGHT: '#f1f1f1',
   GRAY: '#cfcfcf',
 
+  BACKGROUND: '#F9F9F9',
+
   GREEN: '#2AD227',
   ORANGE: '#FC7A1E',
   RED: '#E9190F',
@@ -45,7 +47,7 @@ export const BOX_SHADOW = {
 
 export const FONT_STYLES = StyleSheet.create({
   h1: {
-    fontFamily: 'Poppins_700Bold',
+    fontFamily: 'Poppins_600SemiBold',
     fontSize: 36,
   },
   h2: {

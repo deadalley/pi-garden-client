@@ -9,7 +9,6 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
 
 import { BORDER_RADIUS, BOX_SHADOW, COLORS, FONT_STYLES, PADDING, UiIcon } from '../styles';
 import { useNavigation } from '@react-navigation/core';
@@ -26,38 +25,9 @@ export const AddButton: React.FC = () => {
 
   return (
     <>
-      <TouchableWithoutFeedback
-        style={{ backgroundColor: 'red' }}
-        onPress={() => setModalVisible(!modalVisible)}
-      >
-        <View style={styles.outerButton}>
-          <LinearGradient
-            start={{ x: 1, y: 0.46 }}
-            end={{ x: 1, y: 0.47 }}
-            locations={[0, 32]}
-            colors={['rgba(0,0,0,0)', '#E2E2E2']}
-            style={{
-              borderRadius: 360,
-              position: 'absolute',
-              height: 69,
-              width: 69,
-            }}
-          />
-          <LinearGradient
-            start={{ x: 1, y: 0.46 }}
-            end={{ x: 1, y: 0.47 }}
-            locations={[0, 32]}
-            colors={['rgba(0,0,0,0)', '#F0F0F0']}
-            style={{
-              borderRadius: 360,
-              position: 'absolute',
-              height: 68,
-              width: 68,
-            }}
-          />
-          <LinearGradient colors={['#2C6975', '#1E4951']} style={styles.button}>
-            <UiIcon name="fi-rr-plus-small" size={52} color={COLORS.LIGHT} />
-          </LinearGradient>
+      <TouchableWithoutFeedback onPress={() => setModalVisible(!modalVisible)}>
+        <View style={styles.button}>
+          <UiIcon name="fi-rr-plus" size={32} color={COLORS.LIGHT} />
         </View>
       </TouchableWithoutFeedback>
       <Modal
@@ -83,8 +53,9 @@ export const AddButton: React.FC = () => {
                   >
                     <Text
                       style={{
-                        ...FONT_STYLES.h3,
-                        color: COLORS.MAIN_MEDIUM,
+                        ...FONT_STYLES.text,
+                        fontSize: FONT_STYLES.h3.fontSize,
+                        color: COLORS.MAIN_DARK,
                         alignSelf: 'center',
                         marginBottom: index < listItems.length - 1 ? 10 : 0,
                       }}
@@ -119,22 +90,15 @@ const styles = StyleSheet.create({
     width: '100%',
     ...BOX_SHADOW,
   },
-  outerButton: {
-    backgroundColor: 'rgba(255,255,255,0.2)',
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: 'absolute',
-    top: -32,
-    left: Dimensions.get('window').width / 2 - 34,
-    height: 68,
-    width: 68,
-    borderRadius: 360,
-  },
   button: {
+    backgroundColor: COLORS.MAIN_DARK,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 360,
     height: 54,
     width: 54,
+    position: 'absolute',
+    top: -32,
+    left: Dimensions.get('window').width / 2 - 34,
   },
 });
