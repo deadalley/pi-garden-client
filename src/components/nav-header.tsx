@@ -48,7 +48,6 @@ const styles = StyleSheet.create({
   wrapper: {
     flexDirection: 'row',
     alignItems: 'center',
-    width: '100%',
   },
   text: {
     ...FONT_STYLES.h2,

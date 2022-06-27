@@ -15,7 +15,7 @@ export const GardenScreen: React.FC = () => {
 
   return (
     <>
-      <Screen title={'My Garden'} withBottomPadFix={false}>
+      <Screen title={'My Garden'} withBottomPadFix={false} iconName="fi-rr-add">
         <FlatList
           data={plants}
           keyExtractor={(item) => item.id}

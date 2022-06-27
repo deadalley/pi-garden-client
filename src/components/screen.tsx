@@ -18,7 +18,6 @@ import { StatusBarContext, StatusBarStyles } from './status-bar';
 export interface ScreenProps {
   title: string;
   subTitle?: string;
-  green?: boolean;
   contentStyle?: object;
   contentContainerStyle?: object;
   editable?: boolean;
@@ -26,13 +25,13 @@ export interface ScreenProps {
   editParams?: object;
   withBottomPadFix?: boolean;
   onPress?: (event: GestureResponderEvent) => void;
+  iconName?: string;
 }
 
 export const Screen: React.FC<ScreenProps> = ({
   children,
   title,
   subTitle,
-  green,
   contentStyle = {},
   contentContainerStyle = {},
   editable = false,
@@ -40,6 +39,7 @@ export const Screen: React.FC<ScreenProps> = ({
   editParams,
   withBottomPadFix = true,
   onPress,
+  iconName,
 }) => {
   const navigation = useNavigation();
   const setStatusBarStyle = useContext(StatusBarContext);
@@ -47,20 +47,21 @@ export const Screen: React.FC<ScreenProps> = ({
 
   return (
     <KeyboardAwareScrollView
-      contentContainerStyle={{ ...styles.wrapper, ...(green ? styles.green : {}) }}
-      style={{ ...styles.wrapper, ...(green ? styles.green : {}) }}
+      contentContainerStyle={{ ...styles.wrapper }}
+      style={{ ...styles.wrapper }}
       scrollEnabled
       enableOnAndroid
       enableAutomaticScroll
     >
-      <View style={{ ...styles.top, ...(green ? styles.green : {}) }}>
-        <NavHeader
-          {...(green ? { color: COLORS.LIGHT } : {})}
-          onPress={onPress}
-          subLabel={subTitle}
-        >
+      <View style={{ ...styles.top }}>
+        <NavHeader onPress={onPress} subLabel={subTitle}>
           {title}
         </NavHeader>
+        {iconName && (
+          <TouchableOpacity onPress={() => navigation.navigate(editRoute, editParams)}>
+            <UiIcon name={iconName} color={COLORS.MAIN_DARK} size={30} />
+          </TouchableOpacity>
+        )}
         {editable && (
           <TouchableOpacity onPress={() => navigation.navigate(editRoute, editParams)}>
             <UiIcon name={'fi-rr-edit'} color={COLORS.LIGHT} size={24} />
@@ -87,23 +88,21 @@ const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
     backgroundColor: COLORS.LIGHT,
-    paddingTop: (Platform.OS === 'android' ? StatusBar.currentHeight ?? 0 : 0) / 2, // TODO: fix
+    paddingTop: (Platform.OS === 'android' ? StatusBar.currentHeight ?? 0 : 0) / 4, // TODO: fix
     flexDirection: 'column',
   },
   top: {
     flexDirection: 'row',
-    height: HEADER_HEIGHT,
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingLeft: PADDING.SMALL,
-    paddingRight: PADDING.BIG + 12, // TODO: fix
+    width: '100%',
+    paddingLeft: PADDING.SMALL / 2,
+    paddingRight: PADDING.SMALL,
+    paddingVertical: PADDING.BIG,
   },
   content: {
     backgroundColor: COLORS.LIGHT,
     padding: PADDING.SMALL,
     flex: 1,
-  },
-  green: {
-    backgroundColor: COLORS.MAIN_DARK,
   },
 });
