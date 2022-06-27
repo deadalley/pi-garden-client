@@ -1,22 +1,18 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { Platform, StatusBar, StyleSheet, Text, View } from 'react-native';
 import { useStatefulResource } from '@rest-hooks/legacy';
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
-import { LinearGradient } from 'expo-linear-gradient';
+import { useFocusEffect } from '@react-navigation/native';
+import _ from 'lodash';
 
-import { NavHeader } from '../../components/nav-header';
 import { StatusBarContext, StatusBarStyles } from '../../components/status-bar';
 import { Plants } from './plants';
-import { Rooms } from './room';
 
 import { COLORS, FONT_STYLES, PADDING, UiIcon } from '../../styles';
 import { PlantResource, RoomResource } from '../../resources';
 import { SocketService } from '../../services/socket.service';
 import { useAppDispatch } from '../../store.hooks';
 import { setRoomLastReadings } from '../../redux/room.slice';
-import { ExtendedPlant, LastReadings } from '../../types';
-import mocks from '../../mocks';
-import _ from 'lodash';
+import { LastReadings } from '../../types';
 import images from '../../images';
 
 export interface SectionProps {

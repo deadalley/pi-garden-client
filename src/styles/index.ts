@@ -69,4 +69,8 @@ export const FONT_STYLES = StyleSheet.create({
     fontSize: 14,
     fontWeight: '400',
   },
+  bold: {
+    fontFamily: 'Poppins_700Bold',
+    fontWeight: '700',
+  },
 });

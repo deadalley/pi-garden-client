@@ -14,11 +14,14 @@ import {
   BOX_SHADOW,
   EmojiIcon,
 } from '../../styles';
-import { LastReadings, MoodIcon, PlantExtended, SensorTypeIcon } from '../../types';
+import { LastReadings, MoodIcon, ExtendedPlant, SensorTypeIcon } from '../../types';
+import images from '../../images';
 
-export const PlantItem: React.FC<PlantExtended & { readings: LastReadings }> = (props) => {
-  const { name, room, mood, imageUrl, readings } = props;
+export const PlantItem: React.FC<ExtendedPlant & { readings: LastReadings }> = (props) => {
+  const { name, roomName, image, readings } = props;
   const navigation = useNavigation();
+
+  const avatar = images.plants[image];
 
   return (
     <TouchableWithoutFeedback
@@ -27,22 +30,11 @@ export const PlantItem: React.FC<PlantExtended & { readings: LastReadings }> = (
       }
     >
       <View style={styles.wrapper}>
-        <View style={styles.imageWrapper}>
-          <Image style={styles.image} imageUrl={imageUrl} />
-        </View>
+        <Image style={styles.image} image={avatar} />
         <View style={styles.info}>
-          <View style={styles.nameWrapper}>
-            <Text style={styles.name}>{name}</Text>
-            <UiIcon
-              name={'fi-rr-angle-small-right'}
-              size={38}
-              color={COLORS.LIGHT}
-              style={{
-                width: 26,
-              }}
-            />
-          </View>
-          <View style={{ paddingRight: PADDING.SMALL }}>
+          <Text style={styles.name}>{name}</Text>
+          <Text style={styles.roomName}>{roomName}</Text>
+          {/* <View style={{ paddingRight: PADDING.SMALL }}>
             <View
               style={{
                 ...styles.sensors,
@@ -65,7 +57,7 @@ export const PlantItem: React.FC<PlantExtended & { readings: LastReadings }> = (
               <EmojiIcon name={MoodIcon[mood]} color={COLORS.LIGHT} size={20} />
               <Text style={styles.mood}>I'm happy!</Text>
             </View>
-          </View>
+          </View> */}
         </View>
       </View>
     </TouchableWithoutFeedback>
@@ -75,26 +67,22 @@ export const PlantItem: React.FC<PlantExtended & { readings: LastReadings }> = (
 const styles = StyleSheet.create({
   wrapper: {
     flexDirection: 'row',
-    backgroundColor: COLORS.MAIN_DARK,
-    borderTopLeftRadius: BORDER_RADIUS,
-    borderBottomLeftRadius: BORDER_RADIUS,
-    padding: PADDING.SMALLER,
-    marginBottom: PADDING.SMALL,
-    marginLeft: 4,
-    ...BOX_SHADOW,
-  },
-  imageWrapper: {
-    justifyContent: 'center',
+    backgroundColor: COLORS.MAIN_LIGHT,
+    borderRadius: BORDER_RADIUS,
+    paddingTop: PADDING.MEDIUM,
+    paddingBottom: PADDING.SMALL,
+    paddingRight: PADDING.SMALLER,
+    height: 176,
+    marginBottom: PADDING.MEDIUM,
   },
   image: {
     flex: 1,
     resizeMode: 'center',
     height: 'auto',
-    width: 60,
+    marginHorizontal: PADDING.SMALLER / 2,
   },
   info: {
-    marginLeft: PADDING.SMALLER,
-    flex: 1,
+    flex: 2,
   },
   nameWrapper: {
     flexDirection: 'row',
@@ -102,7 +90,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: PADDING.SMALLER / 2,
   },
-  name: { ...FONT_STYLES.h3, color: COLORS.LIGHT },
+  name: { ...FONT_STYLES.h4, ...FONT_STYLES.bold, color: COLORS.MAIN_DARK },
+  roomName: { ...FONT_STYLES.text, color: COLORS.MAIN_DARK },
   sensors: {
     flexDirection: 'row',
     justifyContent: 'space-between',
