@@ -15,6 +15,8 @@ const TAB_ICONS = {
 export interface TabBarProps extends BottomTabBarProps<BottomTabBarOptions> {}
 
 export const TabBar: React.FC<TabBarProps> = ({ state, descriptors, navigation }) => {
+  if (state.index > 0) return null;
+
   return (
     <View style={styles.wrapper}>
       <AddButton />
@@ -65,7 +67,7 @@ export const TabBar: React.FC<TabBarProps> = ({ state, descriptors, navigation }
             iconSize = 42;
             break;
           case 'Garden':
-            iconName = 'botanic3';
+            iconName = 'botanic';
             Icon = PlantIcon;
             iconSize = 38;
             break;
@@ -75,8 +77,6 @@ export const TabBar: React.FC<TabBarProps> = ({ state, descriptors, navigation }
           default:
             break;
         }
-
-        console.log({ iconName });
 
         return (
           <TouchableWithoutFeedback onPress={onPress} onLongPress={onLongPress}>

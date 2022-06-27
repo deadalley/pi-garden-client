@@ -2,7 +2,6 @@ import React from 'react';
 import { FlatList } from 'react-native';
 
 import { Screen } from '../../components/screen';
-import { AddPlantAction, FloatingActionButton } from '../../components/floating-action-button';
 import { PlantItem } from './plant-item';
 
 import { useAppSelector } from '../../store.hooks';
@@ -26,7 +25,6 @@ export const GardenScreen: React.FC = () => {
           }}
         />
       </Screen>
-      <FloatingActionButton actions={[AddPlantAction]} />
     </>
   );
 };
