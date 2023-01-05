@@ -11,9 +11,9 @@ export interface SensorIconProps {
 
 export const SensorIcon: React.FC<SensorIconProps> = ({ value, iconName, style = {} }) => {
   return (
-    <View style={{ ...styles.wrapper, ...style }}>
+    <View style={styles.wrapper}>
       <WeatherIcon name={iconName} color={COLORS.MAIN_LIGHT} size={26} />
-      <Text style={styles.value}>{value}</Text>
+      <Text style={[FONT_STYLES.text, styles.value]}>{value}</Text>
     </View>
   );
 };
@@ -25,7 +25,6 @@ const styles = StyleSheet.create({
     marginRight: PADDING.SMALL,
   },
   value: {
-    ...FONT_STYLES.text,
     color: COLORS.MAIN_LIGHT,
   },
 });
