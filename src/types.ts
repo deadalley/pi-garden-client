@@ -88,6 +88,7 @@ export interface Sensor {
 export interface Room {
   id: string;
   name: string;
+  image: keyof typeof images.rooms;
   sensors: Sensor[];
   plants: Plant[];
   avatar: Avatar;

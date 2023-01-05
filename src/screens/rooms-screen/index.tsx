@@ -1,28 +1,25 @@
 import React from 'react';
 import { FlatList } from 'react-native';
-import { useRoute } from '@react-navigation/native';
+import { useStatefulResource } from '@rest-hooks/legacy';
 
 import { Screen } from '../../components/screen';
 import { AddRoomAction, FloatingActionButton } from '../../components/floating-action-button';
 import { RoomItem } from './room-item';
 
 import { Room } from '../../types';
+import { RoomResource } from '../../resources';
 
 export const RoomsScreen: React.FC = () => {
-  const route = useRoute();
-  const { rooms } = route.params as { rooms: Room[] };
+  const { data: rooms, loading } = useStatefulResource(RoomResource.list(), {});
 
   return (
     <>
-      <Screen
-        title={'Rooms'}
-        contentStyle={{ paddingTop: 0, paddingRight: 0 }}
-        withBottomPadFix={false}
-      >
+      <Screen title={'Rooms'} withBottomPadFix={false} iconName="fi-rr-add">
         <FlatList
-          data={rooms}
+          data={[...(rooms ?? []), ...(rooms ?? [])]}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => <RoomItem {...item} />}
+          numColumns={2}
         />
       </Screen>
       <FloatingActionButton actions={[AddRoomAction]} />

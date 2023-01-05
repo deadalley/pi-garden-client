@@ -2,11 +2,13 @@
   {
     "id": "room01",
     "name": "Kitchen",
+    "image": "kitchen",
     "sensors": []
   },
   {
     "id": "room02",
     "name": "Living Room",
+    "image": "livingRoom",
     "sensors": []
   }
 ]

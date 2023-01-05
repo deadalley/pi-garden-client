@@ -15,13 +15,17 @@ import {
 } from '../../styles';
 import { Room, SensorType, SensorTypeIcon } from '../../types';
 import { useAppSelector } from '../../store.hooks';
+import { Image } from '../../components/image';
+import images from '../../images';
 
 export const RoomItem: React.FC<Room> = (props) => {
-  const { id, name, avatar, sensors } = props;
+  const { id, name, image, sensors } = props;
   const navigation = useNavigation();
   const readings = useAppSelector(
     (state) => state.rooms.rooms?.find(({ id: roomId }) => id === roomId)?.lastReadings
   );
+
+  const avatar = images.rooms[image];
 
   return (
     <TouchableWithoutFeedback
@@ -30,38 +34,10 @@ export const RoomItem: React.FC<Room> = (props) => {
       }
     >
       <View style={styles.wrapper}>
-        <View style={styles.imageWrapper}>
-          <FurnitureIcon name={avatar} color={COLORS.LIGHT} size={60} />
-        </View>
+        <Image style={styles.image} image={avatar} />
         <View style={styles.info}>
-          <View style={styles.nameWrapper}>
-            <Text style={styles.name}>{name}</Text>
-            <UiIcon
-              name={'fi-rr-angle-small-right'}
-              size={38}
-              color={COLORS.LIGHT}
-              style={{
-                width: 26,
-              }}
-            />
-          </View>
-          <View style={{ paddingRight: PADDING.SMALL }}>
-            <View style={styles.sensors}>
-              {sensors.length ? (
-                sensors
-                  .filter((sensor) => sensor.type !== SensorType.soil)
-                  .map((sensor) => (
-                    <SensorIcon
-                      value={`${readings?.[sensor.type]?.value ?? '--'} ${sensor.unit}`}
-                      iconName={SensorTypeIcon[sensor.type]}
-                      style={{ marginRight: PADDING.SMALL }}
-                    />
-                  ))
-              ) : (
-                <Text style={styles.empty}>No sensors</Text>
-              )}
-            </View>
-          </View>
+          <Text style={styles.plantCount}>2 plants</Text>
+          <Text style={styles.name}>{name}</Text>
         </View>
       </View>
     </TouchableWithoutFeedback>
@@ -70,51 +46,24 @@ export const RoomItem: React.FC<Room> = (props) => {
 
 const styles = StyleSheet.create({
   wrapper: {
-    flexDirection: 'row',
-    backgroundColor: COLORS.MAIN_DARK,
-    borderTopLeftRadius: BORDER_RADIUS,
-    borderBottomLeftRadius: BORDER_RADIUS,
-    padding: PADDING.SMALLER,
-    marginBottom: PADDING.SMALL,
-    marginLeft: 4,
-    ...BOX_SHADOW,
+    flex: 1,
+    backgroundColor: COLORS.MAIN_LIGHT,
+    borderRadius: BORDER_RADIUS,
+    height: 176,
+    overflow: 'hidden',
   },
   imageWrapper: {
     justifyContent: 'center',
   },
   image: {
     flex: 1,
-    resizeMode: 'center',
-    height: 'auto',
-    width: 60,
+    resizeMode: 'cover',
+    height: 60,
+    width: '100%',
   },
   info: {
-    marginLeft: PADDING.SMALLER,
-    flex: 1,
+    padding: PADDING.SMALLER,
   },
-  nameWrapper: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: PADDING.SMALLER / 2,
-  },
-  name: { ...FONT_STYLES.h3, color: COLORS.LIGHT },
-  sensors: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    marginBottom: PADDING.SMALLER / 2,
-  },
-  moodWrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  mood: {
-    ...FONT_STYLES.text,
-    color: COLORS.LIGHT,
-    marginLeft: PADDING.SMALLER / 2,
-  },
-  empty: {
-    ...FONT_STYLES.text,
-    color: COLORS.MAIN_LIGHT,
-  },
+  name: { ...FONT_STYLES.h4, ...FONT_STYLES.bold, color: COLORS.MAIN_DARK },
+  plantCount: { ...FONT_STYLES.text, color: COLORS.MAIN_DARK },
 });
