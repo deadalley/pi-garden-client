@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 export * from './icons';
 
-export const BORDER_RADIUS = 12;
+export const BORDER_RADIUS = 20;
 
 export const HEADER_HEIGHT = 140;
 

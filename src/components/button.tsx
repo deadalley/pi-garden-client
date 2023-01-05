@@ -1,44 +1,38 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import { BORDER_RADIUS, COLORS, FONT_STYLES } from '../styles';
 
 export interface ButtonProps {
-  inline?: boolean;
-  dark?: boolean;
-  inverted?: boolean;
-  small?: boolean;
+  variant?: 'primary' | 'secondary' | 'tertiary';
   onPress: () => void;
+
+  inline?: boolean /** @deprecated */;
+  dark?: boolean /** @deprecated */;
+  inverted?: boolean /** @deprecated */;
+  small?: boolean /** @deprecated */;
 }
 
-export const Button: React.FC<ButtonProps> = ({
-  inline = false,
-  dark,
-  inverted,
-  small,
-  children,
-  onPress,
-}) => (
-  <TouchableOpacity
-    onPress={onPress}
-    style={{
-      ...styles.button,
-      ...(inline ? {} : styles.fullWidth),
-      ...(inverted ? {} : styles.background),
-      ...(dark ? styles.dark : {}),
-      ...(small ? styles.small : {}),
-    }}
-  >
-    <Text
-      style={{
-        ...styles.text,
-        ...(inverted ? styles.textInverted : {}),
-        ...(small ? styles.textSmall : {}),
-        ...(dark ? styles.textDark : {}),
-      }}
+export const Button: React.FC<ButtonProps> = ({ variant = 'primary', children, onPress }) => (
+  <TouchableOpacity onPress={onPress}>
+    <View
+      style={[
+        styles.button,
+        variant === 'secondary' && styles.secondary,
+        variant === 'tertiary' && styles.tertiary,
+      ]}
     >
-      {children}
-    </Text>
+      <Text
+        style={[
+          FONT_STYLES.h4,
+          styles.text,
+          variant === 'secondary' && styles.textSecondary,
+          variant === 'tertiary' && styles.textTertiary,
+        ]}
+      >
+        {children}
+      </Text>
+    </View>
   </TouchableOpacity>
 );
 
@@ -47,33 +41,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: BORDER_RADIUS,
-    height: 66,
-    marginBottom: 6,
-  },
-  background: {
-    backgroundColor: COLORS.MAIN_LIGHT,
-  },
-  textSmall: {
-    ...FONT_STYLES.h4,
-  },
-  textInverted: {
-    color: COLORS.MAIN_DARK,
-  },
-  text: {
-    ...FONT_STYLES.h3,
-    color: COLORS.MAIN_DARK,
-    fontSize: 24,
-  },
-  textDark: {
-    color: COLORS.LIGHT,
-  },
-  fullWidth: {
-    width: '100%',
-  },
-  dark: {
+    height: 65,
     backgroundColor: COLORS.MAIN_DARK,
   },
-  small: {
-    height: 60,
-  },
+  secondary: { backgroundColor: COLORS.MAIN_LIGHT },
+  tertiary: { backgroundColor: 'none' },
+  text: { color: COLORS.LIGHT },
+  textSecondary: { color: COLORS.MAIN_DARK },
+  textTertiary: { color: COLORS.MAIN_DARK },
 });
