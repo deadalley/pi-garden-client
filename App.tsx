@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { LogBox } from 'react-native';
+import { LogBox, Platform, StatusBar, View } from 'react-native';
 import { CacheProvider } from 'rest-hooks';
 import AppLoading from 'expo-app-loading';
 import { useFonts } from 'expo-font';
@@ -11,6 +11,8 @@ import {
   Poppins_600SemiBold,
   Poppins_700Bold,
 } from '@expo-google-fonts/poppins';
+
+import StorybookUIRoot from './.ondevice/storybook';
 
 import './src/utils/yup';
 import { store } from './src/store';
@@ -69,6 +71,19 @@ export default function App() {
   });
 
   if (!fontsLoaded || !assetsLoaded) return <AppLoading />;
+
+  if (process.env.NODE_ENV === 'storybook') {
+    return (
+      <View
+        style={{
+          flex: 1,
+          marginTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+        }}
+      >
+        <StorybookUIRoot />
+      </View>
+    );
+  }
 
   return (
     <CacheProvider>

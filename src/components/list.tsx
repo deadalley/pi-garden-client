@@ -1,20 +1,26 @@
 import React from 'react';
-import { FlatList, Text, TouchableOpacity, StyleSheet, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import {
+  FlatList,
+  ImageSourcePropType,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  View,
+} from 'react-native';
 
 import { SensorStatus } from '../types';
-import { COLORS, FONT_STYLES, IconTypes, PADDING, UiIcon, ImageSets } from '../styles';
+import { COLORS, FONT_STYLES, IconTypes, PADDING, UiIcon } from '../styles';
 
 import { Image } from './image';
 import { Status } from './sensor-status';
+import Images from '../images';
 
 type Item = {
   label: string;
   smallLabel?: string;
   iconName?: string;
   iconType?: keyof typeof IconTypes;
-  imageSet?: keyof typeof ImageSets;
-  imageUrl?: string;
+  image?: ImageSourcePropType;
   href?: string;
   params?: object;
   status?: SensorStatus;
@@ -31,26 +37,20 @@ export interface ListProps {
 }
 
 export const ListItem: React.FC<Item> = (props) => {
-  const navigation = useNavigation();
-  const { label, smallLabel, iconName, iconType, status, imageSet, imageUrl, href, params } = props;
+  const { label, smallLabel, iconName, iconType, status, image, href, params } = props;
 
   let Element;
   if (iconName && iconType) {
     const Icon = IconTypes[iconType];
     Element = () => <Icon name={iconName} color={COLORS.MAIN_DARK} size={36} />;
-  } else if (imageSet && imageUrl !== undefined) {
-    Element = () => <Image style={styles.image} imageUrl={imageUrl} />;
+  } else if (image !== undefined) {
+    Element = () => <Image style={styles.image} image={image} />;
   }
 
-  if (!Element) return null;
-
   return (
-    <TouchableOpacity
-      style={styles.itemWrapper}
-      onPress={() => navigation.navigate('HomeNavigator', { screen: href, params })}
-    >
+    <TouchableOpacity style={styles.itemWrapper}>
       <View style={styles.alignLeft}>
-        <Element />
+        {Element && <Element />}
         <View style={styles.labels}>
           <Text style={styles.label}>{label}</Text>
           <Text style={styles.smallLabel}>{smallLabel}</Text>

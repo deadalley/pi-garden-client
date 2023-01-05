@@ -13,12 +13,11 @@ export interface ButtonProps {
 
 export const Button: React.FC<ButtonProps> = ({
   inline = false,
-  children,
-  onPress,
   dark,
   inverted,
   small,
-  ...props
+  children,
+  onPress,
 }) => (
   <TouchableOpacity
     onPress={onPress}
@@ -29,7 +28,6 @@ export const Button: React.FC<ButtonProps> = ({
       ...(dark ? styles.dark : {}),
       ...(small ? styles.small : {}),
     }}
-    {...props}
   >
     <Text
       style={{

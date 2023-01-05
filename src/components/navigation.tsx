@@ -3,7 +3,6 @@ import { StyleSheet, View } from 'react-native';
 
 import { NavigationButton } from './navigation-button';
 import { PADDING } from '../styles';
-import { Index } from 'rest-hooks/*';
 
 export interface NavigationProps {
   hasPrevious?: boolean;

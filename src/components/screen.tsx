@@ -11,7 +11,7 @@ import {
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-import { COLORS, HEADER_HEIGHT, PADDING, UiIcon } from '../styles';
+import { COLORS, PADDING, UiIcon } from '../styles';
 import { NavHeader } from './nav-header';
 import { StatusBarContext, StatusBarStyles } from './status-bar';
 

@@ -7,7 +7,6 @@ import { COLORS, FONT_STYLES, PADDING, UiIcon } from '../styles';
 import { formatDate } from '../utils/date';
 
 export interface DateInputProps {
-  mode?: string;
   style?: object;
   label?: string;
   min?: Date;
@@ -15,7 +14,7 @@ export interface DateInputProps {
   name: string;
 }
 
-export const DateInput: React.FC<DateInputProps> = ({ mode, style, label, min, max, ...props }) => {
+export const DateInput: React.FC<DateInputProps> = ({ style, label, min, max, ...props }) => {
   const [field, meta, helpers] = useField(props as any);
   const [visible, setVisible] = useState<boolean>(false);
   const [backgroundColor, setBackgroundColor] = useState(COLORS.HALF_LIGHT);
