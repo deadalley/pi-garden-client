@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ImageURISource } from 'react-native';
+import { ImageURISource, View } from 'react-native';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
 import { ImagePicker } from './image-picker';
@@ -12,7 +12,11 @@ export default {
 const Template: ComponentStory<typeof ImagePicker> = (args) => {
   const [image, setImage] = useState<ImageURISource | ImageURISource[] | number | undefined>();
 
-  return <ImagePicker {...args} image={image} onImagePicked={(image) => setImage(image)} />;
+  return (
+    <View style={{ width: 400 }}>
+      <ImagePicker {...args} image={image} onImagePicked={(image) => setImage(image)} />
+    </View>
+  );
 };
 
 export const Rooms: ComponentStory<typeof ImagePicker> = Template.bind({});

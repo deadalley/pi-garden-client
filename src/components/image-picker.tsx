@@ -15,26 +15,11 @@ import { BORDER_RADIUS, COLORS, FONT_STYLES, PADDING, UiIcon } from '../styles';
 import { ImageSourcePropType } from 'react-native';
 import Images from '../images';
 
-export interface ImageTileProps {
-  image: ImageSourcePropType;
-  onImagePicked: (image: ImageSourcePropType) => void;
-}
-
 export interface ImagePickerProps {
   imageSet: keyof typeof Images;
   image?: ImageSourcePropType;
   onImagePicked: (image: ImageSourcePropType) => void;
 }
-
-const ImageTile: React.FC<ImageTileProps> = ({ image, onImagePicked }) => {
-  return (
-    <TouchableWithoutFeedback onPress={() => onImagePicked(image)}>
-      <View style={styles.imageTile}>
-        <Image style={styles.image} image={image} />
-      </View>
-    </TouchableWithoutFeedback>
-  );
-};
 
 export const ImagePicker: React.FC<ImagePickerProps> = ({ imageSet, image, onImagePicked }) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -46,7 +31,10 @@ export const ImagePicker: React.FC<ImagePickerProps> = ({ imageSet, image, onIma
       <TouchableWithoutFeedback onPress={() => setModalVisible(true)}>
         <View style={styles.imageWrapper}>
           <UiIcon name="fi-rr-apps" color={COLORS.LIGHT} size={20} style={styles.icon} />
-          <Image style={styles.image} image={image ?? availableImages[0]} />
+          <Image
+            style={[styles.image, { resizeMode: imageSet === 'plants' ? 'contain' : 'cover' }]}
+            image={image ?? availableImages[0]}
+          />
         </View>
       </TouchableWithoutFeedback>
       <Modal
@@ -63,7 +51,7 @@ export const ImagePicker: React.FC<ImagePickerProps> = ({ imageSet, image, onIma
             size={20}
             style={styles.backButton}
           />
-          <Text style={styles.text}>Back</Text>
+          <Text style={[FONT_STYLES.h4, styles.text]}>Back</Text>
         </TouchableOpacity>
         <View style={styles.scroll}>
           <FlatGrid
@@ -71,13 +59,22 @@ export const ImagePicker: React.FC<ImagePickerProps> = ({ imageSet, image, onIma
             itemDimension={200}
             spacing={20}
             renderItem={({ item }) => (
-              <ImageTile
-                image={item}
-                onImagePicked={(icon) => {
-                  onImagePicked(icon);
+              <TouchableWithoutFeedback
+                onPress={() => {
+                  onImagePicked(item);
                   setModalVisible(false);
                 }}
-              />
+              >
+                <View style={styles.imageTile}>
+                  <Image
+                    style={[
+                      styles.image,
+                      { resizeMode: imageSet === 'plants' ? 'contain' : 'cover' },
+                    ]}
+                    image={item}
+                  />
+                </View>
+              </TouchableWithoutFeedback>
             )}
           />
         </View>
@@ -99,7 +96,6 @@ const styles = StyleSheet.create({
   },
   image: {
     flex: 1,
-    resizeMode: 'cover',
     width: '100%',
     borderRadius: BORDER_RADIUS,
   },
@@ -110,7 +106,6 @@ const styles = StyleSheet.create({
     margin: PADDING.SMALL,
   },
   text: {
-    ...FONT_STYLES.h4,
     flex: 0,
     color: COLORS.MAIN_DARK,
     alignSelf: 'flex-end',
