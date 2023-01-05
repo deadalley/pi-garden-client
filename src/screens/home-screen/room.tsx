@@ -11,7 +11,7 @@ export interface RoomsProps {
 
 export const Rooms: React.FC<RoomsProps> = ({ rooms }) => (
   <FlatList
-    horizontal
+    horizontal={true}
     data={rooms}
     renderItem={({ item, index }) => (
       <RoomCard

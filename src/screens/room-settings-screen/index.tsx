@@ -32,7 +32,7 @@ export const RoomSettingsScreen: React.FC = () => {
               setIcon={(value) => setFieldValue('avatar', value)}
               iconType={'furniture'}
             />
-            <TextInput name="name" label="Name" autoCorrect />
+            <TextInput name="name" label="Name" autoCorrect={true} />
             <TouchableOpacity
               onPress={() => {
                 console.log('Room deleted');
@@ -52,7 +52,7 @@ export const RoomSettingsScreen: React.FC = () => {
             </TouchableOpacity>
           </View>
 
-          <Button small onPress={() => submitForm()}>
+          <Button small={true} onPress={() => submitForm()}>
             Save
           </Button>
         </Screen>

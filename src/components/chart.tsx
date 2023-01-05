@@ -147,7 +147,7 @@ const LineGradient = () => (
 const LineChart: React.FC<SharedChartProps> = (props) => {
   return (
     <NativeLineChart {...props} svg={{ stroke: 'url(#gradient)' }}>
-      <CustomGrid data={props.data} belowChart />
+      <CustomGrid data={props.data} belowChart={true} />
       <LineGradient />
     </NativeLineChart>
   );
@@ -163,7 +163,7 @@ const AreaChart: React.FC<SharedChartProps> = (props) => {
         fillOpacity: 0.3,
       }}
     >
-      <CustomGrid data={props.data} belowChart />
+      <CustomGrid data={props.data} belowChart={true} />
     </NativeAreaChart>
   );
 };
@@ -176,7 +176,7 @@ const BarChart: React.FC<SharedChartProps> = (props) => {
         fill: COLORS.MAIN_MEDIUM,
       }}
     >
-      <CustomGrid data={props.data} belowChart />
+      <CustomGrid data={props.data} belowChart={true} />
       <Labels data={props.data} />
     </NativeBarChart>
   );

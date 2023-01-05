@@ -57,7 +57,7 @@ export const FloatingActionButton: React.FC<FloatingActionButtonProps> = ({ acti
             buttonColor={COLORS.MAIN_MEDIUM}
             title={label}
             onPress={() => navigate(navigation)}
-            hideLabelShadow
+            hideLabelShadow={true}
             textContainerStyle={styles.labelContainer}
             textStyle={{ ...FONT_STYLES.text, color: COLORS.MAIN_MEDIUM }}
           >

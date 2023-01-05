@@ -13,7 +13,7 @@ export const StatusBarProvider: React.FC = ({ children }) => {
     <StatusBarContext.Provider value={setStatusBarStyle}>
       <NativeStatusBar
         animated={true}
-        translucent
+        translucent={true}
         backgroundColor="transparent"
         barStyle={statusBarStyle}
       />

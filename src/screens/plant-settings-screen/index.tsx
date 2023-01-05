@@ -46,7 +46,7 @@ export const PlantSettingsScreen: React.FC = () => {
     >
       {({ values, setFieldValue, submitForm }) => (
         <Screen title={plant.name}>
-          <TextInput name="name" label="Name" autoCorrect />
+          <TextInput name="name" label="Name" autoCorrect={true} />
           <PickerInput
             name="room"
             label="Room"
@@ -113,7 +113,7 @@ export const PlantSettingsScreen: React.FC = () => {
             </Text>
           </TouchableOpacity>
 
-          <Button small onPress={() => submitForm()}>
+          <Button small={true} onPress={() => submitForm()}>
             Save
           </Button>
         </Screen>

@@ -36,7 +36,7 @@ export const SettingsScreen: React.FC = () => (
           </View>
 
           <Text style={styles.label}>Notification type</Text>
-          <PickerInput light name="notificationSetting" options={notificationOptions} />
+          <PickerInput light={true} name="notificationSetting" options={notificationOptions} />
           <Text style={styles.text}>
             You will only be notified when the sensor measurement crosses the defined threshold for
             the plant.

@@ -23,8 +23,8 @@ export const RoomScreen: React.FC = () => {
   return (
     <>
       <Screen
-        green
-        editable
+        green={true}
+        editable={true}
         editParams={{ screen: 'RoomSettingsScreen', params: { room } }}
         title={room.name}
       >

@@ -1,9 +1,9 @@
 import chunk from 'lodash/chunk';
 
 export const generateChunks = <T>(
-  array: Array<T>,
+  array: T[],
   { chunkSize, maxChunks }: { chunkSize?: number; maxChunks: number }
-): Array<Array<T>> => {
+): T[][] => {
   if (chunkSize) return chunk(array, chunkSize);
 
   if (maxChunks) {

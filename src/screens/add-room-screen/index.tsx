@@ -58,9 +58,9 @@ export const AddRoomScreen: React.FC = () => {
               setIcon={(value) => setFieldValue('avatar', value)}
               iconType={'furniture'}
             />
-            <TextInput label={'Name'} name="name" autoCorrect />
+            <TextInput label={'Name'} name="name" autoCorrect={true} />
             <Navigation
-              isLast
+              isLast={true}
               currentIndex={0}
               setIndex={() => {}}
               onFinish={submitForm}

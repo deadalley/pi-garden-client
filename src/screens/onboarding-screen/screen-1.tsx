@@ -13,7 +13,7 @@ export const Screen1: React.FC<Screen1Props> = () => (
     {({ currentIndex, setCurrentIndex }) => (
       <>
         <Text style={styles.text}>Welcome to PiGarden!</Text>
-        <Button dark small onPress={() => setCurrentIndex(currentIndex + 1)}>
+        <Button dark={true} small={true} onPress={() => setCurrentIndex(currentIndex + 1)}>
           Get Started
         </Button>
       </>

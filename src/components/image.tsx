@@ -13,5 +13,5 @@ export const Image: React.FC<ImageProps & Omit<NativeImageProps, 'source'>> = ({
   image,
   ...props
 }) => {
-  return <NativeImage {...props} source={image} progressiveRenderingEnabled />;
+  return <NativeImage {...props} source={image} progressiveRenderingEnabled={true} />;
 };

@@ -65,7 +65,7 @@ export const AvatarChooser: React.FC<AvatarChooserProps> = ({ iconType, icon, se
       <Text style={styles.text}>Choose a new avatar</Text>
       <Modal
         animationType="none"
-        transparent
+        transparent={true}
         visible={modalVisible}
         onRequestClose={() => setModalVisible(false)}
       >

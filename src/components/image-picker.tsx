@@ -51,7 +51,7 @@ export const ImagePicker: React.FC<ImagePickerProps> = ({ imageSet, image, onIma
       </TouchableWithoutFeedback>
       <Modal
         animationType="slide"
-        transparent
+        transparent={true}
         visible={modalVisible}
         onRequestClose={() => setModalVisible(false)}
         style={styles.outerModal}

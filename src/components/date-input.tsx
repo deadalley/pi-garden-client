@@ -47,7 +47,7 @@ export const DateInput: React.FC<DateInputProps> = ({ mode, style, label, min, m
         <Text style={styles.error}>{meta.error}</Text>
       </View>
       <DatePicker
-        modal
+        modal={true}
         open={visible}
         date={new Date()}
         onConfirm={(date) => {

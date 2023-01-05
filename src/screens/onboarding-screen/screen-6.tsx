@@ -36,7 +36,7 @@ export const Screen6: React.FC<Screen6Props> = () => {
               />
             ))}
           </View>
-          <Button small onPress={() => setCurrentIndex(currentIndex + 1)}>
+          <Button small={true} onPress={() => setCurrentIndex(currentIndex + 1)}>
             Continue
           </Button>
         </>

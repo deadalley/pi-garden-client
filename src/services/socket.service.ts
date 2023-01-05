@@ -37,11 +37,11 @@ export class SocketService {
   };
 
   static get(url: string, cb: (data: any, jwt: any) => void) {
-    if (!SocketService.io) throw 'Socket must be initialized before fetching resource.';
+    if (!SocketService.io) throw new Error('Socket must be initialized before fetching resource.');
     return SocketService.io.socket.get(url, cb);
   }
   static on(url: string, cb: (data: any, jwt: any) => void) {
-    if (!SocketService.io) throw 'Socket must be initialized before fetching resource.';
+    if (!SocketService.io) throw new Error('Socket must be initialized before fetching resource.');
     return SocketService.io.socket.on(url, cb);
   }
 }

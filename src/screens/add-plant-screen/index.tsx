@@ -33,7 +33,7 @@ interface StateProps {
 const AddPlantName: React.FC<StateProps> = () => (
   <>
     <Bold>What type of plant am I?</Bold>
-    <TextInput name="name" autoCorrect />
+    <TextInput name="name" autoCorrect={true} />
   </>
 );
 

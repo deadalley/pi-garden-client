@@ -32,9 +32,9 @@ export const Screen3: React.FC<Screen3Props> = ({}) => {
               imageSet={'rooms'}
               image={Images.rooms.patio}
             />
-            <TextInput label={'Name'} name="room.name" autoCorrect />
+            <TextInput label={'Name'} name="room.name" autoCorrect={true} />
           </View>
-          <Button dark small onPress={() => setCurrentIndex(currentIndex + 1)}>
+          <Button dark={true} small={true} onPress={() => setCurrentIndex(currentIndex + 1)}>
             Add Room
           </Button>
         </>

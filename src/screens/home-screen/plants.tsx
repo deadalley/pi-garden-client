@@ -11,7 +11,7 @@ export interface PlantsProps {
 
 export const Plants: React.FC<PlantsProps> = ({ plants }) => (
   <FlatList
-    horizontal
+    horizontal={true}
     data={plants}
     renderItem={({ item, index }) => (
       <PlantCard

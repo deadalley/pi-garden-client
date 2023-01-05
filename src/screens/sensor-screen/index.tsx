@@ -44,7 +44,7 @@ export const SensorScreen: React.FC = () => {
   );
 
   return (
-    <Screen green title={SensorName[sensor.type]}>
+    <Screen green={true} title={SensorName[sensor.type]}>
       <View style={styles.statusWrapper}>
         <Text style={{ ...FONT_STYLES.text, fontSize: 24, color: COLORS.MAIN_DARK }}>
           Status: <Bold>{SensorStatusMap[sensor.status]}</Bold>
@@ -58,14 +58,14 @@ export const SensorScreen: React.FC = () => {
         <Chart
           type="bar"
           data={data}
-          hideYAxis
+          hideYAxis={true}
           formatLabel={(value) => `${value}ºC`}
           formatXAxisLabel={(item) => {
             return `${formatHour(item, true)}`;
           }}
         />
       </View>
-      <Table columns={columns} data={tableData} hideHeaders />
+      <Table columns={columns} data={tableData} hideHeaders={true} />
     </Screen>
   );
 };

@@ -32,7 +32,7 @@ export const AddButton: React.FC = () => {
       </TouchableWithoutFeedback>
       <Modal
         animationType="fade"
-        transparent
+        transparent={true}
         visible={modalVisible}
         onRequestClose={() => setModalVisible(false)}
       >

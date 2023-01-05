@@ -24,7 +24,7 @@ export const Screen7: React.FC<Screen7Props> = () => {
             </Text>
             <DateInput name="plant.plantedDate" max={new Date()} />
           </View>
-          <Button small onPress={() => setCurrentIndex(currentIndex + 1)}>
+          <Button small={true} onPress={() => setCurrentIndex(currentIndex + 1)}>
             Add Plant
           </Button>
         </>

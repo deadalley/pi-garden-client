@@ -20,9 +20,9 @@ export const Screen5: React.FC<Screen5Props> = () => (
             What type of plant are you adding?
             {'\n\n'}
           </Text>
-          <TextInput name="plant.name" autoCorrect />
+          <TextInput name="plant.name" autoCorrect={true} />
         </View>
-        <Button small onPress={() => setCurrentIndex(currentIndex + 1)}>
+        <Button small={true} onPress={() => setCurrentIndex(currentIndex + 1)}>
           Continue
         </Button>
       </>

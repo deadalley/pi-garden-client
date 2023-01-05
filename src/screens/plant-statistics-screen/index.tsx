@@ -40,20 +40,20 @@ export const PlantStatisticsScreen: React.FC = () => {
 
   return (
     <Screen
-      green
+      green={true}
       title={'Statistics'}
       contentStyle={{ paddingHorizontal: PADDING.SMALL }}
       subTitle={plant.name}
     >
       {plant.room.sensors.map((sensor) => (
         <View style={{ marginBottom: 12 }}>
-          <NavHeader small position="right" style={{ marginBottom: 6 }}>
+          <NavHeader small={true} position="right" style={{ marginBottom: 6 }}>
             {SensorName[sensor.type]}
           </NavHeader>
           <Chart
             type="bar"
             data={data}
-            hideYAxis
+            hideYAxis={true}
             formatLabel={(value) => `${value}ºC`}
             formatXAxisLabel={(item) => {
               return `${formatHour(item, true)}`;

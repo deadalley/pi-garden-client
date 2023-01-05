@@ -75,7 +75,7 @@ export const PlantScreen: React.FC = () => {
           </View>
           <View style={styles.iconLabels}>
             <IconLabel
-              big
+              big={true}
               iconType={'furniture'}
               iconName={plant.room.avatar}
               label={plant.room.name}

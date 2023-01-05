@@ -38,7 +38,7 @@ export const Screen8: React.FC<Screen8Props> = () => {
         <WeatherIcon name="thermometer-2" size={40} color={COLORS.MAIN_DARK} />
         <Text style={styles.smallText}>Add more sensors</Text>
       </View>
-      <Button small dark onPress={() => handleSubmit()}>
+      <Button small={true} dark={true} onPress={() => handleSubmit()}>
         Start PiGarden
       </Button>
     </>

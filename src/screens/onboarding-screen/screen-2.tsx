@@ -17,7 +17,7 @@ export const Screen2: React.FC<Screen2Props> = () => (
           {'\n\n'}
           Make sure it is on and that the Wi-Fi LED is green.
         </Text>
-        <Button dark small onPress={() => setCurrentIndex(currentIndex + 1)}>
+        <Button dark={true} small={true} onPress={() => setCurrentIndex(currentIndex + 1)}>
           Connect
         </Button>
       </>

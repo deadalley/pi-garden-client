@@ -51,7 +51,7 @@ export const TabBar: React.FC<TabBarProps> = ({ state, descriptors, navigation }
         };
 
         if (route.key.includes('Add')) {
-          return <View style={styles.item}></View>;
+          return <View style={styles.item} />;
         }
 
         let iconSize = 28;

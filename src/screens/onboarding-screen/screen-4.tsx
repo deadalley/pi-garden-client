@@ -21,10 +21,10 @@ export const Screen4: React.FC<Screen4Props> = () => (
           {'\n\n'}
           Would you like to configure your first Soil Moisture sensor?
         </Text>
-        <Button small onPress={() => setCurrentIndex(currentIndex + 1)}>
+        <Button small={true} onPress={() => setCurrentIndex(currentIndex + 1)}>
           Configure Sensor
         </Button>
-        <Button small inverted onPress={() => setCurrentIndex(currentIndex + 1)}>
+        <Button small={true} inverted={true} onPress={() => setCurrentIndex(currentIndex + 1)}>
           Skip
         </Button>
       </>

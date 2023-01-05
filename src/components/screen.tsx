@@ -49,9 +49,9 @@ export const Screen: React.FC<ScreenProps> = ({
     <KeyboardAwareScrollView
       contentContainerStyle={{ ...styles.wrapper }}
       style={{ ...styles.wrapper }}
-      scrollEnabled
-      enableOnAndroid
-      enableAutomaticScroll
+      scrollEnabled={true}
+      enableOnAndroid={true}
+      enableAutomaticScroll={true}
     >
       <View style={{ ...styles.top }}>
         <NavHeader onPress={onPress} subLabel={subTitle}>
