@@ -10,7 +10,7 @@ export default {
 } as ComponentMeta<typeof Navigation>;
 
 const Template: ComponentStory<typeof Navigation> = (args) => (
-  <View style={{ position: 'relative' }}>
+  <View style={{ position: 'relative', width: 400 }}>
     <Navigation {...args} />
   </View>
 );

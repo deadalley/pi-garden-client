@@ -29,11 +29,11 @@ export const Navigation: React.FC<NavigationProps> = ({
 }) => {
   return (
     <View
-      style={{
-        ...styles.navigation,
-        ...(!hasPrevious ? styles.alignRight : {}),
-        ...(!hasNext && !isLast ? styles.alignLeft : {}),
-      }}
+      style={[
+        styles.navigation,
+        !hasPrevious && styles.alignRight,
+        !hasNext && !isLast && styles.alignLeft,
+      ]}
     >
       {hasPrevious && (
         <NavigationButton onPress={() => setIndex(currentIndex - 1)}>Previous</NavigationButton>

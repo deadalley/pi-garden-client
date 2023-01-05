@@ -19,23 +19,20 @@ export const NavigationButton: React.FC<NavigationButtonProps> = ({
 }) => {
   return (
     <TouchableOpacity
-      style={{
-        ...styles.navigationButton,
-        ...(position === 'left' ? styles.left : styles.right),
-        ...style,
-      }}
+      style={[styles.navigationButton, position === 'left' ? styles.left : styles.right, style]}
       onPress={onPress}
+      disabled={disabled}
     >
       <UiIcon
         name={`fi-rr-angle-small-${position}`}
         color={COLORS.MAIN_DARK}
-        style={{
-          ...(position === 'left' ? { marginLeft: -6 } : { marginRight: -6 }),
-          ...(disabled ? styles.disabled : {}),
-        }}
+        style={[
+          position === 'left' ? { marginLeft: -6 } : { marginRight: -6 },
+          disabled && styles.disabled,
+        ]}
         size={24}
       />
-      <Text style={{ ...styles.navigationText, ...(disabled ? styles.disabled : {}) }}>
+      <Text style={[FONT_STYLES.h4, styles.navigationText, disabled && styles.disabled]}>
         {children}
       </Text>
     </TouchableOpacity>
@@ -44,7 +41,6 @@ export const NavigationButton: React.FC<NavigationButtonProps> = ({
 
 const styles = StyleSheet.create({
   navigationText: {
-    ...FONT_STYLES.h4,
     color: COLORS.MAIN_DARK,
     lineHeight: 24,
   },
