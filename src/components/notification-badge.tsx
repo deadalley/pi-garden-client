@@ -1,14 +1,13 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { PADDING } from '../styles';
 
-export const NotificationBadge: React.FC<{ style?: object }> = ({ style = {} }) => (
-  <View style={{ ...styles.badge, ...style }} />
-);
+import { COLORS, PADDING } from '../styles';
+
+export const NotificationBadge: React.FC = () => <View style={styles.badge} />;
 
 const styles = StyleSheet.create({
   badge: {
-    backgroundColor: 'red',
+    backgroundColor: COLORS.RED,
     borderRadius: 360,
     position: 'absolute',
     top: PADDING.SMALLER,
