@@ -10,24 +10,26 @@ import images from '../images';
 
 export interface PlantCardProps {
   plant: ExtendedPlant;
-  style?: object;
+
+  style?: object /** @deprecated */;
 }
 
 export const PlantCard: React.FC<PlantCardProps> = ({ plant, style }) => {
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
   const avatar = images.plants[plant.image];
 
   return (
     <TouchableWithoutFeedback
-      onPress={() =>
-        navigation.navigate('HomeNavigator', { screen: 'PlantScreen', params: { plant } })
+      onPress={
+        () => {}
+        // navigation.navigate('HomeNavigator', { screen: 'PlantScreen', params: { plant } })
       }
     >
-      <View style={{ ...styles.wrapper, ...(style ?? {}) }}>
+      <View style={[styles.wrapper]}>
         <Image style={styles.image} image={avatar} />
         <View style={styles.tile}>
-          <Text style={styles.plantName}>{plant.name}</Text>
-          <Text style={styles.roomName}>{plant.roomName}</Text>
+          <Text style={[FONT_STYLES.h3, styles.plantName]}>{plant.name}</Text>
+          <Text style={[FONT_STYLES.text, styles.roomName]}>{plant.roomName}</Text>
         </View>
       </View>
     </TouchableWithoutFeedback>
@@ -67,12 +69,10 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: BORDER_RADIUS,
   },
   plantName: {
-    ...FONT_STYLES.h3,
     color: COLORS.MAIN_DARK,
     lineHeight: 32,
   },
   roomName: {
-    ...FONT_STYLES.text,
     fontSize: FONT_STYLES.h4.fontSize,
     color: COLORS.MAIN_DARK,
   },
