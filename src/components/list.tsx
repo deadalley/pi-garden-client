@@ -13,7 +13,6 @@ import { COLORS, FONT_STYLES, IconTypes, PADDING, UiIcon } from '../styles';
 
 import { Image } from './image';
 import { Status } from './sensor-status';
-import Images from '../images';
 
 type Item = {
   label: string;
@@ -52,8 +51,8 @@ export const ListItem: React.FC<Item> = (props) => {
       <View style={styles.alignLeft}>
         {Element && <Element />}
         <View style={styles.labels}>
-          <Text style={styles.label}>{label}</Text>
-          <Text style={styles.smallLabel}>{smallLabel}</Text>
+          <Text style={[FONT_STYLES.h4, styles.label]}>{label}</Text>
+          <Text style={[FONT_STYLES.text, styles.smallLabel]}>{smallLabel}</Text>
         </View>
         {status && <Status status={status} style={{ top: 4, right: -12 }} />}
       </View>
@@ -72,11 +71,11 @@ export const ListItem: React.FC<Item> = (props) => {
 export const List: React.FC<ListProps> = ({ title, items, emptyMessage }) => {
   return (
     <View style={{ flex: 1 }}>
-      <Text style={styles.title}>{title}</Text>
+      <Text style={[FONT_STYLES.h3, styles.title]}>{title}</Text>
       {items.length ? (
         <FlatList data={items} renderItem={({ item }) => <ListItem {...item} />} />
       ) : (
-        <Text style={styles.empty}>{emptyMessage}</Text>
+        <Text style={[FONT_STYLES.text, styles.empty]}>{emptyMessage}</Text>
       )}
     </View>
   );
@@ -84,7 +83,6 @@ export const List: React.FC<ListProps> = ({ title, items, emptyMessage }) => {
 
 const styles = StyleSheet.create({
   title: {
-    ...FONT_STYLES.h3,
     color: COLORS.MAIN_DARK,
     marginBottom: PADDING.SMALLER,
   },
@@ -100,12 +98,10 @@ const styles = StyleSheet.create({
     marginLeft: PADDING.SMALLER,
   },
   label: {
-    ...FONT_STYLES.h4,
     color: COLORS.MAIN_DARK,
     lineHeight: 24,
   },
   smallLabel: {
-    ...FONT_STYLES.text,
     color: COLORS.MAIN_DARK,
     lineHeight: 20,
   },
@@ -119,7 +115,6 @@ const styles = StyleSheet.create({
     resizeMode: 'center',
   },
   empty: {
-    ...FONT_STYLES.text,
     color: COLORS.MAIN_DARK,
     marginBottom: PADDING.SMALL,
     marginLeft: PADDING.SMALL,
